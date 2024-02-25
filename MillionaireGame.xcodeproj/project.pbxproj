@@ -12,6 +12,9 @@
 		E16A44C22B8BA32900A9C234 /* zvuk-nepravilnogo-otveta.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BD2B8BA32800A9C234 /* zvuk-nepravilnogo-otveta.mp3 */; };
 		E16A44C32B8BA32900A9C234 /* otvet-prinyat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BE2B8BA32900A9C234 /* otvet-prinyat.mp3 */; };
 		E16A44C42B8BA32900A9C234 /* zvuk-chasov-vo-vremya-igryi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BF2B8BA32900A9C234 /* zvuk-chasov-vo-vremya-igryi.mp3 */; };
+		E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A44CA2B8BCB6E00A9C234 /* HomeRouter.swift */; };
+		E16A44CD2B8BCB7F00A9C234 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A44CC2B8BCB7F00A9C234 /* HomePresenter.swift */; };
+		E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A44CE2B8BCBA000A9C234 /* HomeBuilder.swift */; };
 		E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A212B8B7B000006CB8B /* AppDelegate.swift */; };
 		E1BE9A242B8B7B000006CB8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A232B8B7B000006CB8B /* SceneDelegate.swift */; };
 		E1BE9A262B8B7B000006CB8B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A252B8B7B000006CB8B /* HomeViewController.swift */; };
@@ -27,6 +30,9 @@
 		E16A44BD2B8BA32800A9C234 /* zvuk-nepravilnogo-otveta.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "zvuk-nepravilnogo-otveta.mp3"; sourceTree = "<group>"; };
 		E16A44BE2B8BA32900A9C234 /* otvet-prinyat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "otvet-prinyat.mp3"; sourceTree = "<group>"; };
 		E16A44BF2B8BA32900A9C234 /* zvuk-chasov-vo-vremya-igryi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "zvuk-chasov-vo-vremya-igryi.mp3"; sourceTree = "<group>"; };
+		E16A44CA2B8BCB6E00A9C234 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
+		E16A44CC2B8BCB7F00A9C234 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		E16A44CE2B8BCBA000A9C234 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		E1BE9A1E2B8B7B000006CB8B /* MillionaireGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MillionaireGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BE9A212B8B7B000006CB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1BE9A232B8B7B000006CB8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +55,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E16A44C52B8BCB0300A9C234 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E16A44C62B8BCB1B00A9C234 /* Builder */,
+				E16A44C72B8BCB2800A9C234 /* View */,
+				E16A44C82B8BCB3800A9C234 /* Presenter */,
+				E16A44C92B8BCB4C00A9C234 /* Router */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E16A44C62B8BCB1B00A9C234 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				E16A44CE2B8BCBA000A9C234 /* HomeBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		E16A44C72B8BCB2800A9C234 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E1BE9A252B8B7B000006CB8B /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E16A44C82B8BCB3800A9C234 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E16A44CC2B8BCB7F00A9C234 /* HomePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E16A44C92B8BCB4C00A9C234 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				E16A44CA2B8BCB6E00A9C234 /* HomeRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		E1BE9A152B8B7B000006CB8B = {
 			isa = PBXGroup;
 			children = (
@@ -89,7 +138,7 @@
 		E1BE9A362B8B7B100006CB8B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E1BE9A252B8B7B000006CB8B /* HomeViewController.swift */,
+				E16A44C52B8BCB0300A9C234 /* Home */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -208,8 +257,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E16A44CD2B8BCB7F00A9C234 /* HomePresenter.swift in Sources */,
 				E1BE9A262B8B7B000006CB8B /* HomeViewController.swift in Sources */,
+				E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */,
 				E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */,
+				E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,
 				E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */,
 				E1BE9A242B8B7B000006CB8B /* SceneDelegate.swift in Sources */,

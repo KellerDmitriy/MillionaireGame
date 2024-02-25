@@ -7,13 +7,19 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
 
+    var presenter: HomePresenterProtocol!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
     }
 
 
+}
+
+extension HomeViewController: HomeViewProtocol {
+    
 }
 
