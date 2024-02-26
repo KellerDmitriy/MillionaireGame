@@ -11,7 +11,8 @@ final class ResultRouter: ResultRouterProtocol {
         self.navigationController = navigationController
     }
     
+    //переход на Экран игры / Главный Экран
     func routeToGame() {
-        //
+        
     }
 }

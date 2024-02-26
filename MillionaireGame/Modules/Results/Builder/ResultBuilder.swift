@@ -22,6 +22,7 @@ final class ResultBuilder: ResultBuilderProtocol {
         let presenter = ResultPresenter(router: router)
         
         viewController.presenter = presenter
+        presenter.view = viewController
         
         return viewController
     }

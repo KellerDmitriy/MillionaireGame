@@ -6,6 +6,7 @@ final class ResultViewController: UIViewController {
     
     var presenter: ResultPresenterProtocol!
     
+    var result = true
     
     //MARK: - UI
     
@@ -27,7 +28,6 @@ final class ResultViewController: UIViewController {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "You losed on {attempt} attempt"
         label.font = .robotoMedium24()
         label.textColor = .white
         label.textAlignment = .center
@@ -38,9 +38,7 @@ final class ResultViewController: UIViewController {
     
     private let resultLabel: UILabel = {
         let label = UILabel()
-        label.text = "LOSE"
         label.font = .syneRegular50()
-        label.textColor = .specialOrange
         label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -82,6 +80,8 @@ final class ResultViewController: UIViewController {
         configureStackView()
         setConstraints()
         playAgainButton.addTarget(self, action: #selector(routeToGame), for: .touchUpInside)
+        
+        presenter.showResult()
     }
 }
 
@@ -89,8 +89,9 @@ final class ResultViewController: UIViewController {
 //MARK: - ResultRouterProtocol
 
 extension ResultViewController: ResultRouterProtocol {
+//переход на Экран игры
     @objc func routeToGame() {
-        print("button tapped")
+        presenter.showGame()
     }
 }
 
@@ -98,7 +99,18 @@ extension ResultViewController: ResultRouterProtocol {
 //MARK: - ResultViewProtocol
 
 extension ResultViewController: ResultViewProtocol {
-    
+    func setResult(result: Bool, count: Int) {
+        switch result {
+        case true:
+            descriptionLabel.text = "You win on \(count) attempt"
+            resultLabel.text = "WIN"
+            resultLabel.textColor = .specialGreen
+        case false:
+            descriptionLabel.text = "You lose on \(count) attempt"
+            resultLabel.text = "LOSE"
+            resultLabel.textColor = .specialOrange
+        }
+    }
 }
 
 
