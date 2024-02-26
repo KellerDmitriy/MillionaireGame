@@ -25,7 +25,7 @@ final class HomeBuilder: HomeBuilderProtocol {
         }
         let viewController = HomeViewController()
         let router = HomeRouter(navigationController: navigationController)
-        let presenter = HomePresenter(router: router)
+        let presenter = HomePresenter(router: router, gameManager: GameManager(networkManager: NetworkManager()))
         
         viewController.presenter = presenter
         
