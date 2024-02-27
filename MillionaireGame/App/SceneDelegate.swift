@@ -18,10 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         let navigationController = UINavigationController()
-//        let homeViewController = HomeBuilder(navigationController: navigationController).build()
-        let gameViewController = GameBuilder(navigationController: navigationController).build()
-
-        navigationController.setViewControllers([gameViewController], animated: true)
+        let homeViewController = HomeBuilder(navigationController: navigationController).build()
+        navigationController.setViewControllers([homeViewController], animated: true)
         
         window.rootViewController = navigationController
         self.window = window

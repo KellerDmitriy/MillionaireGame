@@ -9,6 +9,7 @@ import UIKit
 
 final class GameViewController: UIViewController {
     
+    //MARK: - Private properties
     private let backgroundImageView: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.image = .backgroundCrowd
@@ -24,7 +25,7 @@ final class GameViewController: UIViewController {
     private let questionLabel: UILabel = {
         $0.font = .robotoMedium24()
         $0.numberOfLines = 0
-        $0.text = "TEST TEST TEST TEST TEST TEST TEST EST TEST TEST TEST TEST TEST TEST EST TEST TEST TEST TEST TEST TEST"
+        $0.text = "TEST TEST TEST TEST TEST"
         $0.textColor = .white
         $0.textAlignment = .left
         $0.adjustsFontSizeToFitWidth = true
@@ -39,9 +40,6 @@ final class GameViewController: UIViewController {
         $0.distribution = .fill
         return $0
     }(UIStackView())
-    
-    var questionNumber = 15
-    var questionCost = 100_000_000
     
     private lazy var questionNumberLabel: UILabel = {
         $0.text = "Вопрос №\(questionNumber)"
@@ -66,42 +64,83 @@ final class GameViewController: UIViewController {
         $0.spacing = 10
         return $0
     }(UIStackView())
-
+    
+    private let aAnswerButton = CustomAnswerButton(letter: "A:")
+    private let bAnswerButton = CustomAnswerButton(letter: "B:")
+    private let cAnswerButton = CustomAnswerButton(letter: "C:")
+    private let dAnswerButton = CustomAnswerButton(letter: "D:")
+    
+    private let answerButtonStackView: UIStackView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.axis = .vertical
+        $0.spacing = 30
+        $0.distribution = .fillEqually
+        return $0
+    }(UIStackView())
+    
+    private let fiftyHelpButton = CustomHelpButton(type: .fiftyFifty)
+    private let phoneHelpButton = CustomHelpButton(type: .phone)
+    private let hostHelpButton = CustomHelpButton(type: .host)
+    
+    private let helpButtonStackView: UIStackView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.axis = .horizontal
+        $0.spacing = 12
+        $0.distribution = .fillEqually
+        return $0
+    }(UIStackView())
+    
+    //MARK: - Public properties
+    var questionNumber = 15
+    var questionCost = 100_000_000
     var presenter: GamePresenterProtocol!
     
-    
-    
+    //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         setConstraints()
     }
-
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
 }
 
-extension HomeViewController: GameViewProtocol {
+//MARK: - GameViewProtocol
+extension GameViewController: GameViewProtocol {
     
 }
 
+//MARK: - GameViewController
 private extension GameViewController {
     
     func setupUI() {
-        view.addSubview(backgroundImageView)
-        view.addSubview(questionStackView)
-        view.addSubview(questionNumberStackView)
         [
-            logoImageView,
-            questionLabel
-        ].forEach({ questionStackView.addArrangedSubview($0) })
+            backgroundImageView,
+            questionStackView,
+            questionNumberStackView,
+            answerButtonStackView,
+            helpButtonStackView
+        ].forEach(view.addSubview(_:))
         
-        [
-            questionNumberLabel,
-            questionCostLabel
-        ].forEach({ questionNumberStackView.addArrangedSubview($0) })
+        [logoImageView, questionLabel].forEach({ questionStackView.addArrangedSubview($0) })
         
+        [questionNumberLabel, questionCostLabel].forEach({ questionNumberStackView.addArrangedSubview($0) })
         
+        [aAnswerButton, bAnswerButton,
+         cAnswerButton, dAnswerButton
+        ].forEach({ answerButtonStackView.addArrangedSubview($0) })
+        
+        [fiftyHelpButton, phoneHelpButton,
+         hostHelpButton].forEach({ helpButtonStackView.addArrangedSubview($0) })
     }
     
     func setConstraints() {
@@ -118,7 +157,7 @@ private extension GameViewController {
         ])
         
         NSLayoutConstraint.activate([
-            questionStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            questionStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
             questionStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
             questionStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18)
         ])
@@ -128,5 +167,16 @@ private extension GameViewController {
             questionNumberStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
             questionNumberStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18)
         ])
+        
+        NSLayoutConstraint.activate([
+            answerButtonStackView.topAnchor.constraint(equalTo: questionNumberStackView.bottomAnchor, constant: 24),
+            answerButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            helpButtonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
+            helpButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
+    
 }
