@@ -15,8 +15,6 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .red
     }
-
-
 }
 
 extension HomeViewController: HomeViewProtocol {

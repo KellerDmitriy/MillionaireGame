@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		369857232B8E09D300211158 /* NetworkErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3698571F2B8E09D300211158 /* NetworkErrors.swift */; };
+		369857242B8E09D300211158 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369857202B8E09D300211158 /* NetworkManager.swift */; };
+		369857252B8E09D300211158 /* QuestionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369857212B8E09D300211158 /* QuestionRequest.swift */; };
+		369857262B8E09D300211158 /* QuestionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369857222B8E09D300211158 /* QuestionsModel.swift */; };
+		369857282B8E09EB00211158 /* Extension + String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 369857272B8E09EA00211158 /* Extension + String.swift */; };
 		522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A982B8CCE330041B256 /* ResultViewController.swift */; };
 		522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A9A2B8CCE640041B256 /* ResultPresenter.swift */; };
 		522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A9C2B8CCEAC0041B256 /* ResultRouter.swift */; };
@@ -34,6 +39,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3698571F2B8E09D300211158 /* NetworkErrors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkErrors.swift; sourceTree = "<group>"; };
+		369857202B8E09D300211158 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		369857212B8E09D300211158 /* QuestionRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionRequest.swift; sourceTree = "<group>"; };
+		369857222B8E09D300211158 /* QuestionsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsModel.swift; sourceTree = "<group>"; };
+		369857272B8E09EA00211158 /* Extension + String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Extension + String.swift"; sourceTree = "<group>"; };
 		522A0A982B8CCE330041B256 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		522A0A9A2B8CCE640041B256 /* ResultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPresenter.swift; sourceTree = "<group>"; };
 		522A0A9C2B8CCEAC0041B256 /* ResultRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRouter.swift; sourceTree = "<group>"; };
@@ -73,6 +83,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3698571E2B8E09D300211158 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				3698571F2B8E09D300211158 /* NetworkErrors.swift */,
+				369857202B8E09D300211158 /* NetworkManager.swift */,
+				369857212B8E09D300211158 /* QuestionRequest.swift */,
+				369857222B8E09D300211158 /* QuestionsModel.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
 		522A0A932B8CCDD70041B256 /* Results */ = {
 			isa = PBXGroup;
 			children = (
@@ -232,6 +253,7 @@
 		E1BE9A382B8B7EC80006CB8B /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				3698571E2B8E09D300211158 /* NetworkLayer */,
 				E1BE9A392B8B7EE30006CB8B /* GameManager.swift */,
 			);
 			path = Services;
@@ -240,6 +262,7 @@
 		E1BE9A3B2B8B7F390006CB8B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				369857272B8E09EA00211158 /* Extension + String.swift */,
 				E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */,
 			);
 			path = Extensions;
@@ -343,11 +366,16 @@
 				E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */,
 				522A0A9F2B8CCF0C0041B256 /* ResultBuilder.swift in Sources */,
 				E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */,
+				369857252B8E09D300211158 /* QuestionRequest.swift in Sources */,
 				E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
+				369857232B8E09D300211158 /* NetworkErrors.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
+				369857262B8E09D300211158 /* QuestionsModel.swift in Sources */,
+				369857242B8E09D300211158 /* NetworkManager.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,
 				E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */,
+				369857282B8E09EB00211158 /* Extension + String.swift in Sources */,
 				E1BE9A242B8B7B000006CB8B /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
