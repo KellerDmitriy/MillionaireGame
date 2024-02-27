@@ -16,6 +16,10 @@
 		522A0AA82B8D40C10041B256 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 522A0AA72B8D40C10041B256 /* Roboto-Black.ttf */; };
 		522A0AAA2B8D40C90041B256 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 522A0AA92B8D40C90041B256 /* Roboto-Bold.ttf */; };
 		522A0AAC2B8D40D20041B256 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 522A0AAB2B8D40D20041B256 /* Roboto-Regular.ttf */; };
+		860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860603412B8DD0F100EB8A36 /* GameViewController.swift */; };
+		860603442B8DD15F00EB8A36 /* GameRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860603432B8DD15F00EB8A36 /* GameRouter.swift */; };
+		860603462B8DD2EC00EB8A36 /* GamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860603452B8DD2EC00EB8A36 /* GamePresenter.swift */; };
+		860603482B8DD3CF00EB8A36 /* GameBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860603472B8DD3CF00EB8A36 /* GameBuilder.swift */; };
 		E16A44C02B8BA32900A9C234 /* bolee-kachestvennyiy-zvuk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BB2B8BA32800A9C234 /* bolee-kachestvennyiy-zvuk.mp3 */; };
 		E16A44C12B8BA32900A9C234 /* otvet-vernyiy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BC2B8BA32800A9C234 /* otvet-vernyiy.mp3 */; };
 		E16A44C22B8BA32900A9C234 /* zvuk-nepravilnogo-otveta.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BD2B8BA32800A9C234 /* zvuk-nepravilnogo-otveta.mp3 */; };
@@ -43,6 +47,10 @@
 		522A0AA72B8D40C10041B256 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		522A0AA92B8D40C90041B256 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		522A0AAB2B8D40D20041B256 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		860603412B8DD0F100EB8A36 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		860603432B8DD15F00EB8A36 /* GameRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRouter.swift; sourceTree = "<group>"; };
+		860603452B8DD2EC00EB8A36 /* GamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePresenter.swift; sourceTree = "<group>"; };
+		860603472B8DD3CF00EB8A36 /* GameBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBuilder.swift; sourceTree = "<group>"; };
 		E16A44BB2B8BA32800A9C234 /* bolee-kachestvennyiy-zvuk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "bolee-kachestvennyiy-zvuk.mp3"; sourceTree = "<group>"; };
 		E16A44BC2B8BA32800A9C234 /* otvet-vernyiy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "otvet-vernyiy.mp3"; sourceTree = "<group>"; };
 		E16A44BD2B8BA32800A9C234 /* zvuk-nepravilnogo-otveta.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "zvuk-nepravilnogo-otveta.mp3"; sourceTree = "<group>"; };
@@ -128,6 +136,49 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		8606033C2B8DD07F00EB8A36 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				8606033D2B8DD08F00EB8A36 /* Builder */,
+				8606033E2B8DD09500EB8A36 /* View */,
+				8606033F2B8DD09C00EB8A36 /* Presenter */,
+				860603402B8DD0A100EB8A36 /* Router */,
+			);
+			path = Game;
+			sourceTree = "<group>";
+		};
+		8606033D2B8DD08F00EB8A36 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				860603472B8DD3CF00EB8A36 /* GameBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		8606033E2B8DD09500EB8A36 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				860603412B8DD0F100EB8A36 /* GameViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8606033F2B8DD09C00EB8A36 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				860603452B8DD2EC00EB8A36 /* GamePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		860603402B8DD0A100EB8A36 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				860603432B8DD15F00EB8A36 /* GameRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		E16A44C52B8BCB0300A9C234 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -211,6 +262,7 @@
 		E1BE9A362B8B7B100006CB8B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				8606033C2B8DD07F00EB8A36 /* Game */,
 				E16A44C52B8BCB0300A9C234 /* Home */,
 				522A0A932B8CCDD70041B256 /* Results */,
 			);
@@ -337,16 +389,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				860603442B8DD15F00EB8A36 /* GameRouter.swift in Sources */,
 				E16A44CD2B8BCB7F00A9C234 /* HomePresenter.swift in Sources */,
 				522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */,
 				E1BE9A262B8B7B000006CB8B /* HomeViewController.swift in Sources */,
 				E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */,
+				860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */,
 				522A0A9F2B8CCF0C0041B256 /* ResultBuilder.swift in Sources */,
 				E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */,
+				860603462B8DD2EC00EB8A36 /* GamePresenter.swift in Sources */,
 				E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,
+				860603482B8DD3CF00EB8A36 /* GameBuilder.swift in Sources */,
 				E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */,
 				E1BE9A242B8B7B000006CB8B /* SceneDelegate.swift in Sources */,
 			);
