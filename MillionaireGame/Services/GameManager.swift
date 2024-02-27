@@ -8,28 +8,39 @@
 import Foundation
 
 protocol GameManagerProtocol{
-    var questionData: (easy: [Result], medium: [Result], hard: [Result]) {get set}
-    func fetchQuestions() async throws
+    func fetchQuestions(difficulty: Difficulty) async throws -> ([Result], [String : [String: Bool]])
 }
 
 final class GameManager: GameManagerProtocol{
-    var questionData: (easy: [Result], medium: [Result], hard: [Result]) = ([], [], [])
     private let networkManager: NetworkManager
     
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
     
-    func fetchQuestions() async throws{
-        let requestEasy = QuestionRequest(amount: 5, difficulty: "easy")
-        let requestMedium = QuestionRequest(amount: 5, difficulty: "medium")
-        let requestHard = QuestionRequest(amount: 5, difficulty: "hard")
-          
-        let resultEasy = try await networkManager.request(requestEasy)
-        try await Task.sleep(nanoseconds: 5 * 1_000_000_000)
-        let resultMedium = try await networkManager.request(requestMedium)
-        try await Task.sleep(nanoseconds: 5 * 1_000_000_000)
-        let resultHard = try await networkManager.request(requestHard)
-        questionData =  (resultEasy.results, resultMedium.results, resultHard.results)
+    func fetchQuestions(difficulty: Difficulty) async throws -> ([Result], [String : [String: Bool]]) {
+        let request = QuestionRequest(amount: 5, difficulty: difficulty.rawValue)
+        let result = try await networkManager.request(request)
+        let dictAnswers = getAnswers(result: result.results)
+        return (result.results, dictAnswers)
+    }
+    
+    private func getAnswers(result: [Result]) -> [String : [String: Bool]] {
+        var dictAnswers = [String : [String : Bool]]()
+        for element in result {
+            var innerDict = [String : Bool]()
+            for incorrectAnswer in element.incorrectAnswers {
+                innerDict[incorrectAnswer] = false
+            }
+            innerDict[element.correctAnswer] = true
+            if let decodedQuestion =  element.question.htmlAttributedString?.string{ 
+                dictAnswers[decodedQuestion] = innerDict
+            } else {
+                dictAnswers[element.question] = innerDict
+            }
+        }
+        return dictAnswers
     }
 }
+
+
