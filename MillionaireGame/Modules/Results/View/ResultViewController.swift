@@ -52,6 +52,7 @@ final class ResultViewController: UIViewController {
         button.tintColor = .white
         button.backgroundColor = .specialGreen
         button.layer.cornerRadius = 20
+        button.addTarget(self, action: #selector(routeToGame), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -79,7 +80,6 @@ final class ResultViewController: UIViewController {
         configure()
         configureStackView()
         setConstraints()
-        playAgainButton.addTarget(self, action: #selector(routeToGame), for: .touchUpInside)
         
         presenter.showResult()
     }
