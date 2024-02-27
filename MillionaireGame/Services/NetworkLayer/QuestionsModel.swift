@@ -9,15 +9,15 @@ import Foundation
 
 // MARK: - QuestionsModel
 struct QuestionsModel: Decodable {
-    let responseCode: Int
+    //let responseCode: Int
     let results: [Result]
 }
 
 // MARK: - Result
 struct Result: Decodable {
-    let type: TypeEnum
-    let difficulty: Difficulty
-    let category, question, correctAnswer: String
+    //let type: TypeEnum
+    //let difficulty: Difficulty
+    let  question, correctAnswer: String
     let incorrectAnswers: [String]
 }
 

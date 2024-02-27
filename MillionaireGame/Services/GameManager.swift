@@ -33,7 +33,7 @@ final class GameManager: GameManagerProtocol{
                 innerDict[incorrectAnswer] = false
             }
             innerDict[element.correctAnswer] = true
-            if let decodedQuestion =  element.question.htmlAttributedString?.string{ 
+            if let decodedQuestion =  String(htmlEncodedString: element.question){
                 dictAnswers[decodedQuestion] = innerDict
             } else {
                 dictAnswers[element.question] = innerDict

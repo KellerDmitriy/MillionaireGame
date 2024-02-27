@@ -14,7 +14,6 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
-        presenter.getQuestion(difficulty: .medium)
     }
 }
 

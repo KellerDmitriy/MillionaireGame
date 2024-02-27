@@ -56,7 +56,8 @@ struct QuestionRequest: QuestionRequestProtocol{
     var queryItems: [String : String]?{
         let params = [
             "amount": "\(amount)",
-            "difficulty": "\(difficulty)"
+            "difficulty": "\(difficulty)",
+            "type" : "multiple",
         ]
         return params
     }
