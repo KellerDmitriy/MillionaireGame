@@ -12,7 +12,7 @@ protocol HomeViewProtocol: AnyObject {
 }
 
 protocol HomePresenterProtocol {
-    
+
 }
 
 final class HomePresenter: HomePresenterProtocol {
@@ -25,3 +25,4 @@ final class HomePresenter: HomePresenterProtocol {
     
     
 }
+
