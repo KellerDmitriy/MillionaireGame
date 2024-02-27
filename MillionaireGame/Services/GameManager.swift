@@ -11,13 +11,15 @@ protocol GameManagerProtocol{
     func fetchQuestions(difficulty: Difficulty) async throws -> ([Result], [String : [String: Bool]])
 }
 
-final class GameManager: GameManagerProtocol{
+final class GameManager{
     private let networkManager: NetworkManager
     
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
-    
+}
+
+extension GameManager: GameManagerProtocol{
     func fetchQuestions(difficulty: Difficulty) async throws -> ([Result], [String : [String: Bool]]) {
         let request = QuestionRequest(amount: 5, difficulty: difficulty.rawValue)
         let result = try await networkManager.request(request)
