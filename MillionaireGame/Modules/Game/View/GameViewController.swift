@@ -6,10 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 final class GameViewController: UIViewController {
+//    let timerManager: TimeManagerProtocol = TimeManager()
     
     //MARK: - Private properties
+    private var cancellables = Set<AnyCancellable>()
+    
     private let backgroundImageView: UIImageView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.image = .backgroundCrowd
@@ -25,7 +29,7 @@ final class GameViewController: UIViewController {
     private let questionLabel: UILabel = {
         $0.font = .robotoMedium24()
         $0.numberOfLines = 0
-        $0.text = "TEST TEST TEST TEST TEST"
+        $0.text = ""
         $0.textColor = .white
         $0.textAlignment = .left
         $0.adjustsFontSizeToFitWidth = true
@@ -65,10 +69,10 @@ final class GameViewController: UIViewController {
         return $0
     }(UIStackView())
     
-    private let aAnswerButton = CustomAnswerButton(letter: "A:")
-    private let bAnswerButton = CustomAnswerButton(letter: "B:")
-    private let cAnswerButton = CustomAnswerButton(letter: "C:")
-    private let dAnswerButton = CustomAnswerButton(letter: "D:")
+    private let aAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "A")
+    private let bAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "B")
+    private let cAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "C")
+    private let dAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "D")
     
     private let answerButtonStackView: UIStackView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -97,8 +101,8 @@ final class GameViewController: UIViewController {
     }(UIProgressView(progressViewStyle: .default))
     
     //MARK: - Public properties
-    var questionNumber = 15
-    var questionCost = 100_000_000
+    var questionNumber = 1
+    var questionCost = 100
     var presenter: GamePresenterProtocol!
     
     //MARK: - Lifecycle
@@ -106,24 +110,91 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setConstraints()
-      
+        addTargetButtons()
+        observeProgress()
+        print("presenter easyData \(presenter.dataEasy)")
+        setUpUIText()
     }
-    
+        
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-   
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //timerManager.startTimer30Seconds()
+        presenter.start30Timer()
+    }
     
-    @objc func testTimer() {
-        presenter.routeToResult()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        cancellables = Set<AnyCancellable>() //вроде бы при deinit экрана cancellables тоже deinit и тогда это не нужно
+    }
+    //MARK: - SetUp UI Text
+    func setUpUIText(){
+        for (index, answer) in presenter.dataEasy[0].allAnswers.enumerated() {
+            let answerButton = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton][index]
+            answerButton.setUptext(text: answer.answerText)
+        }
+        questionLabel.text = presenter.dataEasy[0].question
+    }
+    
+    //MARK: - Buttons Action
+    private func observeProgress(){
+        presenter.progresToGamePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] progress in
+                guard let self = self else {return}
+                progressBar.progress = progress
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func addTargetButtons(){
+        aAnswerButton.addTarget(self, action: #selector(didTapAnswerButton(_:)), for: .touchUpInside)
+        bAnswerButton.addTarget(self, action: #selector(didTapAnswerButton(_:)), for: .touchUpInside)
+        cAnswerButton.addTarget(self, action: #selector(didTapAnswerButton(_:)), for: .touchUpInside)
+        dAnswerButton.addTarget(self, action: #selector(didTapAnswerButton(_:)), for: .touchUpInside)
+        
+        fiftyHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
+        phoneHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
+        hostHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func didTapAnswerButton(_ sender: UIButton) {
+        presenter.stop30Timer()
+        presenter.start5Timer(music: "otvet-prinyat")
+        //timerManager.stopTimer30Seconds()
+        //timerManager.startTimer5Seconds(music: "otvet-prinyat")
+        switch sender{
+        case aAnswerButton: print(aAnswerButton.anwerText) //дергаем метод презентера для сравнения
+        case bAnswerButton: print(bAnswerButton.anwerText)
+        case cAnswerButton: print(cAnswerButton.anwerText)
+        case dAnswerButton: print(dAnswerButton.anwerText)
+        default: print("Default Answers tapped")}
+    }
+    
+    
+    @objc func testTimer(_ sender: UIButton) {
+        //timerManager.stopTimer30Seconds()
+        presenter.stop30Timer()
+        takeTip(sender)
+    }
+    
+    private func takeTip(_ sender: UIButton){
+        switch sender{
+        case fiftyHelpButton: print("fiftyHelpButton") //дергаем метод презентера для подсказок
+        case phoneHelpButton: print("phoneHelpButton") //дергаем метод презентера для подсказок
+        case hostHelpButton: print("hostHelpButton") //дергаем метод презентера для подсказок
+        default: print("Default tips")}
+        presenter.start30Timer()
+        //timerManager.startTimer30Seconds()
     }
 }
 
@@ -155,8 +226,6 @@ private extension GameViewController {
         
         [fiftyHelpButton, phoneHelpButton,
          hostHelpButton].forEach({ helpButtonStackView.addArrangedSubview($0) })
-        
-        fiftyHelpButton.addTarget(self, action: #selector(testTimer), for: .touchUpInside)
     }
     
     func setConstraints() {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		36E7A71B2B8F05920073E6B4 /* OneQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */; };
+		36E7A71F2B8F4C140073E6B4 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7A71E2B8F4C140073E6B4 /* TimerManager.swift */; };
 		522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A982B8CCE330041B256 /* ResultViewController.swift */; };
 		522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A9A2B8CCE640041B256 /* ResultPresenter.swift */; };
 		522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A9C2B8CCEAC0041B256 /* ResultRouter.swift */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneQuestionModel.swift; sourceTree = "<group>"; };
+		36E7A71E2B8F4C140073E6B4 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		522A0A982B8CCE330041B256 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		522A0A9A2B8CCE640041B256 /* ResultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPresenter.swift; sourceTree = "<group>"; };
 		522A0A9C2B8CCEAC0041B256 /* ResultRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRouter.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				866AAB022B8E7FD600628519 /* NetworkLayer */,
 				36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */,
 				E1BE9A392B8B7EE30006CB8B /* GameManager.swift */,
+				36E7A71E2B8F4C140073E6B4 /* TimerManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
 				E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */,
+				36E7A71F2B8F4C140073E6B4 /* TimerManager.swift in Sources */,
 				866AAB082B8E7FD600628519 /* NetworkManager.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,

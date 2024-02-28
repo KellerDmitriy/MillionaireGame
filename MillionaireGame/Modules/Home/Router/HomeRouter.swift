@@ -8,7 +8,7 @@
 import UIKit
 
 protocol HomeRouterProtocol: AnyObject {
-    func routeToGame()
+    func routeToGame(data: [OneQuestionModel])
     func routeToRules()
 }
 
@@ -19,9 +19,9 @@ final class HomeRouter: HomeRouterProtocol {
         self.navigationController = navigationController
     }
     
-    func routeToGame() {
+    func routeToGame(data: [OneQuestionModel]) {
         guard let navigationController else { return }
-        let gameViewController = GameBuilder(navigationController: navigationController).build()
+        let gameViewController = GameBuilder(navigationController: navigationController).build(data: data)
         navigationController.pushViewController(gameViewController, animated: true)
     }
     
