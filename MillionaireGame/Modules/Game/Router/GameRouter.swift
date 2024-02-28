@@ -29,8 +29,6 @@ final class GameRouter: GameRouterProtocol {
         guard let navigationController else { return }
         
         let subTotalViewController = SubTotalBuilder(navigationController: navigationController).build(userName: userName, numberQuestion: numberQuestion)
-        subTotalViewController.modalPresentationStyle = .fullScreen
-        subTotalViewController.modalTransitionStyle = .crossDissolve
-        navigationController.present(subTotalViewController, animated: true)
+        navigationController.pushViewController(subTotalViewController, animated: true)
     }
 }

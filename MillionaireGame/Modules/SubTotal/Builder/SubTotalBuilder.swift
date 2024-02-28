@@ -24,8 +24,10 @@ final class SubTotalBuilder: SubTotalBuilderProtocol {
             fatalError("SubTotalBuilder requires a valid navigationController")
         }
         let viewController = SubTotalViewController()
+        let router = SubTotalRouter(navigationController: navigationController)
         let presenter = SubTotalPresenter(userName: userName,
-                                          numberQuestion: numberQuestion)
+                                          numberQuestion: numberQuestion, 
+                                          router: router)
         
         viewController.presenter = presenter
         

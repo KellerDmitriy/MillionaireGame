@@ -53,6 +53,7 @@
 		E1F2F11A2B8FCEB500DBE9AF /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1142B8FCEB500DBE9AF /* AuthViewController.swift */; };
 		E1F2F11B2B8FCEB500DBE9AF /* AuthBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1162B8FCEB500DBE9AF /* AuthBuilder.swift */; };
 		E1F2F11C2B8FCEB500DBE9AF /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1182B8FCEB500DBE9AF /* AuthRouter.swift */; };
+		E1F2F11F2B8FDD7F00DBE9AF /* SubTotalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F11E2B8FDD7F00DBE9AF /* SubTotalRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		E1F2F1142B8FCEB500DBE9AF /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		E1F2F1162B8FCEB500DBE9AF /* AuthBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthBuilder.swift; sourceTree = "<group>"; };
 		E1F2F1182B8FCEB500DBE9AF /* AuthRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
+		E1F2F11E2B8FDD7F00DBE9AF /* SubTotalRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTotalRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -380,6 +382,7 @@
 				E1F2F0FE2B8FB83200DBE9AF /* Builder */,
 				E1F2F0FC2B8FB83200DBE9AF /* View */,
 				E1F2F0FA2B8FB83200DBE9AF /* Presenter */,
+				E1F2F11D2B8FDD6600DBE9AF /* Router */,
 			);
 			path = SubTotal;
 			sourceTree = "<group>";
@@ -447,6 +450,14 @@
 			isa = PBXGroup;
 			children = (
 				E1F2F1182B8FCEB500DBE9AF /* AuthRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		E1F2F11D2B8FDD6600DBE9AF /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F11E2B8FDD7F00DBE9AF /* SubTotalRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -549,6 +560,7 @@
 				E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				E1F2F11B2B8FCEB500DBE9AF /* AuthBuilder.swift in Sources */,
+				E1F2F11F2B8FDD7F00DBE9AF /* SubTotalRouter.swift in Sources */,
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
 				E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */,

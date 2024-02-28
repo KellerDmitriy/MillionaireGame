@@ -107,7 +107,6 @@ final class AuthViewController: UIViewController {
             authButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             authButton.widthAnchor.constraint(equalToConstant: 260),
             authButton.heightAnchor.constraint(equalToConstant: 50),
-            
         ])
     }
 }
