@@ -29,7 +29,7 @@ final class HomeViewController: UIViewController {
     }
     
     func playButtonTap() {
-        presenter.routeToGame(data: presenter.questEasyData)
+        presenter.routeToGame()
     }
 }
 

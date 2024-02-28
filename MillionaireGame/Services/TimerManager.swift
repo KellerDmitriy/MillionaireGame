@@ -47,12 +47,13 @@ final class TimeManager: TimeManagerProtocol{
     
     func stopTimer30Seconds() {
         timer30Seconds.invalidate()
+        playerStop()
     }
     
     func stop5Seconds(){
         pass5SecondsGame = 0
         timer5SecondsGame.invalidate()
-        //startTimer30Seconds()
+        playerStop()
     }
     
     private func update30Timer() {
@@ -62,8 +63,8 @@ final class TimeManager: TimeManagerProtocol{
         progrees = Float(passSeconds30) / Float(totalSecondsProgress)
         if count30SecondsTotal == 0 {
             playerStop()
+            passSeconds30 = 0
             timer30Seconds.invalidate()
-           
         }
     }
     
@@ -74,7 +75,6 @@ final class TimeManager: TimeManagerProtocol{
             playerStop()
             pass5SecondsGame = 0
             timer5SecondsGame.invalidate()
-            //startTimer30Seconds()
         }
     }
         

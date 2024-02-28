@@ -9,32 +9,48 @@ import Foundation
 
 //ViewController
 protocol GameViewProtocol: AnyObject {
-    
+    func setUpUIWhenLoaded()
 }
 
 //Presenter
-protocol GamePresenterProtocol {
+protocol ManageTimerProtocol{
     func routeToResult()
     func start30Timer()
     func stop30Timer()
     func start5Timer(music: String)
     var progresToGamePublisher: Published<Float>.Publisher { get }
-    var dataEasy: [OneQuestionModel] {get set}
+}
+
+protocol GamePresenterProtocol: ManageTimerProtocol {
+    var numberQuestion: Int { get set }
+    func addToNumberQuestion()
+    var questEasyData: [OneQuestionModel] { get set }
+    var isLoaded: Bool { get set }
 }
 
 final class GamePresenter: GamePresenterProtocol {
-    let timerManager: TimeManagerProtocol = TimeManager()
+    private let gameManager: GameManagerProtocol
+    private let timeManager: TimeManagerProtocol
+    private let router: GameRouterProtocol
+    
     @Published var progrees: Float = 0.0
     var progresToGamePublisher: Published<Float>.Publisher { $progrees }
+    var questEasyData: [OneQuestionModel] = .init()
+    var isLoaded: Bool = false
+    var numberQuestion: Int = 0
     
     weak var view: GameViewProtocol?
     
-    let router: GameRouterProtocol
-    var dataEasy: [OneQuestionModel]
-    init(router: GameRouterProtocol, data: [OneQuestionModel]) {
+    init(router: GameRouterProtocol, gameManager: GameManagerProtocol, timeManager: TimeManagerProtocol ) {
         self.router = router
-        self.dataEasy = data
+        self.gameManager = gameManager
+        self.timeManager = timeManager
         observeProgressBar()
+        getEasyQuestions()
+    }
+    
+    func addToNumberQuestion() {
+        numberQuestion += 1
     }
     
     func routeToResult() {
@@ -42,21 +58,34 @@ final class GamePresenter: GamePresenterProtocol {
     }
     
     func start30Timer(){
-        timerManager.startTimer30Seconds()
+        timeManager.startTimer30Seconds()
     }
     
     func stop30Timer() {
-        timerManager.stopTimer30Seconds()
+        timeManager.stopTimer30Seconds()
     }
     
     func start5Timer(music: String){
-        timerManager.startTimer5Seconds(music: music)
+        timeManager.startTimer5Seconds(music: music)
     }
     
     func observeProgressBar(){
-        timerManager.progresPublisher
+        timeManager.progresPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: &$progrees)
     }
     
+    private func getEasyQuestions() {
+          Task{ @MainActor in
+              do{
+                  questEasyData  = [] //чистим для нового запроса
+                  let data = try await gameManager.fetchQuestions(difficulty: .easy)
+                  questEasyData = data
+                  isLoaded = true
+                  view?.setUpUIWhenLoaded()
+              }catch{
+                  print(error.localizedDescription)
+              }
+          }
+      }
 }

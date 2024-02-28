@@ -12,37 +12,20 @@ protocol HomeViewProtocol: AnyObject {
 }
 
 protocol HomePresenterProtocol {
-    var questEasyData: [OneQuestionModel] {get set}
-    func routeToGame(data: [OneQuestionModel])
-    
+    func routeToGame()
 }
 
 final class HomePresenter: HomePresenterProtocol {
-    private let gameManager: GameManagerProtocol = GameManager(networkManager: NetworkManager())
-    var questEasyData: [OneQuestionModel] = .init()
     weak var view: HomeViewProtocol?
     
     let router: HomeRouterProtocol
     init(router: HomeRouterProtocol) {
         self.router = router
-        getEasyQuestions()
     }
     
-    func routeToGame(data: [OneQuestionModel]) {
-        router.routeToGame(data: data)
+    func routeToGame() {
+        router.routeToGame()
     }
     
-    private func getEasyQuestions() {
-          Task{ @MainActor in
-              do{
-                  questEasyData  = [] //чистим для нового запроса
-                  let data = try await gameManager.fetchQuestions(difficulty: .easy)
-                  questEasyData = data
-                  //print(questEasyData)
-              }catch{
-                  print(error.localizedDescription)
-              }
-          }
-      }
 }
 

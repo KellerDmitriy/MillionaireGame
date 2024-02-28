@@ -8,9 +8,7 @@
 import UIKit
 import Combine
 
-final class GameViewController: UIViewController {
-//    let timerManager: TimeManagerProtocol = TimeManager()
-    
+final class GameViewController: UIViewController {    
     //MARK: - Private properties
     private var cancellables = Set<AnyCancellable>()
     
@@ -108,12 +106,8 @@ final class GameViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        setConstraints()
-        addTargetButtons()
-        observeProgress()
-        print("presenter easyData \(presenter.dataEasy)")
-        setUpUIText()
+            setupUI()
+            setConstraints()
     }
         
     override func viewWillAppear(_ animated: Bool) {
@@ -125,24 +119,18 @@ final class GameViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        //timerManager.startTimer30Seconds()
-        presenter.start30Timer()
-    }
-    
+        
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         cancellables = Set<AnyCancellable>() //вроде бы при deinit экрана cancellables тоже deinit и тогда это не нужно
     }
     //MARK: - SetUp UI Text
     func setUpUIText(){
-        for (index, answer) in presenter.dataEasy[0].allAnswers.enumerated() {
+        for (index, answer) in presenter.questEasyData[presenter.numberQuestion].allAnswers.enumerated() {
             let answerButton = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton][index]
             answerButton.setUptext(text: answer.answerText)
         }
-        questionLabel.text = presenter.dataEasy[0].question
+        questionLabel.text = presenter.questEasyData[presenter.numberQuestion].question
     }
     
     //MARK: - Buttons Action
@@ -170,8 +158,6 @@ final class GameViewController: UIViewController {
     @objc private func didTapAnswerButton(_ sender: UIButton) {
         presenter.stop30Timer()
         presenter.start5Timer(music: "otvet-prinyat")
-        //timerManager.stopTimer30Seconds()
-        //timerManager.startTimer5Seconds(music: "otvet-prinyat")
         switch sender{
         case aAnswerButton: print(aAnswerButton.anwerText) //дергаем метод презентера для сравнения
         case bAnswerButton: print(bAnswerButton.anwerText)
@@ -182,7 +168,6 @@ final class GameViewController: UIViewController {
     
     
     @objc func testTimer(_ sender: UIButton) {
-        //timerManager.stopTimer30Seconds()
         presenter.stop30Timer()
         takeTip(sender)
     }
@@ -194,13 +179,18 @@ final class GameViewController: UIViewController {
         case hostHelpButton: print("hostHelpButton") //дергаем метод презентера для подсказок
         default: print("Default tips")}
         presenter.start30Timer()
-        //timerManager.startTimer30Seconds()
     }
 }
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
-    
+    func setUpUIWhenLoaded() {
+        addTargetButtons()
+        observeProgress()
+        print("presenter easyData \(presenter.questEasyData)")
+        setUpUIText()
+        presenter.start30Timer()
+    }
 }
 
 //MARK: - GameViewController
@@ -269,5 +259,4 @@ private extension GameViewController {
             helpButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    
 }
