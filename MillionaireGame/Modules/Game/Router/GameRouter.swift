@@ -21,6 +21,10 @@ final class GameRouter: GameRouterProtocol {
     
     func routeToResult() {
         //TODO: - Реализация перехода на финальный экран результатов
+        
+        guard let navigationController else { return }
+        let resultViewController = ResultBuilder(navigationController: navigationController).build()
+        navigationController.pushViewController(resultViewController, animated: true)
     }
     
     func routeToListQuestions() {

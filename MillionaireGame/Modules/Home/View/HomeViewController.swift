@@ -37,6 +37,7 @@ extension HomeViewController: HomeViewProtocol {
     // MARK: - Setup UI
     private func setViews() {
         view.addVerticalGradientLayer()
+        
         view.addSubview(playButton)
     }
     

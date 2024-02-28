@@ -44,7 +44,7 @@ extension UIView {
         animation.toValue = [topColor.cgColor, middleColor.cgColor, bottomColor.cgColor]
         animation.duration = 4.0
         animation.autoreverses = true
-        animation.repeatCount = .infinity
+        animation.repeatCount = .infinity 
         gradient.add(animation, forKey: nil)
     }
 }

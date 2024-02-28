@@ -41,4 +41,3 @@ struct ButtonFactory {
         return button
     }
 }
-

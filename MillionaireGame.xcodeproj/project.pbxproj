@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		36E7A71B2B8F05920073E6B4 /* OneQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */; };
+		36E7A71F2B8F4C140073E6B4 /* TimerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7A71E2B8F4C140073E6B4 /* TimerManager.swift */; };
 		522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A982B8CCE330041B256 /* ResultViewController.swift */; };
 		522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A9A2B8CCE640041B256 /* ResultPresenter.swift */; };
 		522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A9C2B8CCEAC0041B256 /* ResultRouter.swift */; };
@@ -43,15 +44,13 @@
 		E1BE9A2E2B8B7B010006CB8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1BE9A2C2B8B7B010006CB8B /* LaunchScreen.storyboard */; };
 		E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A392B8B7EE30006CB8B /* GameManager.swift */; };
 		E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */; };
-		E1F2F0EF2B8FAEA800DBE9AF /* SubTotalBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0EE2B8FAEA800DBE9AF /* SubTotalBuilder.swift */; };
-		E1F2F0F12B8FAF6500DBE9AF /* SubTotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0F02B8FAF6500DBE9AF /* SubTotalViewController.swift */; };
-		E1F2F0F32B8FAF9600DBE9AF /* SubTotalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0F22B8FAF9600DBE9AF /* SubTotalPresenter.swift */; };
-		E1F2F0F52B8FB1AA00DBE9AF /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0F42B8FB1AA00DBE9AF /* ButtonFactory.swift */; };
-		E1F2F0F72B8FB1D400DBE9AF /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0F62B8FB1D400DBE9AF /* Extension + UIView.swift */; };
+		E1F2F0E72B8F2BD700DBE9AF /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0E62B8F2BD700DBE9AF /* ButtonFactory.swift */; };
+		E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0E82B8F393900DBE9AF /* Extension + UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneQuestionModel.swift; sourceTree = "<group>"; };
+		36E7A71E2B8F4C140073E6B4 /* TimerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerManager.swift; sourceTree = "<group>"; };
 		522A0A982B8CCE330041B256 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		522A0A9A2B8CCE640041B256 /* ResultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPresenter.swift; sourceTree = "<group>"; };
 		522A0A9C2B8CCEAC0041B256 /* ResultRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRouter.swift; sourceTree = "<group>"; };
@@ -89,11 +88,8 @@
 		E1BE9A2F2B8B7B010006CB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1BE9A392B8B7EE30006CB8B /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIFont.swift"; sourceTree = "<group>"; };
-		E1F2F0EE2B8FAEA800DBE9AF /* SubTotalBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTotalBuilder.swift; sourceTree = "<group>"; };
-		E1F2F0F02B8FAF6500DBE9AF /* SubTotalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTotalViewController.swift; sourceTree = "<group>"; };
-		E1F2F0F22B8FAF9600DBE9AF /* SubTotalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTotalPresenter.swift; sourceTree = "<group>"; };
-		E1F2F0F42B8FB1AA00DBE9AF /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
-		E1F2F0F62B8FB1D400DBE9AF /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
+		E1F2F0E62B8F2BD700DBE9AF /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
+		E1F2F0E82B8F393900DBE9AF /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,7 +209,6 @@
 				866AAB032B8E7FD600628519 /* NetworkErrors.swift */,
 				866AAB042B8E7FD600628519 /* NetworkManager.swift */,
 				866AAB052B8E7FD600628519 /* QuestionRequest.swift */,
-				866AAB062B8E7FD600628519 /* QuestionsModel.swift */,
 			);
 			path = NetworkLayer;
 			sourceTree = "<group>";
@@ -281,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				E1BE9A362B8B7B100006CB8B /* Modules */,
+				E1F2F0F82B8FB6D800DBE9AF /* Models */,
 				E1BE9A382B8B7EC80006CB8B /* Services */,
 				E1BE9A3B2B8B7F390006CB8B /* Extensions */,
 				E1BE9A372B8B7E6B0006CB8B /* Resources */,
@@ -303,7 +299,6 @@
 			children = (
 				E16A44C52B8BCB0300A9C234 /* Home */,
 				8606033C2B8DD07F00EB8A36 /* Game */,
-				E1F2F0EA2B8FAE4A00DBE9AF /* SubTotal */,
 				522A0A932B8CCDD70041B256 /* Results */,
 			);
 			path = Modules;
@@ -325,8 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				866AAB022B8E7FD600628519 /* NetworkLayer */,
-				36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */,
 				E1BE9A392B8B7EE30006CB8B /* GameManager.swift */,
+				36E7A71E2B8F4C140073E6B4 /* TimerManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -336,8 +331,8 @@
 			children = (
 				866AAB0B2B8E7FE600628519 /* Extension + String.swift */,
 				E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */,
-				E1F2F0F42B8FB1AA00DBE9AF /* ButtonFactory.swift */,
-				E1F2F0F62B8FB1D400DBE9AF /* Extension + UIView.swift */,
+				E1F2F0E62B8F2BD700DBE9AF /* ButtonFactory.swift */,
+				E1F2F0E82B8F393900DBE9AF /* Extension + UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -354,38 +349,13 @@
 			path = Musics;
 			sourceTree = "<group>";
 		};
-		E1F2F0EA2B8FAE4A00DBE9AF /* SubTotal */ = {
+		E1F2F0F82B8FB6D800DBE9AF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				E1F2F0EB2B8FAE5A00DBE9AF /* Builder */,
-				E1F2F0EC2B8FAE6800DBE9AF /* View */,
-				E1F2F0ED2B8FAE6F00DBE9AF /* Presenter */,
+				36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */,
+				866AAB062B8E7FD600628519 /* QuestionsModel.swift */,
 			);
-			path = SubTotal;
-			sourceTree = "<group>";
-		};
-		E1F2F0EB2B8FAE5A00DBE9AF /* Builder */ = {
-			isa = PBXGroup;
-			children = (
-				E1F2F0EE2B8FAEA800DBE9AF /* SubTotalBuilder.swift */,
-			);
-			path = Builder;
-			sourceTree = "<group>";
-		};
-		E1F2F0EC2B8FAE6800DBE9AF /* View */ = {
-			isa = PBXGroup;
-			children = (
-				E1F2F0F02B8FAF6500DBE9AF /* SubTotalViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		E1F2F0ED2B8FAE6F00DBE9AF /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				E1F2F0F22B8FAF9600DBE9AF /* SubTotalPresenter.swift */,
-			);
-			path = Presenter;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -485,10 +455,13 @@
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
+				E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */,
+				36E7A71F2B8F4C140073E6B4 /* TimerManager.swift in Sources */,
 				866AAB082B8E7FD600628519 /* NetworkManager.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,
 				8606034C2B8DF62F00EB8A36 /* CustomHelpButton.swift in Sources */,
+				E1F2F0E72B8F2BD700DBE9AF /* ButtonFactory.swift in Sources */,
 				8606034A2B8DE39000EB8A36 /* CustomAnswerButton.swift in Sources */,
 				860603482B8DD3CF00EB8A36 /* GameBuilder.swift in Sources */,
 				E1F2F0F52B8FB1AA00DBE9AF /* ButtonFactory.swift in Sources */,
