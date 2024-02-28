@@ -61,6 +61,15 @@ final class ResultViewController: UIViewController {
     
     
     //MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        configure()
+        configureStackView()
+        setConstraints()
+        
+        presenter.showResult()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -72,24 +81,13 @@ final class ResultViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        configure()
-        configureStackView()
-        setConstraints()
-        
-        presenter.showResult()
-    }
 }
 
 
 //MARK: - ResultRouterProtocol
 
 extension ResultViewController: ResultRouterProtocol {
-//переход на Экран игры
+
     @objc func routeToGame() {
         presenter.showGame()
     }
@@ -122,7 +120,6 @@ private extension ResultViewController {
         let views = [backgroundImage, logoImage, stackView, playAgainButton]
         views.forEach { view.addSubview($0) }
     }
-    
     
     func configureStackView() {
         stackView.addArrangedSubview(descriptionLabel)

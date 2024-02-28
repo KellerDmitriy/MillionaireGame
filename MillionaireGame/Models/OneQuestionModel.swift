@@ -6,12 +6,13 @@
 //
 
 import Foundation
-struct OneQuestionModel{
+
+struct OneQuestionModel {
     let question: String
     let allAnswers: [Answers]
 }
 
-struct Answers{
+struct Answers {
     let answerText: String
     let correct: Bool
 }

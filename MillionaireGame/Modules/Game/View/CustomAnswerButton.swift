@@ -8,7 +8,8 @@
 import UIKit
 
 final class CustomAnswerButton: UIButton {
-    
+    var anwerText: String
+    var letterAnswer: String
     private let answerLetterLabel: UILabel = {
         $0.font = .robotoMedium24()
         $0.textColor = .white
@@ -20,7 +21,6 @@ final class CustomAnswerButton: UIButton {
         $0.font = .robotoMedium24()
         $0.textColor = .white
         $0.textAlignment = .right
-        $0.text = "TEST"
         return $0
     }(UILabel())
     
@@ -32,16 +32,22 @@ final class CustomAnswerButton: UIButton {
         return $0
     }(UIStackView())
     
-    init(letter: String) {
+    init(answerText: String, letterAnswer: String) {
+        self.anwerText = answerText
+        self.letterAnswer = letterAnswer
         super.init(frame: .zero)
-        self.answerLetterLabel.text = letter
-        
         setupUI()
         setConstraints()
+       
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setUptext(text: String){
+        answerLetterLabel.text = text
+        anwerText = text
     }
     
     private func setupUI() {
@@ -63,12 +69,15 @@ final class CustomAnswerButton: UIButton {
         layer.shadowRadius = 5
         layer.masksToBounds = false
         
-        addTarget(self, action: #selector(didTapAnswerButton), for: .touchUpInside)
+        answerLabel.text = letterAnswer
+        
+        
+  //      addTarget(self, action: #selector(didTapAnswerButton), for: .touchUpInside)
     }
     
-    @objc private func didTapAnswerButton() {
-        print(answerLabel.text ?? "")
-    }
+//    @objc private func didTapAnswerButton() {
+//        print(answerLabel.text ?? "")
+//    }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
