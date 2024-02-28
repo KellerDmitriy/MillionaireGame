@@ -14,11 +14,14 @@ protocol GameViewProtocol: AnyObject {
 
 //Presenter
 protocol ManageTimerProtocol{
-    func routeToResult()
+    var progressToGamePublisher: Published<Float>.Publisher { get }
+    
     func start30Timer()
     func stop30Timer()
     func start5Timer(music: String)
-    var progressToGamePublisher: Published<Float>.Publisher { get }
+    
+    func routeToSubTotal()
+    func routeToResult()
 }
 
 protocol GamePresenterProtocol: ManageTimerProtocol {
@@ -30,6 +33,7 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
 }
 
 final class GamePresenter: GamePresenterProtocol {
+    
     private let gameManager: GameManagerProtocol
     private let timeManager: TimeManagerProtocol
     private let router: GameRouterProtocol
@@ -53,8 +57,6 @@ final class GamePresenter: GamePresenterProtocol {
     func addToNumberQuestion() {
         numberQuestion += 1
     }
-    
-
     
     func start30Timer() {
         timeManager.startTimer30Seconds()
@@ -89,6 +91,11 @@ final class GamePresenter: GamePresenterProtocol {
     }
     
 //MARK: - Navigation
+    
+    func routeToSubTotal() {
+        router.routeToListQuestions(numberQuestion: numberQuestion)
+    }
+    
     func routeToResult() {
         router.routeToResult()
     }
