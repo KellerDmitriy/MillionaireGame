@@ -8,15 +8,9 @@
 import UIKit
 import Combine
 
-final class GameViewController: UIViewController {    
+final class GameViewController: UIViewController {
     //MARK: - Private properties
     private var cancellables = Set<AnyCancellable>()
-    
-    private let backgroundImageView: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = .backgroundCrowd
-        return $0
-    }(UIImageView())
     
     private let logoImageView: UIImageView = {
         $0.image = .logo
@@ -106,10 +100,10 @@ final class GameViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-            setupUI()
-            setConstraints()
+        setupUI()
+        setConstraints()
     }
-        
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -119,7 +113,7 @@ final class GameViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-        
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         cancellables = Set<AnyCancellable>() //вроде бы при deinit экрана cancellables тоже deinit и тогда это не нужно
@@ -159,11 +153,14 @@ final class GameViewController: UIViewController {
         presenter.stop30Timer()
         presenter.start5Timer(music: "otvet-prinyat")
         switch sender{
-        case aAnswerButton: print(aAnswerButton.anwerText) //дергаем метод презентера для сравнения
+        case aAnswerButton: print(aAnswerButton.anwerText) 
+            presenter.routeToSubTotal()//дергаем метод презентера для сравнения
         case bAnswerButton: print(bAnswerButton.anwerText)
+            presenter.routeToSubTotal()
         case cAnswerButton: print(cAnswerButton.anwerText)
+            presenter.routeToSubTotal()
         case dAnswerButton: print(dAnswerButton.anwerText)
-        default: print("Default Answers tapped")}
+            default: print("Default Answers tapped")}
     }
     
     
@@ -177,7 +174,7 @@ final class GameViewController: UIViewController {
         case fiftyHelpButton: print("fiftyHelpButton") //дергаем метод презентера для подсказок
         case phoneHelpButton: print("phoneHelpButton") //дергаем метод презентера для подсказок
         case hostHelpButton: print("hostHelpButton") //дергаем метод презентера для подсказок
-        default: print("Default tips")}
+            default: print("Default tips")}
         presenter.start30Timer()
     }
 }
@@ -197,8 +194,8 @@ extension GameViewController: GameViewProtocol {
 private extension GameViewController {
     
     func setupUI() {
+        view.addVerticalGradientLayer()
         [
-            backgroundImageView,
             questionStackView,
             questionNumberStackView,
             answerButtonStackView,
@@ -219,12 +216,6 @@ private extension GameViewController {
     }
     
     func setConstraints() {
-        NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
         
         NSLayoutConstraint.activate([
             logoImageView.heightAnchor.constraint(equalToConstant: 86),

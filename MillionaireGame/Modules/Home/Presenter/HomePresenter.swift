@@ -12,7 +12,7 @@ protocol HomeViewProtocol: AnyObject {
 }
 
 protocol HomePresenterProtocol {
-    func routeToGame()
+    func routeToAuth()
 }
 
 final class HomePresenter: HomePresenterProtocol {
@@ -24,7 +24,7 @@ final class HomePresenter: HomePresenterProtocol {
         self.router = router
     }
 
-    func routeToGame() {
+    func routeToAuth() {
         router.routeToGame()
     }
     

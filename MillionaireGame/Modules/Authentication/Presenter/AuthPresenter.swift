@@ -12,15 +12,28 @@ protocol AuthViewProtocol: AnyObject {
 }
 
 protocol AuthPresenterProtocol {
-    var name: String? { get set }
+    var userName: String { get set }
+    
+    func routeToGame()
 }
 
-final class AuthPresenter: HomePresenterProtocol {
+final class AuthPresenter: AuthPresenterProtocol {
+
     weak var view: HomeViewProtocol?
     
     private var textFieldText: String?
     
     let router: AuthRouterProtocol
+    
+    var userName: String {
+            get {
+                return textFieldText ?? ""
+            }
+            set {
+                textFieldText = newValue
+            }
+        }
+    
     init(router: AuthRouterProtocol) {
         self.router = router
     }
@@ -29,14 +42,9 @@ final class AuthPresenter: HomePresenterProtocol {
            textFieldText = text
        }
     
-    var name: String? {
-            get {
-                return textFieldText
-            }
-            set {
-                textFieldText = newValue
-            }
-        }
+    func routeToGame() {
+        router.routeToGame(userName: userName)
+    }
     
 }
 

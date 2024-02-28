@@ -9,7 +9,7 @@ import UIKit
 
 protocol GameRouterProtocol: AnyObject {
     func routeToResult()
-    func routeToListQuestions(numberQuestion: Int)
+    func routeToListQuestions(userName: String, numberQuestion: Int)
 }
 
 final class GameRouter: GameRouterProtocol {
@@ -25,10 +25,10 @@ final class GameRouter: GameRouterProtocol {
         navigationController.pushViewController(resultViewController, animated: true)
     }
     
-    func routeToListQuestions(numberQuestion: Int) {
+    func routeToListQuestions(userName: String, numberQuestion: Int) {
         guard let navigationController else { return }
         
-        let subTotalViewController = SubTotalBuilder(navigationController: navigationController).build(numberQuestion: numberQuestion)
+        let subTotalViewController = SubTotalBuilder(navigationController: navigationController).build(userName: userName, numberQuestion: numberQuestion)
         subTotalViewController.modalPresentationStyle = .fullScreen
         subTotalViewController.modalTransitionStyle = .crossDissolve
         navigationController.present(subTotalViewController, animated: true)

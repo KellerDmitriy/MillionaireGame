@@ -7,14 +7,19 @@
 
 import UIKit
 
-final class GameBuilder: BuilderProtocol {
+protocol GameBuilderProtocol: AnyObject {
+    func build(userName: String) -> UIViewController
+    init(navigationController: UINavigationController)
+}
+
+final class GameBuilder: GameBuilderProtocol {
     weak var navigationController: UINavigationController?
     
     required init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
-    func build() -> UIViewController {
+    func build(userName: String) -> UIViewController {
         guard let navigationController else {
             fatalError("GameBuilder requires a valid navigationController")
         }
@@ -24,7 +29,7 @@ final class GameBuilder: BuilderProtocol {
         let timeManager = TimeManager()
         let gameManager = GameManager(networkManager: networkManager)
         let presenter = GamePresenter(
-            router: router,
+            userName: userName, router: router,
             gameManager: gameManager,
             timeManager: timeManager
         )

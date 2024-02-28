@@ -8,7 +8,7 @@
 import UIKit
 
 protocol AuthRouterProtocol: AnyObject {
-    func routeToGame()
+    func routeToGame(userName: String)
     
 }
 
@@ -19,8 +19,10 @@ final class AuthRouter: AuthRouterProtocol {
         self.navigationController = navigationController
     }
     
-    func routeToGame() {
-        //
+    func routeToGame(userName: String) {
+        guard let navigationController else { return }
+        let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName)
+        navigationController.pushViewController(gameViewController, animated: true)
     }
 }
 

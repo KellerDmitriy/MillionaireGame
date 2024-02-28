@@ -8,21 +8,13 @@
 import UIKit
 
 struct ButtonFactory {
-    static func makeButton(title: String, color: UIColor, backgroundColor: UIColor, cornerRadius: CGFloat, action: @escaping () -> Void) -> UIButton {
+    static func makeButton(title: String, action: @escaping () -> Void) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.titleLabel?.font = .robotoExtraBold32()
-        button.setTitleColor(color, for: .normal)
-        button.backgroundColor = backgroundColor
-        button.layer.cornerRadius = cornerRadius
-        
-        // Градиентный слой
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.frame = button.bounds
-        gradientLayer.colors = [UIColor.red.cgColor, UIColor.blue.cgColor] // Пример градиентных цветов
-        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
-        button.layer.insertSublayer(gradientLayer, at: 0)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 15
+        button.backgroundColor = .darkGray
         
         // Обводка
         button.layer.borderWidth = 0.5

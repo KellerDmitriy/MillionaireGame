@@ -7,12 +7,7 @@
 
 import UIKit
 
-protocol AuthBuilderProtocol: AnyObject {
-    func build() -> UIViewController
-    init(navigationController: UINavigationController)
-}
-
-final class AuthBuilder: AuthBuilderProtocol {
+final class AuthBuilder: BuilderProtocol {
     weak var navigationController: UINavigationController?
     
     required init(navigationController: UINavigationController) {
@@ -23,9 +18,9 @@ final class AuthBuilder: AuthBuilderProtocol {
         guard let navigationController else {
             fatalError("HomeBuilder requires a valid navigationController")
         }
-        let viewController = HomeViewController()
-        let router = HomeRouter(navigationController: navigationController)
-        let presenter = HomePresenter(router: router)
+        let viewController = AuthViewController()
+        let router = AuthRouter(navigationController: navigationController)
+        let presenter = AuthPresenter(router: router)
         
         viewController.presenter = presenter
         

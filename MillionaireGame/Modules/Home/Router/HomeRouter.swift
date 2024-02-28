@@ -21,8 +21,8 @@ final class HomeRouter: HomeRouterProtocol {
     
     func routeToGame() {
         guard let navigationController else { return }
-        let gameViewController = GameBuilder(navigationController: navigationController).build()
-        navigationController.pushViewController(gameViewController, animated: true)
+        let authViewController = AuthBuilder(navigationController: navigationController).build()
+        navigationController.pushViewController(authViewController, animated: true)
     }
     
     func routeToRules() {

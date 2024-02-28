@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SubTotalBuilderProtocol {
-    func build(numberQuestion: Int) -> UIViewController
+    func build(userName: String, numberQuestion: Int) -> UIViewController
     init(navigationController: UINavigationController)
 }
 
@@ -19,12 +19,13 @@ final class SubTotalBuilder: SubTotalBuilderProtocol {
         self.navigationController = navigationController
     }
     
-    func build(numberQuestion: Int) -> UIViewController {
+    func build(userName: String, numberQuestion: Int) -> UIViewController {
         guard let navigationController else {
             fatalError("SubTotalBuilder requires a valid navigationController")
         }
         let viewController = SubTotalViewController()
-        let presenter = SubTotalPresenter(numberQuestion: numberQuestion)
+        let presenter = SubTotalPresenter(userName: userName,
+                                          numberQuestion: numberQuestion)
         
         viewController.presenter = presenter
         

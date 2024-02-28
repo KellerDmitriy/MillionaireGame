@@ -28,12 +28,12 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
     var numberQuestion: Int { get set }
     var questEasyData: [OneQuestionModel] { get set }
     var isLoaded: Bool { get set }
-    
+    var userName: String { get }
     func addToNumberQuestion()
 }
 
 final class GamePresenter: GamePresenterProtocol {
-    
+
     private let gameManager: GameManagerProtocol
     private let timeManager: TimeManagerProtocol
     private let router: GameRouterProtocol
@@ -43,13 +43,19 @@ final class GamePresenter: GamePresenterProtocol {
     var questEasyData: [OneQuestionModel] = .init()
     var isLoaded = false
     var numberQuestion = 0
-    
+    var userName = ""
     weak var view: GameViewProtocol?
     
-    init(router: GameRouterProtocol, gameManager: GameManagerProtocol, timeManager: TimeManagerProtocol ) {
+    init(userName: String,
+         router: GameRouterProtocol,
+         gameManager: GameManagerProtocol,
+         timeManager: TimeManagerProtocol
+    ) {
+        self.userName = userName
         self.router = router
         self.gameManager = gameManager
         self.timeManager = timeManager
+        
         observeProgressBar()
         getEasyQuestions()
     }
@@ -93,7 +99,7 @@ final class GamePresenter: GamePresenterProtocol {
 //MARK: - Navigation
     
     func routeToSubTotal() {
-        router.routeToListQuestions(numberQuestion: numberQuestion)
+        router.routeToListQuestions(userName: userName, numberQuestion: numberQuestion)
     }
     
     func routeToResult() {

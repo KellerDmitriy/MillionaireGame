@@ -13,10 +13,7 @@ final class HomeViewController: UIViewController {
     
     private lazy var playButton: UIButton = {
         return ButtonFactory.makeButton(
-            title: "play",
-            color: .white,
-            backgroundColor: .specialGreen,
-            cornerRadius: 26) { [weak self] in
+            title: "play") { [weak self] in
                 self?.playButtonTap()
             }
     }()
@@ -29,7 +26,7 @@ final class HomeViewController: UIViewController {
     }
     
     func playButtonTap() {
-        presenter.routeToGame()
+        presenter.routeToAuth()
     }
 }
 

@@ -17,8 +17,17 @@ final class SubTotalViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var continueButton: UIButton = {
+        return ButtonFactory.makeButton(
+            title: "Play") { [weak self] in
+                self?.continueButtonTap()
+            }
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setViews()
+        setConstraints() 
     }
     
     // MARK: - Setup UI
@@ -43,6 +52,8 @@ final class SubTotalViewController: UIViewController {
 }
 
 extension SubTotalViewController: SubTotalViewProtocol {
-    
+    func continueButtonTap() {
+        
+    }
 }
 

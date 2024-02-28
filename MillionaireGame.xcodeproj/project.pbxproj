@@ -49,6 +49,10 @@
 		E1F2F1002B8FB83200DBE9AF /* SubTotalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0FB2B8FB83200DBE9AF /* SubTotalPresenter.swift */; };
 		E1F2F1012B8FB83200DBE9AF /* SubTotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0FD2B8FB83200DBE9AF /* SubTotalViewController.swift */; };
 		E1F2F1022B8FB83200DBE9AF /* SubTotalBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0FF2B8FB83200DBE9AF /* SubTotalBuilder.swift */; };
+		E1F2F1192B8FCEB500DBE9AF /* AuthPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1122B8FCEB500DBE9AF /* AuthPresenter.swift */; };
+		E1F2F11A2B8FCEB500DBE9AF /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1142B8FCEB500DBE9AF /* AuthViewController.swift */; };
+		E1F2F11B2B8FCEB500DBE9AF /* AuthBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1162B8FCEB500DBE9AF /* AuthBuilder.swift */; };
+		E1F2F11C2B8FCEB500DBE9AF /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1182B8FCEB500DBE9AF /* AuthRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -96,6 +100,10 @@
 		E1F2F0FB2B8FB83200DBE9AF /* SubTotalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTotalPresenter.swift; sourceTree = "<group>"; };
 		E1F2F0FD2B8FB83200DBE9AF /* SubTotalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTotalViewController.swift; sourceTree = "<group>"; };
 		E1F2F0FF2B8FB83200DBE9AF /* SubTotalBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTotalBuilder.swift; sourceTree = "<group>"; };
+		E1F2F1122B8FCEB500DBE9AF /* AuthPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthPresenter.swift; sourceTree = "<group>"; };
+		E1F2F1142B8FCEB500DBE9AF /* AuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		E1F2F1162B8FCEB500DBE9AF /* AuthBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthBuilder.swift; sourceTree = "<group>"; };
+		E1F2F1182B8FCEB500DBE9AF /* AuthRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				E16A44C52B8BCB0300A9C234 /* Home */,
+				E1F2F1102B8FCEB500DBE9AF /* Authentication */,
 				8606033C2B8DD07F00EB8A36 /* Game */,
 				E1F2F0F92B8FB83200DBE9AF /* SubTotal */,
 				522A0A932B8CCDD70041B256 /* Results */,
@@ -368,9 +377,9 @@
 		E1F2F0F92B8FB83200DBE9AF /* SubTotal */ = {
 			isa = PBXGroup;
 			children = (
-				E1F2F0FA2B8FB83200DBE9AF /* Presenter */,
-				E1F2F0FC2B8FB83200DBE9AF /* View */,
 				E1F2F0FE2B8FB83200DBE9AF /* Builder */,
+				E1F2F0FC2B8FB83200DBE9AF /* View */,
+				E1F2F0FA2B8FB83200DBE9AF /* Presenter */,
 			);
 			path = SubTotal;
 			sourceTree = "<group>";
@@ -397,6 +406,49 @@
 				E1F2F0FF2B8FB83200DBE9AF /* SubTotalBuilder.swift */,
 			);
 			path = Builder;
+			sourceTree = "<group>";
+		};
+		E1F2F1102B8FCEB500DBE9AF /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1152B8FCEB500DBE9AF /* Builder */,
+				E1F2F1132B8FCEB500DBE9AF /* View */,
+				E1F2F1112B8FCEB500DBE9AF /* Presenter */,
+				E1F2F1172B8FCEB500DBE9AF /* Router */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		E1F2F1112B8FCEB500DBE9AF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1122B8FCEB500DBE9AF /* AuthPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E1F2F1132B8FCEB500DBE9AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1142B8FCEB500DBE9AF /* AuthViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1F2F1152B8FCEB500DBE9AF /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1162B8FCEB500DBE9AF /* AuthBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		E1F2F1172B8FCEB500DBE9AF /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1182B8FCEB500DBE9AF /* AuthRouter.swift */,
+			);
+			path = Router;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -479,10 +531,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1F2F1192B8FCEB500DBE9AF /* AuthPresenter.swift in Sources */,
 				860603442B8DD15F00EB8A36 /* GameRouter.swift in Sources */,
 				E16A44CD2B8BCB7F00A9C234 /* HomePresenter.swift in Sources */,
 				522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */,
+				E1F2F11A2B8FCEB500DBE9AF /* AuthViewController.swift in Sources */,
 				E1BE9A262B8B7B000006CB8B /* HomeViewController.swift in Sources */,
+				E1F2F11C2B8FCEB500DBE9AF /* AuthRouter.swift in Sources */,
 				E1F2F1012B8FB83200DBE9AF /* SubTotalViewController.swift in Sources */,
 				E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */,
 				860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */,
@@ -493,6 +548,7 @@
 				E1F2F1022B8FB83200DBE9AF /* SubTotalBuilder.swift in Sources */,
 				E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
+				E1F2F11B2B8FCEB500DBE9AF /* AuthBuilder.swift in Sources */,
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
 				E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */,
