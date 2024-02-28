@@ -100,6 +100,7 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setConstraints()
+      
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +112,12 @@ final class GameViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+   
+    
+    @objc func testTimer() {
+        presenter.routeToResult()
     }
 }
 
@@ -141,6 +148,8 @@ private extension GameViewController {
         
         [fiftyHelpButton, phoneHelpButton,
          hostHelpButton].forEach({ helpButtonStackView.addArrangedSubview($0) })
+        
+        fiftyHelpButton.addTarget(self, action: #selector(testTimer), for: .touchUpInside)
     }
     
     func setConstraints() {
