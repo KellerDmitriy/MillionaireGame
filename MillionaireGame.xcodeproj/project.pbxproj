@@ -43,6 +43,11 @@
 		E1BE9A2E2B8B7B010006CB8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1BE9A2C2B8B7B010006CB8B /* LaunchScreen.storyboard */; };
 		E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A392B8B7EE30006CB8B /* GameManager.swift */; };
 		E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */; };
+		E1F2F0EF2B8FAEA800DBE9AF /* SubTotalBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0EE2B8FAEA800DBE9AF /* SubTotalBuilder.swift */; };
+		E1F2F0F12B8FAF6500DBE9AF /* SubTotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0F02B8FAF6500DBE9AF /* SubTotalViewController.swift */; };
+		E1F2F0F32B8FAF9600DBE9AF /* SubTotalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0F22B8FAF9600DBE9AF /* SubTotalPresenter.swift */; };
+		E1F2F0F52B8FB1AA00DBE9AF /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0F42B8FB1AA00DBE9AF /* ButtonFactory.swift */; };
+		E1F2F0F72B8FB1D400DBE9AF /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0F62B8FB1D400DBE9AF /* Extension + UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +89,11 @@
 		E1BE9A2F2B8B7B010006CB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1BE9A392B8B7EE30006CB8B /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIFont.swift"; sourceTree = "<group>"; };
+		E1F2F0EE2B8FAEA800DBE9AF /* SubTotalBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTotalBuilder.swift; sourceTree = "<group>"; };
+		E1F2F0F02B8FAF6500DBE9AF /* SubTotalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTotalViewController.swift; sourceTree = "<group>"; };
+		E1F2F0F22B8FAF9600DBE9AF /* SubTotalPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTotalPresenter.swift; sourceTree = "<group>"; };
+		E1F2F0F42B8FB1AA00DBE9AF /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
+		E1F2F0F62B8FB1D400DBE9AF /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,8 +301,9 @@
 		E1BE9A362B8B7B100006CB8B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				8606033C2B8DD07F00EB8A36 /* Game */,
 				E16A44C52B8BCB0300A9C234 /* Home */,
+				8606033C2B8DD07F00EB8A36 /* Game */,
+				E1F2F0EA2B8FAE4A00DBE9AF /* SubTotal */,
 				522A0A932B8CCDD70041B256 /* Results */,
 			);
 			path = Modules;
@@ -325,6 +336,8 @@
 			children = (
 				866AAB0B2B8E7FE600628519 /* Extension + String.swift */,
 				E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */,
+				E1F2F0F42B8FB1AA00DBE9AF /* ButtonFactory.swift */,
+				E1F2F0F62B8FB1D400DBE9AF /* Extension + UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -339,6 +352,40 @@
 				E16A44BD2B8BA32800A9C234 /* zvuk-nepravilnogo-otveta.mp3 */,
 			);
 			path = Musics;
+			sourceTree = "<group>";
+		};
+		E1F2F0EA2B8FAE4A00DBE9AF /* SubTotal */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F0EB2B8FAE5A00DBE9AF /* Builder */,
+				E1F2F0EC2B8FAE6800DBE9AF /* View */,
+				E1F2F0ED2B8FAE6F00DBE9AF /* Presenter */,
+			);
+			path = SubTotal;
+			sourceTree = "<group>";
+		};
+		E1F2F0EB2B8FAE5A00DBE9AF /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F0EE2B8FAEA800DBE9AF /* SubTotalBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		E1F2F0EC2B8FAE6800DBE9AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F0F02B8FAF6500DBE9AF /* SubTotalViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1F2F0ED2B8FAE6F00DBE9AF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F0F22B8FAF9600DBE9AF /* SubTotalPresenter.swift */,
+			);
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -423,8 +470,10 @@
 			files = (
 				860603442B8DD15F00EB8A36 /* GameRouter.swift in Sources */,
 				E16A44CD2B8BCB7F00A9C234 /* HomePresenter.swift in Sources */,
+				E1F2F0F72B8FB1D400DBE9AF /* Extension + UIView.swift in Sources */,
 				522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */,
 				E1BE9A262B8B7B000006CB8B /* HomeViewController.swift in Sources */,
+				E1F2F0F32B8FAF9600DBE9AF /* SubTotalPresenter.swift in Sources */,
 				E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */,
 				860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */,
 				522A0A9F2B8CCF0C0041B256 /* ResultBuilder.swift in Sources */,
@@ -432,6 +481,7 @@
 				E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */,
 				860603462B8DD2EC00EB8A36 /* GamePresenter.swift in Sources */,
 				E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */,
+				E1F2F0EF2B8FAEA800DBE9AF /* SubTotalBuilder.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
@@ -441,7 +491,9 @@
 				8606034C2B8DF62F00EB8A36 /* CustomHelpButton.swift in Sources */,
 				8606034A2B8DE39000EB8A36 /* CustomAnswerButton.swift in Sources */,
 				860603482B8DD3CF00EB8A36 /* GameBuilder.swift in Sources */,
+				E1F2F0F52B8FB1AA00DBE9AF /* ButtonFactory.swift in Sources */,
 				36E7A71B2B8F05920073E6B4 /* OneQuestionModel.swift in Sources */,
+				E1F2F0F12B8FAF6500DBE9AF /* SubTotalViewController.swift in Sources */,
 				866AAB092B8E7FD600628519 /* QuestionRequest.swift in Sources */,
 				E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */,
 				E1BE9A242B8B7B000006CB8B /* SceneDelegate.swift in Sources */,

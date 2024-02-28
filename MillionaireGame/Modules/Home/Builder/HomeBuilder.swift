@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol HomeBuilderProtocol: AnyObject {
+protocol BuilderProtocol: AnyObject {
     func build() -> UIViewController
     init(navigationController: UINavigationController)
 }
 
-final class HomeBuilder: HomeBuilderProtocol {
+final class HomeBuilder: BuilderProtocol {
     weak var navigationController: UINavigationController?
     
     required init(navigationController: UINavigationController) {

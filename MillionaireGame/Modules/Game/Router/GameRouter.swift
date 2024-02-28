@@ -25,5 +25,6 @@ final class GameRouter: GameRouterProtocol {
     
     func routeToListQuestions() {
         //TODO: - Реализация перехода на экран со списком вопросов
+        
     }
 }

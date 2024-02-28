@@ -1,6 +1,13 @@
+//
+//  SubTotalBuilder.swift
+//  MillionaireGame
+//
+//  Created by Келлер Дмитрий on 28.02.2024.
+//
+
 import UIKit
 
-final class ResultBuilder: BuilderProtocol {
+final class SubTotalBuilder: BuilderProtocol {
     weak var navigationController: UINavigationController?
     
     required init(navigationController: UINavigationController) {
@@ -9,18 +16,13 @@ final class ResultBuilder: BuilderProtocol {
     
     func build() -> UIViewController {
         guard let navigationController else {
-            fatalError("ResultBuilder requires a valid navigationController")
+            fatalError("SubTotalBuilder requires a valid navigationController")
         }
-        
-        let viewController = ResultViewController()
-        let router = ResultRouter(navigationController: navigationController)
-        let presenter = ResultPresenter(router: router)
+        let viewController = SubTotalViewController()
+        let presenter = SubTotalPresenter()
         
         viewController.presenter = presenter
-        presenter.view = viewController
         
         return viewController
     }
-    
-    
 }
