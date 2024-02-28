@@ -7,8 +7,8 @@
 
 import Foundation
 
-protocol GameManagerProtocol{
-    func fetchQuestions(difficulty: Difficulty) async throws -> ([Result], [String : [String: Bool]])
+protocol GameManagerProtocol{    
+    func fetchQuestions(difficulty: Difficulty) async throws -> [OneQuestionModel]
 }
 
 final class GameManager{
@@ -17,32 +17,65 @@ final class GameManager{
     init(networkManager: NetworkManager) {
         self.networkManager = networkManager
     }
+    
+    private func getArrayQustionsShuffle(result: [Result]) -> [OneQuestionModel]{
+        var questionsArray: [OneQuestionModel] = []
+        var allAnswerss: [Answers] = []
+        for element in result{
+            for incorrectAnswer in element.incorrectAnswers{
+                allAnswerss.append(Answers(answerText: incorrectAnswer, correct: false))
+            }
+            let cleanQuestion = cleanHtmlEntities(from: element.question)
+            allAnswerss.append(Answers(answerText: element.correctAnswer, correct: true))
+            allAnswerss.shuffle()
+            questionsArray.append(OneQuestionModel(question: cleanQuestion, allAnswers: allAnswerss))
+        }
+        return questionsArray
+    }
+    
+    private func cleanHtmlEntities(from htmlEncodedString: String) -> String {
+        var cleanedString = htmlEncodedString
+        for entity in HTMLCharacterEntity.allCases {
+            let cleanedStringWithEntity = cleanedString.replacingOccurrences(of: entity.rawValue, with: entity.replacementCharacter)
+            cleanedString = cleanedStringWithEntity
+        }
+        return cleanedString
+    }
+    
+    private enum HTMLCharacterEntity: String, CaseIterable {
+        case doubleQuote = "&quot;"
+        case apostrophe = "&#039;"
+        case ampersand = "&amp;"
+        case lessThan = "&lt;"
+        case greaterThan = "&gt;"
+        case copyright = "©"
+        case registered = "®"
+        case trademark = "™"
+        case paragraph = "¶"
+        case section = "§"
+        
+        var replacementCharacter: String {
+            switch self {
+            case .doubleQuote: return "\""
+            case .apostrophe: return "'"
+            case .ampersand: return "&"
+            case .lessThan: return "<"
+            case .greaterThan: return ">"
+            case .copyright: return "©"
+            case .registered: return "®"
+            case .trademark: return "™"
+            case .paragraph: return "¶"
+            case .section: return "§"
+            }
+        }
+    }
 }
 
 extension GameManager: GameManagerProtocol{
-    func fetchQuestions(difficulty: Difficulty) async throws -> ([Result], [String : [String: Bool]]) {
+    func fetchQuestions(difficulty: Difficulty) async throws -> [OneQuestionModel] {
         let request = QuestionRequest(amount: 5, difficulty: difficulty.rawValue)
         let result = try await networkManager.request(request)
-        let dictAnswers = getAnswers(result: result.results)
-        return (result.results, dictAnswers)
-    }
-    
-    private func getAnswers(result: [Result]) -> [String : [String: Bool]] {
-        var dictAnswers = [String : [String : Bool]]()
-        for element in result {
-            var innerDict = [String : Bool]()
-            for incorrectAnswer in element.incorrectAnswers {
-                innerDict[incorrectAnswer] = false
-            }
-            innerDict[element.correctAnswer] = true
-            if let decodedQuestion =  String(htmlEncodedString: element.question){
-                dictAnswers[decodedQuestion] = innerDict
-            } else {
-                dictAnswers[element.question] = innerDict
-            }
-        }
-        return dictAnswers
+        let arrayQustionsShuffle = getArrayQustionsShuffle(result: result.results)
+        return arrayQustionsShuffle
     }
 }
-
-
