@@ -135,7 +135,7 @@ final class GameViewController: UIViewController {
     
     //MARK: - Buttons Action
     private func observeProgress(){
-        presenter.progresToGamePublisher
+        presenter.progressToGamePublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in
                 guard let self = self else {return}

@@ -18,14 +18,15 @@ protocol ManageTimerProtocol{
     func start30Timer()
     func stop30Timer()
     func start5Timer(music: String)
-    var progresToGamePublisher: Published<Float>.Publisher { get }
+    var progressToGamePublisher: Published<Float>.Publisher { get }
 }
 
 protocol GamePresenterProtocol: ManageTimerProtocol {
     var numberQuestion: Int { get set }
-    func addToNumberQuestion()
     var questEasyData: [OneQuestionModel] { get set }
     var isLoaded: Bool { get set }
+    
+    func addToNumberQuestion()
 }
 
 final class GamePresenter: GamePresenterProtocol {
@@ -33,11 +34,11 @@ final class GamePresenter: GamePresenterProtocol {
     private let timeManager: TimeManagerProtocol
     private let router: GameRouterProtocol
     
-    @Published var progrees: Float = 0.0
-    var progresToGamePublisher: Published<Float>.Publisher { $progrees }
+    @Published var progress: Float = 0.0
+    var progressToGamePublisher: Published<Float>.Publisher { $progress }
     var questEasyData: [OneQuestionModel] = .init()
-    var isLoaded: Bool = false
-    var numberQuestion: Int = 0
+    var isLoaded = false
+    var numberQuestion = 0
     
     weak var view: GameViewProtocol?
     
@@ -53,11 +54,9 @@ final class GamePresenter: GamePresenterProtocol {
         numberQuestion += 1
     }
     
-    func routeToResult() {
-        router.routeToResult()
-    }
+
     
-    func start30Timer(){
+    func start30Timer() {
         timeManager.startTimer30Seconds()
     }
     
@@ -65,27 +64,32 @@ final class GamePresenter: GamePresenterProtocol {
         timeManager.stopTimer30Seconds()
     }
     
-    func start5Timer(music: String){
+    func start5Timer(music: String) {
         timeManager.startTimer5Seconds(music: music)
     }
     
-    func observeProgressBar(){
+    func observeProgressBar() {
         timeManager.progresPublisher
             .receive(on: DispatchQueue.main)
-            .assign(to: &$progrees)
+            .assign(to: &$progress)
     }
     
     private func getEasyQuestions() {
-          Task{ @MainActor in
-              do{
-                  questEasyData  = [] //чистим для нового запроса
-                  let data = try await gameManager.fetchQuestions(difficulty: .easy)
-                  questEasyData = data
-                  isLoaded = true
-                  view?.setUpUIWhenLoaded()
-              }catch{
-                  print(error.localizedDescription)
-              }
-          }
-      }
+        Task{ @MainActor in
+            do{
+                questEasyData  = [] //чистим для нового запроса
+                let data = try await gameManager.fetchQuestions(difficulty: .easy)
+                questEasyData = data
+                isLoaded = true
+                view?.setUpUIWhenLoaded()
+            }catch{
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+//MARK: - Navigation
+    func routeToResult() {
+        router.routeToResult()
+    }
 }

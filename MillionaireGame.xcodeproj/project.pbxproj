@@ -209,7 +209,6 @@
 				866AAB032B8E7FD600628519 /* NetworkErrors.swift */,
 				866AAB042B8E7FD600628519 /* NetworkManager.swift */,
 				866AAB052B8E7FD600628519 /* QuestionRequest.swift */,
-				866AAB062B8E7FD600628519 /* QuestionsModel.swift */,
 			);
 			path = NetworkLayer;
 			sourceTree = "<group>";
@@ -277,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				E1BE9A362B8B7B100006CB8B /* Modules */,
+				E1F2F0F82B8FB6D800DBE9AF /* Models */,
 				E1BE9A382B8B7EC80006CB8B /* Services */,
 				E1BE9A3B2B8B7F390006CB8B /* Extensions */,
 				E1BE9A372B8B7E6B0006CB8B /* Resources */,
@@ -297,8 +297,8 @@
 		E1BE9A362B8B7B100006CB8B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				8606033C2B8DD07F00EB8A36 /* Game */,
 				E16A44C52B8BCB0300A9C234 /* Home */,
+				8606033C2B8DD07F00EB8A36 /* Game */,
 				522A0A932B8CCDD70041B256 /* Results */,
 			);
 			path = Modules;
@@ -320,7 +320,6 @@
 			isa = PBXGroup;
 			children = (
 				866AAB022B8E7FD600628519 /* NetworkLayer */,
-				36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */,
 				E1BE9A392B8B7EE30006CB8B /* GameManager.swift */,
 				36E7A71E2B8F4C140073E6B4 /* TimerManager.swift */,
 			);
@@ -348,6 +347,15 @@
 				E16A44BD2B8BA32800A9C234 /* zvuk-nepravilnogo-otveta.mp3 */,
 			);
 			path = Musics;
+			sourceTree = "<group>";
+		};
+		E1F2F0F82B8FB6D800DBE9AF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */,
+				866AAB062B8E7FD600628519 /* QuestionsModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

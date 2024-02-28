@@ -22,7 +22,7 @@ final class HomePresenter: HomePresenterProtocol {
     init(router: HomeRouterProtocol) {
         self.router = router
     }
-    
+
     func routeToGame() {
         router.routeToGame()
     }

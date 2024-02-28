@@ -28,7 +28,11 @@ final class GameBuilder: GameBuilderProtocol {
         let networkManager = NetworkManager()
         let timeManager = TimeManager()
         let gameManager = GameManager(networkManager: networkManager)
-        let presenter = GamePresenter(router: router, gameManager: gameManager, timeManager: timeManager)
+        let presenter = GamePresenter(
+            router: router,
+            gameManager: gameManager,
+            timeManager: timeManager
+        )
         viewController.presenter = presenter
         presenter.view = viewController
         
