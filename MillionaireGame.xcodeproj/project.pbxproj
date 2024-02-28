@@ -46,6 +46,9 @@
 		E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */; };
 		E1F2F0E72B8F2BD700DBE9AF /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0E62B8F2BD700DBE9AF /* ButtonFactory.swift */; };
 		E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0E82B8F393900DBE9AF /* Extension + UIView.swift */; };
+		E1F2F1002B8FB83200DBE9AF /* SubTotalPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0FB2B8FB83200DBE9AF /* SubTotalPresenter.swift */; };
+		E1F2F1012B8FB83200DBE9AF /* SubTotalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0FD2B8FB83200DBE9AF /* SubTotalViewController.swift */; };
+		E1F2F1022B8FB83200DBE9AF /* SubTotalBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0FF2B8FB83200DBE9AF /* SubTotalBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +93,9 @@
 		E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIFont.swift"; sourceTree = "<group>"; };
 		E1F2F0E62B8F2BD700DBE9AF /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
 		E1F2F0E82B8F393900DBE9AF /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
+		E1F2F0FB2B8FB83200DBE9AF /* SubTotalPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTotalPresenter.swift; sourceTree = "<group>"; };
+		E1F2F0FD2B8FB83200DBE9AF /* SubTotalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTotalViewController.swift; sourceTree = "<group>"; };
+		E1F2F0FF2B8FB83200DBE9AF /* SubTotalBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubTotalBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -299,6 +305,7 @@
 			children = (
 				E16A44C52B8BCB0300A9C234 /* Home */,
 				8606033C2B8DD07F00EB8A36 /* Game */,
+				E1F2F0F92B8FB83200DBE9AF /* SubTotal */,
 				522A0A932B8CCDD70041B256 /* Results */,
 			);
 			path = Modules;
@@ -356,6 +363,40 @@
 				866AAB062B8E7FD600628519 /* QuestionsModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		E1F2F0F92B8FB83200DBE9AF /* SubTotal */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F0FA2B8FB83200DBE9AF /* Presenter */,
+				E1F2F0FC2B8FB83200DBE9AF /* View */,
+				E1F2F0FE2B8FB83200DBE9AF /* Builder */,
+			);
+			path = SubTotal;
+			sourceTree = "<group>";
+		};
+		E1F2F0FA2B8FB83200DBE9AF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F0FB2B8FB83200DBE9AF /* SubTotalPresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E1F2F0FC2B8FB83200DBE9AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F0FD2B8FB83200DBE9AF /* SubTotalViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1F2F0FE2B8FB83200DBE9AF /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F0FF2B8FB83200DBE9AF /* SubTotalBuilder.swift */,
+			);
+			path = Builder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,18 +483,21 @@
 				E16A44CD2B8BCB7F00A9C234 /* HomePresenter.swift in Sources */,
 				522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */,
 				E1BE9A262B8B7B000006CB8B /* HomeViewController.swift in Sources */,
+				E1F2F1012B8FB83200DBE9AF /* SubTotalViewController.swift in Sources */,
 				E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */,
 				860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */,
 				522A0A9F2B8CCF0C0041B256 /* ResultBuilder.swift in Sources */,
 				866AAB0A2B8E7FD600628519 /* QuestionsModel.swift in Sources */,
 				E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */,
 				860603462B8DD2EC00EB8A36 /* GamePresenter.swift in Sources */,
+				E1F2F1022B8FB83200DBE9AF /* SubTotalBuilder.swift in Sources */,
 				E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
 				E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */,
 				36E7A71F2B8F4C140073E6B4 /* TimerManager.swift in Sources */,
+				E1F2F1002B8FB83200DBE9AF /* SubTotalPresenter.swift in Sources */,
 				866AAB082B8E7FD600628519 /* NetworkManager.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,

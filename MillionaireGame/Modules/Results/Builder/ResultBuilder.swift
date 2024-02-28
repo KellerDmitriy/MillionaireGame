@@ -1,11 +1,6 @@
 import UIKit
 
-protocol ResultBuilderProtocol: AnyObject {
-    func build() -> UIViewController
-    init(navigationController: UINavigationController)
-}
-
-final class ResultBuilder: ResultBuilderProtocol {
+final class ResultBuilder: BuilderProtocol {
     weak var navigationController: UINavigationController?
     
     required init(navigationController: UINavigationController) {
