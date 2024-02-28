@@ -19,7 +19,7 @@ final class SubTotalViewController: UIViewController {
     
     private lazy var continueButton: UIButton = {
         return ButtonFactory.makeButton(
-            title: "Play") { [weak self] in
+            title: "Continue") { [weak self] in
                 self?.continueButtonTap()
             }
     }()
