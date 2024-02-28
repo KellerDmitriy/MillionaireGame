@@ -43,6 +43,8 @@
 		E1BE9A2E2B8B7B010006CB8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1BE9A2C2B8B7B010006CB8B /* LaunchScreen.storyboard */; };
 		E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A392B8B7EE30006CB8B /* GameManager.swift */; };
 		E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */; };
+		E1F2F0E72B8F2BD700DBE9AF /* ButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0E62B8F2BD700DBE9AF /* ButtonFactory.swift */; };
+		E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F0E82B8F393900DBE9AF /* Extension + UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		E1BE9A2F2B8B7B010006CB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1BE9A392B8B7EE30006CB8B /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIFont.swift"; sourceTree = "<group>"; };
+		E1F2F0E62B8F2BD700DBE9AF /* ButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFactory.swift; sourceTree = "<group>"; };
+		E1F2F0E82B8F393900DBE9AF /* Extension + UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UIView.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -325,6 +329,8 @@
 			children = (
 				866AAB0B2B8E7FE600628519 /* Extension + String.swift */,
 				E1BE9A3C2B8B7F930006CB8B /* Extension + UIFont.swift */,
+				E1F2F0E62B8F2BD700DBE9AF /* ButtonFactory.swift */,
+				E1F2F0E82B8F393900DBE9AF /* Extension + UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -435,10 +441,12 @@
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
+				E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */,
 				866AAB082B8E7FD600628519 /* NetworkManager.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,
 				8606034C2B8DF62F00EB8A36 /* CustomHelpButton.swift in Sources */,
+				E1F2F0E72B8F2BD700DBE9AF /* ButtonFactory.swift in Sources */,
 				8606034A2B8DE39000EB8A36 /* CustomAnswerButton.swift in Sources */,
 				860603482B8DD3CF00EB8A36 /* GameBuilder.swift in Sources */,
 				36E7A71B2B8F05920073E6B4 /* OneQuestionModel.swift in Sources */,

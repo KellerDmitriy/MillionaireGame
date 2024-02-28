@@ -90,6 +90,12 @@ final class GameViewController: UIViewController {
         return $0
     }(UIStackView())
     
+    private let progressBar: UIProgressView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.progressTintColor = .orange
+        return $0
+    }(UIProgressView(progressViewStyle: .default))
+    
     //MARK: - Public properties
     var questionNumber = 15
     var questionCost = 100_000_000
@@ -135,7 +141,8 @@ private extension GameViewController {
             questionStackView,
             questionNumberStackView,
             answerButtonStackView,
-            helpButtonStackView
+            helpButtonStackView,
+            progressBar
         ].forEach(view.addSubview(_:))
         
         [logoImageView, questionLabel].forEach({ questionStackView.addArrangedSubview($0) })
@@ -180,6 +187,12 @@ private extension GameViewController {
         NSLayoutConstraint.activate([
             answerButtonStackView.topAnchor.constraint(equalTo: questionNumberStackView.bottomAnchor, constant: 24),
             answerButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            progressBar.topAnchor.constraint(equalTo: answerButtonStackView.bottomAnchor, constant: 20),
+            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
