@@ -14,6 +14,8 @@ protocol GameViewProtocol: AnyObject {
     func startTimer30Sec()
     func cleanUI()
     func changeColorButton(isCorrect: Bool)
+    
+    func helpFiftyFity(result: (String?, String?))
 }
 
 //Presenter
@@ -23,21 +25,23 @@ protocol ManageTimerProtocol{
     func start30Timer()
     func stop30Timer()
     func start5Timer(music: String, completion: @escaping () -> Void)
-    
     func start2Timer( completion: @escaping () -> Void)
-    
-    func routeToSubTotalOrResult(isCorrect: Bool)
 }
 
 protocol GamePresenterProtocol: ManageTimerProtocol {
     var numberQuestion: Int { get }
+    var totalQuestion: Int { get }
     var questData: [OneQuestionModel] { get }
     var isLoaded: Bool { get }
     var userName: String { get }
-    var waitCheckAnswer: Bool { get }
     
+    func setCost() -> String
     func loadEasyMediumHardData()
     func checkAnswer(answer:String)
+    
+    func fifftyFifty()
+    
+    func routeToSubTotalOrResult(isCorrect: Bool)
 }
 
 final class GamePresenter: GamePresenterProtocol {
@@ -48,13 +52,16 @@ final class GamePresenter: GamePresenterProtocol {
     @Published var progress: Float = 0.0
     var progressToGamePublisher: Published<Float>.Publisher { $progress }
     var questData: [OneQuestionModel] = .init()
-    var isLoaded = false
-    var waitCheckAnswer = false
+    var isLoaded = false //для активити индикатора
     
     var numberQuestion = 0
     var totalQuestion: Int
     var difficulty: Difficulty
     var userName = ""
+    
+    private let easyCostArray = ["100","200","300","500","1000"]
+    private let mediumCostArray = ["2000","4000","8000","16000","32000"]
+    private let hardCostArray = ["640000","125000","250000","500000","1000000"]
     
     weak var view: GameViewProtocol?
     
@@ -75,6 +82,21 @@ final class GamePresenter: GamePresenterProtocol {
         
         observeProgressBar()
     }
+    //MARK: - fifftyFifty Help
+    func fifftyFifty(){
+        print("fiftyFifty \( gameManager.helpFiftyFifty(data: questData[numberQuestion]))")
+        view?.helpFiftyFity(result: gameManager.helpFiftyFifty(data: questData[numberQuestion]))
+        //gameManager.helpFiftyFifty(data: questData[numberQuestion])
+    }
+    
+    //MARK: - Set Cost
+    func setCost() -> String{
+        switch difficulty{
+        case .easy: easyCostArray[numberQuestion]
+        case .medium: mediumCostArray[numberQuestion]
+        case .hard: hardCostArray[numberQuestion]
+        }
+    }
     //MARK: - Check Correct Answer or not
     func checkAnswer(answer: String) {
         let correctAnswer = questData[numberQuestion].allAnswers.first(where: \.correct)
@@ -87,12 +109,6 @@ final class GamePresenter: GamePresenterProtocol {
         checkTotalQuestion(totalQuestion: totalQuestion) // если не сделать numberQuestion = 0 то при переходе на другой уровень сложности вызовется view?.setUpUIWhenLoaded() и будет index out of range
         setUPDefaultUI()
     }
-    //MARK: -  Update UI for New Question
-    private func setUPDefaultUI(){
-        timeManager.set30TimerGoToSubtotal()
-        view?.cleanUI()
-        view?.setUpUIWhenLoaded()
-    }
     //MARK: - Dowload Data for difficulty level
     func loadEasyMediumHardData(){
         if totalQuestion == 0 || totalQuestion == 5 || totalQuestion == 10  {
@@ -100,7 +116,7 @@ final class GamePresenter: GamePresenterProtocol {
             getQuestions(difficulty: difficulty)
         }
     }
-    
+    //MARK: - Timer Methods
     func start30Timer() {
         timeManager.startTimer30Seconds()
     }
@@ -116,8 +132,8 @@ final class GamePresenter: GamePresenterProtocol {
     func start2Timer( completion: @escaping () -> Void) {
         timeManager.startTimer2Seconds(completion: completion)
     }
-    
-    func observeProgressBar() {
+    //MARK: -  Observe progrees and CheckTotalQuestion
+    private func observeProgressBar() {
         timeManager.progresPublisher
             .receive(on: DispatchQueue.main)
             .assign(to: &$progress)
@@ -127,6 +143,13 @@ final class GamePresenter: GamePresenterProtocol {
         switch totalQuestion{
         case 5, 10: numberQuestion = 0
         default: numberQuestion += 1 }
+    }
+    
+    //MARK: -  Update UI for New Question
+    private func setUPDefaultUI(){
+        timeManager.set30TimerGoToSubtotal()
+        view?.cleanUI()
+        view?.setUpUIWhenLoaded()
     }
     
     private func getQuestions(difficulty: Difficulty) {
@@ -155,6 +178,5 @@ final class GamePresenter: GamePresenterProtocol {
         } else{
             router.routeToResult()
         }
-        
     }
 }

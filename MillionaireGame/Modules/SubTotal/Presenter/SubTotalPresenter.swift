@@ -12,7 +12,6 @@ protocol SubTotalViewProtocol: AnyObject {
 }
 
 protocol SubTotalPresenterProtocol {
-    //var numberQuestion: Int { get set }
     var userName: String { get }
     var score: Int { get set }
     

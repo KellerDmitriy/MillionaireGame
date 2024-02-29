@@ -38,7 +38,6 @@ final class GameViewController: UIViewController {
     }(UIStackView())
     
     private lazy var questionNumberLabel: UILabel = {
-        $0.text = "Вопрос №\(questionNumber)"
         $0.font = .robotoMedium24()
         $0.textAlignment = .left
         $0.textColor = .white
@@ -46,7 +45,7 @@ final class GameViewController: UIViewController {
     }(UILabel())
     
     private lazy var questionCostLabel: UILabel = {
-        $0.text = "\(questionCost) RUB"
+       // $0.text = "\(questionCost) RUB"
         $0.font = .robotoMedium24()
         $0.textAlignment = .right
         $0.textColor = .white
@@ -95,8 +94,7 @@ final class GameViewController: UIViewController {
     }(UIProgressView(progressViewStyle: .default))
     
     //MARK: - Public properties
-    var questionNumber = 1
-    var questionCost = 100
+    //var questionCost = 100
     var presenter: GamePresenterProtocol!
     
     //MARK: - Lifecycle
@@ -136,6 +134,8 @@ final class GameViewController: UIViewController {
             answerButton.setUptext(text: answer.answerText)
         }
         questionLabel.text = presenter.questData[presenter.numberQuestion].question
+        questionNumberLabel.text = String(presenter.totalQuestion + 1)
+        questionCostLabel.text = presenter.setCost()
     }
     
     //MARK: - Buttons Action
@@ -180,7 +180,7 @@ final class GameViewController: UIViewController {
     
     private func takeTip(_ sender: UIButton){
         switch sender{
-        case fiftyHelpButton: print("fiftyHelpButton") //дергаем метод презентера для подсказок
+        case fiftyHelpButton: presenter.fifftyFifty() //дергаем метод презентера для подсказок
         case phoneHelpButton: print("phoneHelpButton") //дергаем метод презентера для подсказок
         case hostHelpButton: print("hostHelpButton") //дергаем метод презентера для подсказок
             default: print("Default tips")}
@@ -204,6 +204,19 @@ final class GameViewController: UIViewController {
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
+    func helpFiftyFity(result: (String?, String?)) {
+        let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
+        for button in arrayButtons{
+            if let correctAnswer = result.0, button.anwerText == correctAnswer {
+                button.setBackgroundImage(.blueViewBackground, for: .normal)
+            } else if let incorrectAnswer = result.1, button.anwerText == incorrectAnswer {
+                button.setBackgroundImage(.blueViewBackground, for: .normal)
+            } else {
+                button.setBackgroundImage(.yellowViewBackground, for: .normal)
+            }
+        }
+    }
+    
     func changeColorButton(isCorrect: Bool) {
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
         for button in arrayButtons{

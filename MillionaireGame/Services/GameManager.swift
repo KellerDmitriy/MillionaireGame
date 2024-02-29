@@ -9,6 +9,7 @@ import Foundation
 
 protocol GameManagerProtocol{    
     func fetchQuestions(difficulty: Difficulty) async throws -> [OneQuestionModel]
+    func helpFiftyFifty(data: OneQuestionModel) -> (String?, String?)
 }
 
 final class GameManager{
@@ -86,5 +87,11 @@ extension GameManager: GameManagerProtocol{
         let result = try await networkManager.request(request)
         let arrayQustionsShuffle = getArrayQustionsShuffle(result: result.results)
         return arrayQustionsShuffle
+    }
+    func helpFiftyFifty(data: OneQuestionModel) -> (String?, String?){
+        let correctAnswer = data.allAnswers.first(where: \.correct)
+        let incorrectAnswers = data.allAnswers.filter { !$0.correct }
+        let randomIncorrectAnswer = incorrectAnswers.randomElement()
+        return (correctAnswer?.answerText, randomIncorrectAnswer?.answerText)
     }
 }
