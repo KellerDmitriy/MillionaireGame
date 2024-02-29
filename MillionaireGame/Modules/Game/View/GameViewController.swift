@@ -6,15 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 final class GameViewController: UIViewController {
-    
     //MARK: - Private properties
-    private let backgroundImageView: UIImageView = {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-        $0.image = .backgroundCrowd
-        return $0
-    }(UIImageView())
+    private var cancellables = Set<AnyCancellable>()
     
     private let logoImageView: UIImageView = {
         $0.image = .logo
@@ -25,7 +21,7 @@ final class GameViewController: UIViewController {
     private let questionLabel: UILabel = {
         $0.font = .robotoMedium24()
         $0.numberOfLines = 0
-        $0.text = "TEST TEST TEST TEST TEST"
+        $0.text = ""
         $0.textColor = .white
         $0.textAlignment = .left
         $0.adjustsFontSizeToFitWidth = true
@@ -65,10 +61,10 @@ final class GameViewController: UIViewController {
         return $0
     }(UIStackView())
     
-    private let aAnswerButton = CustomAnswerButton(letter: "A:")
-    private let bAnswerButton = CustomAnswerButton(letter: "B:")
-    private let cAnswerButton = CustomAnswerButton(letter: "C:")
-    private let dAnswerButton = CustomAnswerButton(letter: "D:")
+    private let aAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "A")
+    private let bAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "B")
+    private let cAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "C")
+    private let dAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "D")
     
     private let answerButtonStackView: UIStackView = {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -90,9 +86,15 @@ final class GameViewController: UIViewController {
         return $0
     }(UIStackView())
     
+    private let progressBar: UIProgressView = {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.progressTintColor = .orange
+        return $0
+    }(UIProgressView(progressViewStyle: .default))
+    
     //MARK: - Public properties
-    var questionNumber = 15
-    var questionCost = 100_000_000
+    var questionNumber = 1
+    var questionCost = 100
     var presenter: GamePresenterProtocol!
     
     //MARK: - Lifecycle
@@ -107,28 +109,98 @@ final class GameViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        cancellables = Set<AnyCancellable>() //вроде бы при deinit экрана cancellables тоже deinit и тогда это не нужно
+    }
+    //MARK: - SetUp UI Text
+    func setUpUIText(){
+        for (index, answer) in presenter.questEasyData[presenter.numberQuestion].allAnswers.enumerated() {
+            let answerButton = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton][index]
+            answerButton.setUptext(text: answer.answerText)
+        }
+        questionLabel.text = presenter.questEasyData[presenter.numberQuestion].question
+    }
+    
+    //MARK: - Buttons Action
+    private func observeProgress(){
+        presenter.progressToGamePublisher
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] progress in
+                guard let self = self else {return}
+                progressBar.progress = progress
+            }
+            .store(in: &cancellables)
+    }
+    
+    private func addTargetButtons(){
+        aAnswerButton.addTarget(self, action: #selector(didTapAnswerButton(_:)), for: .touchUpInside)
+        bAnswerButton.addTarget(self, action: #selector(didTapAnswerButton(_:)), for: .touchUpInside)
+        cAnswerButton.addTarget(self, action: #selector(didTapAnswerButton(_:)), for: .touchUpInside)
+        dAnswerButton.addTarget(self, action: #selector(didTapAnswerButton(_:)), for: .touchUpInside)
+        
+        fiftyHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
+        phoneHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
+        hostHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func didTapAnswerButton(_ sender: UIButton) {
+        presenter.stop30Timer()
+        presenter.start5Timer(music: "otvet-prinyat")
+        switch sender{
+        case aAnswerButton: print(aAnswerButton.anwerText) 
+            presenter.routeToSubTotal()//дергаем метод презентера для сравнения
+        case bAnswerButton: print(bAnswerButton.anwerText)
+            presenter.routeToSubTotal()
+        case cAnswerButton: print(cAnswerButton.anwerText)
+            presenter.routeToSubTotal()
+        case dAnswerButton: print(dAnswerButton.anwerText)
+            default: print("Default Answers tapped")}
+    }
+    
+    
+    @objc func testTimer(_ sender: UIButton) {
+        presenter.stop30Timer()
+        takeTip(sender)
+    }
+    
+    private func takeTip(_ sender: UIButton){
+        switch sender{
+        case fiftyHelpButton: print("fiftyHelpButton") //дергаем метод презентера для подсказок
+        case phoneHelpButton: print("phoneHelpButton") //дергаем метод презентера для подсказок
+        case hostHelpButton: print("hostHelpButton") //дергаем метод презентера для подсказок
+            default: print("Default tips")}
+        presenter.start30Timer()
     }
 }
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
-    
+    func setUpUIWhenLoaded() {
+        addTargetButtons()
+        observeProgress()
+        print("presenter easyData \(presenter.questEasyData)")
+        setUpUIText()
+        presenter.start30Timer()
+    }
 }
 
 //MARK: - GameViewController
 private extension GameViewController {
     
     func setupUI() {
+        view.addVerticalGradientLayer()
         [
-            backgroundImageView,
             questionStackView,
             questionNumberStackView,
             answerButtonStackView,
-            helpButtonStackView
+            helpButtonStackView,
+            progressBar
         ].forEach(view.addSubview(_:))
         
         [logoImageView, questionLabel].forEach({ questionStackView.addArrangedSubview($0) })
@@ -144,12 +216,6 @@ private extension GameViewController {
     }
     
     func setConstraints() {
-        NSLayoutConstraint.activate([
-            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-        ])
         
         NSLayoutConstraint.activate([
             logoImageView.heightAnchor.constraint(equalToConstant: 86),
@@ -174,9 +240,14 @@ private extension GameViewController {
         ])
         
         NSLayoutConstraint.activate([
+            progressBar.topAnchor.constraint(equalTo: answerButtonStackView.bottomAnchor, constant: 20),
+            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
             helpButtonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -24),
             helpButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    
 }

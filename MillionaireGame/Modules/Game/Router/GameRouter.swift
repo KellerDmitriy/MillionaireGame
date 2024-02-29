@@ -9,7 +9,7 @@ import UIKit
 
 protocol GameRouterProtocol: AnyObject {
     func routeToResult()
-    func routeToListQuestions()
+    func routeToListQuestions(userName: String, numberQuestion: Int)
 }
 
 final class GameRouter: GameRouterProtocol {
@@ -20,10 +20,15 @@ final class GameRouter: GameRouterProtocol {
     }
     
     func routeToResult() {
-        //TODO: - Реализация перехода на финальный экран результатов
+        guard let navigationController else { return }
+        let resultViewController = ResultBuilder(navigationController: navigationController).build()
+        navigationController.pushViewController(resultViewController, animated: true)
     }
     
-    func routeToListQuestions() {
-        //TODO: - Реализация перехода на экран со списком вопросов
+    func routeToListQuestions(userName: String, numberQuestion: Int) {
+        guard let navigationController else { return }
+        
+        let subTotalViewController = SubTotalBuilder(navigationController: navigationController).build(userName: userName, numberQuestion: numberQuestion)
+        navigationController.pushViewController(subTotalViewController, animated: true)
     }
 }

@@ -25,7 +25,7 @@ final class HomePresenter: HomePresenterProtocol {
     }
     
     func startGame() {
-        router.routeToGame()
+        router.routeToAuth()
     }
     
     func showRules() {

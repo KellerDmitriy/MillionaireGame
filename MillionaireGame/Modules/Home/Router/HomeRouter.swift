@@ -8,7 +8,7 @@
 import UIKit
 
 protocol HomeRouterProtocol: AnyObject {
-    func routeToGame()
+    func routeToAuth()
     func routeToRules(rulesText: String)
 }
 
@@ -19,7 +19,7 @@ final class HomeRouter: HomeRouterProtocol {
         self.navigationController = navigationController
     }
     
-    func routeToGame() {
+    func routeToAuth() {
         guard let navigationController else { return }
         let authViewController = AuthBuilder(navigationController: navigationController).build()
         navigationController.pushViewController(authViewController, animated: true)

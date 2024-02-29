@@ -13,6 +13,8 @@ final class ResultRouter: ResultRouterProtocol {
     
     //переход на Экран игры / Главный Экран
     func routeToGame() {
-        
+        guard let navigationController else { return }
+        let homeViewController = HomeBuilder(navigationController: navigationController).build()
+        navigationController.pushViewController(homeViewController, animated: true)
     }
 }

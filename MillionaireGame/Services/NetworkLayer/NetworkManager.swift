@@ -34,10 +34,10 @@ final class NetworkManager: NetworkMangerProtocol {
             print("url \(request.url)")
             print("statusCode \(response)")
             throw NetworkErrors.invalidResponse}
-        do{
+        do {
             let questionInfo = try request.decode(data)
             return questionInfo
-        }catch{
+        } catch {
             throw NetworkErrors.invalidData
         }
     }
