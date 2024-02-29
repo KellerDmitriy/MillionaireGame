@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GameBuilderProtocol: AnyObject {
-    func build(userName: String) -> UIViewController
+    func build(userName: String,difficulty: Difficulty, totalQuestion: Int) -> UIViewController
     init(navigationController: UINavigationController)
 }
 
@@ -19,7 +19,7 @@ final class GameBuilder: GameBuilderProtocol {
         self.navigationController = navigationController
     }
     
-    func build(userName: String) -> UIViewController {
+    func build(userName: String, difficulty: Difficulty, totalQuestion: Int) -> UIViewController {
         guard let navigationController else {
             fatalError("GameBuilder requires a valid navigationController")
         }
@@ -31,7 +31,9 @@ final class GameBuilder: GameBuilderProtocol {
         let presenter = GamePresenter(
             userName: userName, router: router,
             gameManager: gameManager,
-            timeManager: timeManager
+            timeManager: timeManager,
+            totalQuestion: totalQuestion,
+            difficulty: difficulty
         )
         viewController.presenter = presenter
         presenter.view = viewController

@@ -32,12 +32,14 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
     var questData: [OneQuestionModel] { get set }
     var isLoaded: Bool { get set }
     var userName: String { get }
-    func addToNumberQuestion()
+    func tapOnAnswerButton()
     var waitCheckAnswer: Bool { get set }
+    
+    func loadEasyMediumHardData()
 }
 
 final class GamePresenter: GamePresenterProtocol {
-
+    
     private let gameManager: GameManagerProtocol
     private let timeManager: TimeManagerProtocol
     private let router: GameRouterProtocol
@@ -47,37 +49,46 @@ final class GamePresenter: GamePresenterProtocol {
     var questData: [OneQuestionModel] = .init()
     var isLoaded = false
     var waitCheckAnswer = false
+    
     var numberQuestion = 0
-    private var tottalQuestion = 0
+    var totalQuestion: Int
+    var difficulty: Difficulty
     var userName = ""
+    
     weak var view: GameViewProtocol?
     
     init(userName: String,
          router: GameRouterProtocol,
          gameManager: GameManagerProtocol,
-         timeManager: TimeManagerProtocol
+         timeManager: TimeManagerProtocol,
+         totalQuestion: Int,
+         difficulty: Difficulty
+         
     ) {
         self.userName = userName
         self.router = router
         self.gameManager = gameManager
         self.timeManager = timeManager
+        self.totalQuestion = totalQuestion
+        self.difficulty = difficulty
         
         observeProgressBar()
-        getQuestions(difficulty: .easy)
     }
-    
-    func addToNumberQuestion() {
-        tottalQuestion += 1
-        if !checkDifficulty() {
-            print("add")
-            numberQuestion += 1
-        } else{
-            print("not add")
-            numberQuestion = 0
-        }
+    //MARK: - Check totalQuestion and Update UI for New Question
+    func tapOnAnswerButton() {
+        totalQuestion += 1
+        checkTotalQuestion(totalQuestion: totalQuestion) // если не сделать numberQuestion = 0 то при переходе на другой уровень сложности вызовется view?.setUpUIWhenLoaded() и будет index out of range
         timeManager.set30TimerGoToSubtotal()
         view?.cleanUI()
         view?.setUpUIWhenLoaded()
+    }
+    
+    //MARK: - Dowload Data for difficulty level
+    func loadEasyMediumHardData(){
+        if totalQuestion == 0 || totalQuestion == 5 || totalQuestion == 10  {
+            print("load \(difficulty)")
+            getQuestions(difficulty: difficulty)
+        }
     }
     
     func start30Timer() {
@@ -98,15 +109,10 @@ final class GamePresenter: GamePresenterProtocol {
             .assign(to: &$progress)
     }
     
-    private func checkDifficulty() -> Bool {
-        if tottalQuestion == 5 {
-            getQuestionsMediumHard(difficulty: .medium)
-            return true
-        } else if tottalQuestion == 10 {
-            getQuestionsMediumHard(difficulty: .hard)
-            return true
-        }
-        return false
+    private func checkTotalQuestion(totalQuestion: Int){
+        switch totalQuestion{
+        case 5, 10: numberQuestion = 0
+        default: numberQuestion += 1 }
     }
     
     private func getQuestions(difficulty: Difficulty) {
@@ -127,26 +133,9 @@ final class GamePresenter: GamePresenterProtocol {
         }
     }
     
-    private func getQuestionsMediumHard(difficulty: Difficulty) {
-        isLoaded = false
-        Task{ @MainActor in
-            do{
-                questData  = [] //чистим для нового запроса
-                let data = try await gameManager.fetchQuestions(difficulty: difficulty)
-                questData = data
-                print("difficulty \(difficulty) question Data \(questData)")
-                isLoaded = true
-                view?.setUpUIWhenLoaded()
-                view?.activityIndicStop()
-            }catch{
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-//MARK: - Navigation
+    //MARK: - Navigation
     func routeToSubTotal() {
-        router.routeToListQuestions(userName: userName, numberQuestion: tottalQuestion)
+        router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion)
     }
     
     func routeToResult() {

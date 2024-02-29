@@ -102,6 +102,8 @@ final class GameViewController: UIViewController {
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        observeProgress()
+        configActivityIndecator()
         setupUI()
         setConstraints()
     }
@@ -111,8 +113,14 @@ final class GameViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: animated)
         if !presenter.isLoaded{
             activityIndicator.startAnimating()
-        } else{
-            presenter.start30Timer() //когда возвращаемся с subTotal , предварительно обнулив все его счетчики
+        }
+        presenter.loadEasyMediumHardData()// проверка уровня сложности
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if presenter.isLoaded{ //когда возвращаемся с subTotal, и новые данные не подгружаем
+            presenter.start30Timer()
         }
     }
     
@@ -121,10 +129,6 @@ final class GameViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        //cancellables = Set<AnyCancellable>() // не нужно иначе при возврате с subTotal не будет срабатывать progreeBar (не будет работать observeProgress() в setUpUIWhenLoaded())
-    }
     //MARK: - SetUp UI Text
     func setUpUIText(){
         for (index, answer) in presenter.questData[presenter.numberQuestion].allAnswers.enumerated() {
@@ -140,7 +144,7 @@ final class GameViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in
                 guard let self = self else {return}
-               // print("progress from vc \(progress)")
+                //print("progress from vc \(progress)")
                 progressBar.progress = progress
             }
             .store(in: &cancellables)
@@ -156,6 +160,7 @@ final class GameViewController: UIViewController {
         phoneHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
         hostHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
     }
+    
     @objc private func didTapAnswerButton(_ sender: UIButton) {
         presenter.stop30Timer()
         presenter.start5Timer(music: "otvet-prinyat", completion: { [weak self] in
@@ -163,19 +168,19 @@ final class GameViewController: UIViewController {
             switch sender {
             case self.aAnswerButton:
                 print(self.aAnswerButton.anwerText)
-                self.presenter.addToNumberQuestion()
+                self.presenter.tapOnAnswerButton()
                 self.presenter.routeToSubTotal() // дергаем метод презентера для сравнения
             case self.bAnswerButton:
                 print(self.bAnswerButton.anwerText)
-                self.presenter.addToNumberQuestion()
+                self.presenter.tapOnAnswerButton()
                 self.presenter.routeToSubTotal()
             case self.cAnswerButton:
                 print(self.cAnswerButton.anwerText)
-                self.presenter.addToNumberQuestion()
+                self.presenter.tapOnAnswerButton()
                 self.presenter.routeToSubTotal()
             case self.dAnswerButton:
                 print(self.dAnswerButton.anwerText)
-                self.presenter.addToNumberQuestion()
+                self.presenter.tapOnAnswerButton()
                 self.presenter.routeToSubTotal()
             default:
                 print("Default Answers tapped")
@@ -207,7 +212,6 @@ final class GameViewController: UIViewController {
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
     func cleanUI() {
-        //progressBar.progress = 0
         normalStateForHelpButton()
     }
     
@@ -221,14 +225,17 @@ extension GameViewController: GameViewProtocol {
     
     func setUpUIWhenLoaded() {
         addTargetButtons()
-        observeProgress()
-//        print("presenter easyData \(presenter.questData)")
         setUpUIText()
     }
 }
 
 //MARK: - GameViewController
 private extension GameViewController {
+    func configActivityIndecator(){
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.style = .large
+        activityIndicator.color = .purple
+    }
     
     func setupUI() {
         view.addVerticalGradientLayer()
@@ -253,9 +260,6 @@ private extension GameViewController {
     }
     
     func setConstraints() {
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        activityIndicator.style = .large
-        activityIndicator.color = .purple
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
         

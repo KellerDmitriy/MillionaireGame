@@ -21,7 +21,7 @@ final class AuthRouter: AuthRouterProtocol {
     
     func routeToGame(userName: String) {
         guard let navigationController else { return }
-        let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName)
+        let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName, difficulty: .easy, totalQuestion: 0)
         navigationController.pushViewController(gameViewController, animated: true)
     }
 }

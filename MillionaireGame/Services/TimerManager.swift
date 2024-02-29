@@ -62,19 +62,20 @@ final class TimeManager: TimeManagerProtocol{
     func set30TimerGoToSubtotal() {
         count30SecondsTotal = 30
         passSeconds30 = 0
-        timer30Seconds.invalidate()
+        progrees = 0
         playerStop()
+        timer30Seconds.invalidate()
     }
     
     private func update30Timer() {
-        //print(count30SecondsTotal)
+        //print("progress from timeManager start \(progrees)")
         count30SecondsTotal -= 1
         passSeconds30 += 1
         progrees = Float(passSeconds30) / Float(totalSecondsProgress)
-        //print("progress from timeManager \(progrees)")
+        //print("progress from timeManager finish \(progrees)")
         if count30SecondsTotal == 0 {
-            playerStop()
             passSeconds30 = 0
+            playerStop()
             timer30Seconds.invalidate()
         }
     }
@@ -96,7 +97,7 @@ final class TimeManager: TimeManagerProtocol{
             player = try AVAudioPlayer(contentsOf: url!)
             player?.play()
         } catch {
-            print("30SecondsTimer error")
+            print("Timer error")
         }
     }
     
