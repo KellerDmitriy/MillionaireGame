@@ -18,20 +18,26 @@ final class GameManager{
         self.networkManager = networkManager
     }
     
-    private func getArrayQustionsShuffle(result: [Result]) -> [OneQuestionModel]{
+    private func getArrayQustionsShuffle(result: [Result]) -> [OneQuestionModel] {
         var questionsArray: [OneQuestionModel] = []
-        var allAnswerss: [Answers] = []
-        for element in result{
-            for incorrectAnswer in element.incorrectAnswers{
-                allAnswerss.append(Answers(answerText: incorrectAnswer, correct: false))
+
+        for element in result {
+            var allAnswerss: [Answers] = []
+
+            for incorrectAnswer in element.incorrectAnswers {
+                let cleanInCorrectAnswer = cleanHtmlEntities(from: incorrectAnswer)
+                allAnswerss.append(Answers(answerText: cleanInCorrectAnswer, correct: false))
             }
+            let cleanCorrectAnswer = cleanHtmlEntities(from: element.correctAnswer)
+            allAnswerss.append(Answers(answerText: cleanCorrectAnswer, correct: true))
             let cleanQuestion = cleanHtmlEntities(from: element.question)
-            allAnswerss.append(Answers(answerText: element.correctAnswer, correct: true))
             allAnswerss.shuffle()
             questionsArray.append(OneQuestionModel(question: cleanQuestion, allAnswers: allAnswerss))
         }
+
         return questionsArray
     }
+   
     
     private func cleanHtmlEntities(from htmlEncodedString: String) -> String {
         var cleanedString = htmlEncodedString

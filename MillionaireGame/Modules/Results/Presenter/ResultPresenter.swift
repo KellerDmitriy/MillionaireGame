@@ -24,7 +24,7 @@ final class ResultPresenter: ResultPresenterProtocol {
         self.view?.setResult(result: true, count: 1)
     }
     
-    
+    //MARK: - Navigation
     func showGame() {
         router.routeToGame()
     }
