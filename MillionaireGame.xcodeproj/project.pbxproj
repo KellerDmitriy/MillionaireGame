@@ -18,6 +18,10 @@
 		522A0AA82B8D40C10041B256 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 522A0AA72B8D40C10041B256 /* Roboto-Black.ttf */; };
 		522A0AAA2B8D40C90041B256 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 522A0AA92B8D40C90041B256 /* Roboto-Bold.ttf */; };
 		522A0AAC2B8D40D20041B256 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 522A0AAB2B8D40D20041B256 /* Roboto-Regular.ttf */; };
+		579DE32E2B90B93600A95FC6 /* GreenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579DE32C2B90B93500A95FC6 /* GreenCell.swift */; };
+		579DE32F2B90B93600A95FC6 /* BlueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579DE32D2B90B93600A95FC6 /* BlueCell.swift */; };
+		579DE3312B90D51B00A95FC6 /* PurpleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579DE3302B90D51B00A95FC6 /* PurpleCell.swift */; };
+		579DE3332B90D52800A95FC6 /* YellowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 579DE3322B90D52800A95FC6 /* YellowCell.swift */; };
 		860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860603412B8DD0F100EB8A36 /* GameViewController.swift */; };
 		860603442B8DD15F00EB8A36 /* GameRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860603432B8DD15F00EB8A36 /* GameRouter.swift */; };
 		860603462B8DD2EC00EB8A36 /* GamePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860603452B8DD2EC00EB8A36 /* GamePresenter.swift */; };
@@ -69,6 +73,10 @@
 		522A0AA72B8D40C10041B256 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		522A0AA92B8D40C90041B256 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		522A0AAB2B8D40D20041B256 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		579DE32C2B90B93500A95FC6 /* GreenCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreenCell.swift; sourceTree = "<group>"; };
+		579DE32D2B90B93600A95FC6 /* BlueCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlueCell.swift; sourceTree = "<group>"; };
+		579DE3302B90D51B00A95FC6 /* PurpleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurpleCell.swift; sourceTree = "<group>"; };
+		579DE3322B90D52800A95FC6 /* YellowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YellowCell.swift; sourceTree = "<group>"; };
 		860603412B8DD0F100EB8A36 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		860603432B8DD15F00EB8A36 /* GameRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRouter.swift; sourceTree = "<group>"; };
 		860603452B8DD2EC00EB8A36 /* GamePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamePresenter.swift; sourceTree = "<group>"; };
@@ -357,6 +365,10 @@
 		E1F2F0FC2B8FB83200DBE9AF /* View */ = {
 			isa = PBXGroup;
 			children = (
+				579DE32D2B90B93600A95FC6 /* BlueCell.swift */,
+				579DE32C2B90B93500A95FC6 /* GreenCell.swift */,
+				579DE3322B90D52800A95FC6 /* YellowCell.swift */,
+				579DE3302B90D51B00A95FC6 /* PurpleCell.swift */,
 				E1F2F0FD2B8FB83200DBE9AF /* SubTotalViewController.swift */,
 			);
 			path = View;
@@ -551,11 +563,13 @@
 				E1F2F11A2B8FCEB500DBE9AF /* AuthViewController.swift in Sources */,
 				E1F2F11C2B8FCEB500DBE9AF /* AuthRouter.swift in Sources */,
 				E1F2F1012B8FB83200DBE9AF /* SubTotalViewController.swift in Sources */,
+				579DE32E2B90B93600A95FC6 /* GreenCell.swift in Sources */,
 				860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */,
 				522A0A9F2B8CCF0C0041B256 /* ResultBuilder.swift in Sources */,
 				866AAB0A2B8E7FD600628519 /* QuestionsModel.swift in Sources */,
 				E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */,
 				860603462B8DD2EC00EB8A36 /* GamePresenter.swift in Sources */,
+				579DE3312B90D51B00A95FC6 /* PurpleCell.swift in Sources */,
 				E1F2F1022B8FB83200DBE9AF /* SubTotalBuilder.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				E1F2F11B2B8FCEB500DBE9AF /* AuthBuilder.swift in Sources */,
@@ -565,6 +579,8 @@
 				E1F2F12D2B90970300DBE9AF /* HomeBuilder.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
 				E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */,
+				579DE32F2B90B93600A95FC6 /* BlueCell.swift in Sources */,
+				579DE3332B90D52800A95FC6 /* YellowCell.swift in Sources */,
 				36E7A71F2B8F4C140073E6B4 /* TimerManager.swift in Sources */,
 				E1F2F1002B8FB83200DBE9AF /* SubTotalPresenter.swift in Sources */,
 				866AAB082B8E7FD600628519 /* NetworkManager.swift in Sources */,
