@@ -8,7 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		36E7A71B2B8F05920073E6B4 /* OneQuestionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */; };
-		3DE166572B9078B600276BA1 /* Home in Resources */ = {isa = PBXBuildFile; fileRef = 3DE166562B9078B600276BA1 /* Home */; };
+		3DE166622B907A0D00276BA1 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1665A2B907A0D00276BA1 /* HomePresenter.swift */; };
+		3DE166632B907A0D00276BA1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1665C2B907A0D00276BA1 /* HomeViewController.swift */; };
+		3DE166642B907A0D00276BA1 /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1665D2B907A0D00276BA1 /* RulesViewController.swift */; };
+		3DE166652B907A0D00276BA1 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE1665F2B907A0D00276BA1 /* HomeBuilder.swift */; };
+		3DE166662B907A0D00276BA1 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE166612B907A0D00276BA1 /* HomeRouter.swift */; };
 		522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A982B8CCE330041B256 /* ResultViewController.swift */; };
 		522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A9A2B8CCE640041B256 /* ResultPresenter.swift */; };
 		522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522A0A9C2B8CCEAC0041B256 /* ResultRouter.swift */; };
@@ -44,7 +48,11 @@
 
 /* Begin PBXFileReference section */
 		36E7A71A2B8F05920073E6B4 /* OneQuestionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneQuestionModel.swift; sourceTree = "<group>"; };
-		3DE166562B9078B600276BA1 /* Home */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Home; sourceTree = "<group>"; };
+		3DE1665A2B907A0D00276BA1 /* HomePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		3DE1665C2B907A0D00276BA1 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		3DE1665D2B907A0D00276BA1 /* RulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
+		3DE1665F2B907A0D00276BA1 /* HomeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
+		3DE166612B907A0D00276BA1 /* HomeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		522A0A982B8CCE330041B256 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		522A0A9A2B8CCE640041B256 /* ResultPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultPresenter.swift; sourceTree = "<group>"; };
 		522A0A9C2B8CCEAC0041B256 /* ResultRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultRouter.swift; sourceTree = "<group>"; };
@@ -91,6 +99,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3DE166582B907A0D00276BA1 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				3DE166592B907A0D00276BA1 /* Presenter */,
+				3DE1665B2B907A0D00276BA1 /* View */,
+				3DE1665E2B907A0D00276BA1 /* Builder */,
+				3DE166602B907A0D00276BA1 /* Router */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		3DE166592B907A0D00276BA1 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				3DE1665A2B907A0D00276BA1 /* HomePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		3DE1665B2B907A0D00276BA1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3DE1665C2B907A0D00276BA1 /* HomeViewController.swift */,
+				3DE1665D2B907A0D00276BA1 /* RulesViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3DE1665E2B907A0D00276BA1 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				3DE1665F2B907A0D00276BA1 /* HomeBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		3DE166602B907A0D00276BA1 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				3DE166612B907A0D00276BA1 /* HomeRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 		522A0A932B8CCDD70041B256 /* Results */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,7 +201,7 @@
 		8606033C2B8DD07F00EB8A36 /* Game */ = {
 			isa = PBXGroup;
 			children = (
-				3DE166562B9078B600276BA1 /* Home */,
+				3DE166582B907A0D00276BA1 /* Home */,
 				8606033D2B8DD08F00EB8A36 /* Builder */,
 				8606033E2B8DD09500EB8A36 /* View */,
 				8606033F2B8DD09C00EB8A36 /* Presenter */,
@@ -354,7 +406,6 @@
 				E16A44C12B8BA32900A9C234 /* otvet-vernyiy.mp3 in Resources */,
 				E16A44C22B8BA32900A9C234 /* zvuk-nepravilnogo-otveta.mp3 in Resources */,
 				E1BE9A2E2B8B7B010006CB8B /* LaunchScreen.storyboard in Resources */,
-				3DE166572B9078B600276BA1 /* Home in Resources */,
 				522A0AAA2B8D40C90041B256 /* Roboto-Bold.ttf in Resources */,
 				E16A44C02B8BA32900A9C234 /* bolee-kachestvennyiy-zvuk.mp3 in Resources */,
 				522A0AAC2B8D40D20041B256 /* Roboto-Regular.ttf in Resources */,
@@ -373,16 +424,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DE166622B907A0D00276BA1 /* HomePresenter.swift in Sources */,
 				860603442B8DD15F00EB8A36 /* GameRouter.swift in Sources */,
 				522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */,
 				860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */,
 				522A0A9F2B8CCF0C0041B256 /* ResultBuilder.swift in Sources */,
 				866AAB0A2B8E7FD600628519 /* QuestionsModel.swift in Sources */,
+				3DE166642B907A0D00276BA1 /* RulesViewController.swift in Sources */,
 				E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */,
+				3DE166632B907A0D00276BA1 /* HomeViewController.swift in Sources */,
 				860603462B8DD2EC00EB8A36 /* GamePresenter.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
+				3DE166652B907A0D00276BA1 /* HomeBuilder.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
+				3DE166662B907A0D00276BA1 /* HomeRouter.swift in Sources */,
 				866AAB082B8E7FD600628519 /* NetworkManager.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,
