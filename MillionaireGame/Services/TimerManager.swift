@@ -11,6 +11,7 @@ import AVFoundation
 protocol TimeManagerProtocol{
     func startTimer30Seconds()
     func startTimer5Seconds(music: String, completion: @escaping () -> Void)
+    func startTimer2Seconds(completion: @escaping () -> Void)
     func stopTimer30Seconds()
     func stop5Seconds()
     func set30TimerGoToSubtotal()
@@ -28,7 +29,11 @@ final class TimeManager: TimeManagerProtocol{
     
     private var timer5SecondsGame = Timer()
     private var pass5SecondsGame = 0
-    private var completionHandler: (() -> Void)?
+    private var completionHandler5Sec: (() -> Void)?
+    
+    private var timer2SecondsGame = Timer()
+    private var pass2SecondsGame = 0
+    private var completionHandler2Sec: (() -> Void)?
     
     
     private var player: AVAudioPlayer?
@@ -40,13 +45,19 @@ final class TimeManager: TimeManagerProtocol{
     }
     
     func startTimer5Seconds(music: String, completion: @escaping () -> Void) {
-        self.completionHandler = completion
+        self.completionHandler5Sec = completion
         timer5SecondsGame = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.update5SecondsTimer()
         }
         playerStart(resource: music)
     }
     
+    func startTimer2Seconds(completion: @escaping () -> Void) {
+        self.completionHandler2Sec = completion
+        timer2SecondsGame = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.update2SecondsTimer()
+        }
+    }
     
     func stopTimer30Seconds() {
         timer30Seconds.invalidate()
@@ -87,7 +98,16 @@ final class TimeManager: TimeManagerProtocol{
             playerStop()
             pass5SecondsGame = 0
             timer5SecondsGame.invalidate()
-            completionHandler?()
+            completionHandler5Sec?()
+        }
+    }
+    
+    private func update2SecondsTimer() {
+        pass2SecondsGame += 1
+        if pass2SecondsGame == 2 {
+            pass2SecondsGame = 0
+            timer2SecondsGame.invalidate()
+            completionHandler2Sec?()
         }
     }
         

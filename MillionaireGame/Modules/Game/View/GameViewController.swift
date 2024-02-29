@@ -131,7 +131,7 @@ final class GameViewController: UIViewController {
     
     //MARK: - SetUp UI Text
     func setUpUIText(){
-        for (index, answer) in presenter.questData[presenter.numberQuestion].allAnswers.enumerated() {
+        for (index, answer) in presenter.questData[presenter.numberQuestion].allAnswers.enumerated() { // перенести в презентер
             let answerButton = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton][index]
             answerButton.setUptext(text: answer.answerText)
         }
@@ -162,28 +162,13 @@ final class GameViewController: UIViewController {
     }
     
     @objc private func didTapAnswerButton(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected //меняем состояние у нажатой кнопки чтобы потом перекрасить
         presenter.stop30Timer()
         presenter.start5Timer(music: "otvet-prinyat", completion: { [weak self] in
             guard let self = self else { return }
-            switch sender {
-            case self.aAnswerButton:
-                print(self.aAnswerButton.anwerText)
-                self.presenter.tapOnAnswerButton()
-                self.presenter.routeToSubTotal() // дергаем метод презентера для сравнения
-            case self.bAnswerButton:
-                print(self.bAnswerButton.anwerText)
-                self.presenter.tapOnAnswerButton()
-                self.presenter.routeToSubTotal()
-            case self.cAnswerButton:
-                print(self.cAnswerButton.anwerText)
-                self.presenter.tapOnAnswerButton()
-                self.presenter.routeToSubTotal()
-            case self.dAnswerButton:
-                print(self.dAnswerButton.anwerText)
-                self.presenter.tapOnAnswerButton()
-                self.presenter.routeToSubTotal()
-            default:
-                print("Default Answers tapped")
+            let button = sender as? CustomAnswerButton
+            button.map(\.anwerText).map {
+                self.presenter.checkAnswer(answer: $0)
             }
         })
     }
@@ -207,12 +192,34 @@ final class GameViewController: UIViewController {
         phoneHelpButton.setBackgroundImage(.phone, for: .normal)
         hostHelpButton.setBackgroundImage(.host, for: .normal)
     }
+    
+    private func setDefaultBackGroundForAnswerButtons(){
+        let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
+        for button in arrayButtons {
+            button.setBackgroundImage(.blueViewBackground, for: .normal)
+            button.isSelected = false
+        }
+    }
 }
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
+    func changeColorButton(isCorrect: Bool) {
+        let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
+        for button in arrayButtons{
+            if button.isSelected{ // если кнопка была нажата красим ее
+                print("\(button.anwerText) correct \(isCorrect)")
+                button.setBackgroundImage(isCorrect ? .greenViewBackground : .redViewBackground, for: .normal)
+            }
+        }
+        presenter.start2Timer {
+            self.presenter.routeToSubTotalOrResult(isCorrect: isCorrect)
+        }
+    }
+    
     func cleanUI() {
         normalStateForHelpButton()
+        setDefaultBackGroundForAnswerButtons()
     }
     
     func activityIndicStop() {

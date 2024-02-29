@@ -20,7 +20,6 @@ final class GameManager{
     
     private func getArrayQustionsShuffle(result: [Result]) -> [OneQuestionModel] {
         var questionsArray: [OneQuestionModel] = []
-
         for element in result {
             var allAnswerss: [Answers] = []
 

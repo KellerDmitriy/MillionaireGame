@@ -13,6 +13,7 @@ protocol GameViewProtocol: AnyObject {
     func activityIndicStop()
     func startTimer30Sec()
     func cleanUI()
+    func changeColorButton(isCorrect: Bool)
 }
 
 //Presenter
@@ -23,23 +24,23 @@ protocol ManageTimerProtocol{
     func stop30Timer()
     func start5Timer(music: String, completion: @escaping () -> Void)
     
-    func routeToSubTotal()
-    func routeToResult()
+    func start2Timer( completion: @escaping () -> Void)
+    
+    func routeToSubTotalOrResult(isCorrect: Bool)
 }
 
 protocol GamePresenterProtocol: ManageTimerProtocol {
-    var numberQuestion: Int { get set }
-    var questData: [OneQuestionModel] { get set }
-    var isLoaded: Bool { get set }
+    var numberQuestion: Int { get }
+    var questData: [OneQuestionModel] { get }
+    var isLoaded: Bool { get }
     var userName: String { get }
-    func tapOnAnswerButton()
-    var waitCheckAnswer: Bool { get set }
+    var waitCheckAnswer: Bool { get }
     
     func loadEasyMediumHardData()
+    func checkAnswer(answer:String)
 }
 
 final class GamePresenter: GamePresenterProtocol {
-    
     private let gameManager: GameManagerProtocol
     private let timeManager: TimeManagerProtocol
     private let router: GameRouterProtocol
@@ -74,15 +75,24 @@ final class GamePresenter: GamePresenterProtocol {
         
         observeProgressBar()
     }
-    //MARK: - Check totalQuestion and Update UI for New Question
-    func tapOnAnswerButton() {
+    //MARK: - Check Correct Answer or not
+    func checkAnswer(answer: String) {
+        let correctAnswer = questData[numberQuestion].allAnswers.first(where: \.correct)
+        let isCorrect = correctAnswer?.answerText == answer
+        view?.changeColorButton(isCorrect: isCorrect)
+    }
+    //MARK: - Check totalQuestion
+    func checkTotalQuestion() {
         totalQuestion += 1
         checkTotalQuestion(totalQuestion: totalQuestion) // если не сделать numberQuestion = 0 то при переходе на другой уровень сложности вызовется view?.setUpUIWhenLoaded() и будет index out of range
+        setUPDefaultUI()
+    }
+    //MARK: -  Update UI for New Question
+    private func setUPDefaultUI(){
         timeManager.set30TimerGoToSubtotal()
         view?.cleanUI()
         view?.setUpUIWhenLoaded()
     }
-    
     //MARK: - Dowload Data for difficulty level
     func loadEasyMediumHardData(){
         if totalQuestion == 0 || totalQuestion == 5 || totalQuestion == 10  {
@@ -101,6 +111,10 @@ final class GamePresenter: GamePresenterProtocol {
     
     func start5Timer(music: String, completion: @escaping () -> Void) {
         timeManager.startTimer5Seconds(music: music, completion: completion)
+    }
+    
+    func start2Timer( completion: @escaping () -> Void) {
+        timeManager.startTimer2Seconds(completion: completion)
     }
     
     func observeProgressBar() {
@@ -134,11 +148,13 @@ final class GamePresenter: GamePresenterProtocol {
     }
     
     //MARK: - Navigation
-    func routeToSubTotal() {
-        router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion)
-    }
-    
-    func routeToResult() {
-        router.routeToResult()
+    func routeToSubTotalOrResult(isCorrect: Bool) {
+        if isCorrect{
+            checkTotalQuestion()
+            router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect)
+        } else{
+            router.routeToResult()
+        }
+        
     }
 }

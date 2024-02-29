@@ -28,15 +28,17 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     var userName: String
     var totalQuestion: Int
     var difficulty: Difficulty = .easy
+    var isCorrect: Bool
     
     var score = 0
     
 //    MARK: - Init
-    init(userName: String, router: SubTotalRouterProtocol, totalQuestion: Int) {
+    init(userName: String, router: SubTotalRouterProtocol, totalQuestion: Int, isCorrect: Bool) {
         self.userName = userName
         self.router = router
         self.totalQuestion = totalQuestion
-        print("get totaalQuestion subTotal \(totalQuestion)")
+        self.isCorrect = isCorrect
+        print("get totaalQuestion subTotal \(totalQuestion) and isCorrect \(isCorrect)")
         checkDifficulty()
     }
     
