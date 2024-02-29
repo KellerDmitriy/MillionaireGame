@@ -9,7 +9,7 @@ import UIKit
 
 protocol HomeRouterProtocol: AnyObject {
     func routeToGame()
-    func routeToRules()
+    func routeToRules(rulesText: String)
 }
 
 final class HomeRouter: HomeRouterProtocol {
@@ -20,10 +20,11 @@ final class HomeRouter: HomeRouterProtocol {
     }
     
     func routeToGame() {
-        //
+
     }
     
-    func routeToRules() {
-        //
+    func routeToRules(rulesText: String) {
+        let rulesViewController = RulesViewController(rulesText: rulesText)
+        navigationController?.pushViewController(rulesViewController, animated: true)
     }
 }
