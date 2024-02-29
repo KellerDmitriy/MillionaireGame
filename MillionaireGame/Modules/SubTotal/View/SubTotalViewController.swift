@@ -11,7 +11,13 @@ final class SubTotalViewController: UIViewController {
   var presenter: SubTotalPresenterProtocol!
 
   let question: [String: String] = ["15": "1 Миллион", "14": "500000 RUB", "13": "250000 RUB", "12": "RUB", "11": "64000 RUB", "10": "32000 RUB", "9": "16000 RUB", "8": "8000 RUB", "7": "4000 RUB", "6": "2000 RUB", "5": "1000 RUB", "4": "500 RUB", "3": "300 RUB", "2": "200 RUB", "1": "100 RUB"]
+  var nextGreenCell = true
+  var greenCellIndex = 0
 
+  func setGreenCells() {
+    nextGreenCell = true
+    greenCellIndex = 0
+  }
   private let greenCell = GreenCollectionViewCell()
   private let blueImageView = BlueCollectionViewCell()
   private let purpleCell = PurpleCollectionViewCell()
@@ -64,6 +70,12 @@ final class SubTotalViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     navigationController?.setNavigationBarHidden(true, animated: animated)
+
+    greenCellIndex += 1
+    if greenCellIndex > 2 {
+      greenCellIndex = 0
+    }
+    setGreenCells()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -135,8 +147,16 @@ extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDe
       }
       if let questionData = question["1"] {
         greenCell.configureCell(number: "Вопрос 1", sum: questionData)
+        greenCell.setCellColor(.greenViewBackground)
       }
       return greenCell
+    } else if nextGreenCell && reversedIndex <= greenCellIndex {
+      guard let greenCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GreenCell", for: indexPath) as? GreenCollectionViewCell else {
+        return UICollectionViewCell()
+      }
+      greenCell.setCellColor(.greenViewBackground)
+      return greenCell
+
     } else if reversedIndex == 4 || reversedIndex == 9 {
       guard let blueCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlueCell", for: indexPath) as? BlueCollectionViewCell else {
         return UICollectionViewCell()
@@ -168,3 +188,4 @@ extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDe
     return CGSize(width: collectionView.bounds.width, height: 30)
   }
 }
+

@@ -66,4 +66,8 @@ class GreenCollectionViewCell: UICollectionViewCell {
           numberLabel.text = number
           sumLabel.text = sum
       }
+
+  func setCellColor(_ image: UIImage) {
+          imageView.image = image
+      }
 }
