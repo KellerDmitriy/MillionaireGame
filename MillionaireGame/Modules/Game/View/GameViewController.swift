@@ -285,7 +285,7 @@ private extension GameViewController {
         
         NSLayoutConstraint.activate([
                activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-               activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+               activityIndicator.topAnchor.constraint(equalTo: answerButtonStackView.bottomAnchor, constant: 25)
            ])
         
         NSLayoutConstraint.activate([
@@ -306,14 +306,14 @@ private extension GameViewController {
         ])
         
         NSLayoutConstraint.activate([
-            answerButtonStackView.topAnchor.constraint(equalTo: questionNumberStackView.bottomAnchor, constant: 24),
-            answerButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            progressBar.topAnchor.constraint(equalTo: questionNumberStackView.bottomAnchor, constant: 20),
+            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            progressBar.topAnchor.constraint(equalTo: answerButtonStackView.bottomAnchor, constant: 20),
-            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            answerButtonStackView.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 30),
+            answerButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([

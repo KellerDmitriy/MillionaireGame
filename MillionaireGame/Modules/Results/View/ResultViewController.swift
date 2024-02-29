@@ -9,15 +9,7 @@ final class ResultViewController: UIViewController {
     var result = true
     
     //MARK: - UI
-    
-    private let backgroundImage: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = .background
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    
+
     private let logoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .logo
@@ -44,17 +36,11 @@ final class ResultViewController: UIViewController {
         return label
     }()
     
-    
     private lazy var playAgainButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("PLAY AGAIN", for: .normal)
-        button.titleLabel?.font = .robotoMedium36()
-        button.tintColor = .white
-        button.backgroundColor = .specialGreen
-        button.layer.cornerRadius = 20
-        button.addTarget(self, action: #selector(routeToGame), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+        return CustomButton.makeButton(
+            title: "PLAY AGAIN") { [weak self] in
+                self?.playAgainButtonTap()
+            }
     }()
     
     private var stackView = UIStackView()
@@ -69,6 +55,7 @@ final class ResultViewController: UIViewController {
         setConstraints()
         
         presenter.showResult()
+        view.addVerticalGradientLayer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,7 +75,7 @@ final class ResultViewController: UIViewController {
 
 extension ResultViewController: ResultRouterProtocol {
 
-    @objc func routeToGame() {
+    @objc func playAgainButtonTap() {
         presenter.showGame()
     }
 }
@@ -117,8 +104,9 @@ extension ResultViewController: ResultViewProtocol {
 private extension ResultViewController {
     
     func configure() {
-        let views = [backgroundImage, logoImage, stackView, playAgainButton]
+        let views = [logoImage, stackView, playAgainButton]
         views.forEach { view.addSubview($0) }
+        
     }
     
     func configureStackView() {
@@ -128,16 +116,13 @@ private extension ResultViewController {
         stackView.spacing = 5
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        
     }
     
     
     func setConstraints() {
+        playAgainButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-        
             logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImage.heightAnchor.constraint(equalToConstant: 200),

@@ -43,17 +43,12 @@ final class CustomHelpButton: UIButton {
     @objc func didTapHelpButton() {
         switch type {
         case .fiftyFifty:
-            currentBackgroundImage == .fiftyFifty
-            ? setBackgroundImage(.fiftyFiftyDone, for: .normal)
-            : setBackgroundImage(.fiftyFifty, for: .normal)
+            setBackgroundImage(.fiftyFiftyDone, for: .normal)
         case .phone:
-            currentBackgroundImage == .phone
-            ? setBackgroundImage(.phoneDone, for: .normal)
-            : setBackgroundImage(.phone, for: .normal)
+            setBackgroundImage(.phoneDone, for: .normal)
         case .host:
-            currentBackgroundImage == .host
-            ? setBackgroundImage(.hostDone, for: .normal)
-            : setBackgroundImage(.host, for: .normal)
+            setBackgroundImage(.hostDone, for: .normal)
         }
+        isEnabled = false 
     }
 }

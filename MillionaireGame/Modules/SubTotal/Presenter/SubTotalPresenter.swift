@@ -8,12 +8,13 @@
 import Foundation
 
 protocol SubTotalViewProtocol: AnyObject {
-    
+    func continueButtonTap()
 }
 
 protocol SubTotalPresenterProtocol {
     var userName: String { get }
     var score: Int { get set }
+    var isCorrect: Bool { get }
     
     func routeToGame()
     func routeToResult()

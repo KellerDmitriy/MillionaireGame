@@ -142,7 +142,7 @@ final class GamePresenter: GamePresenterProtocol {
     private func checkTotalQuestion(totalQuestion: Int){
         switch totalQuestion{
         case 5, 10: numberQuestion = 0
-        default: numberQuestion += 1 }
+            default: numberQuestion += 1 }
     }
     
     //MARK: -  Update UI for New Question
@@ -172,11 +172,7 @@ final class GamePresenter: GamePresenterProtocol {
     
     //MARK: - Navigation
     func routeToSubTotalOrResult(isCorrect: Bool) {
-        if isCorrect{
-            checkTotalQuestion()
-            router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect)
-        } else{
-            router.routeToResult()
-        }
+        checkTotalQuestion()
+        router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect)
     }
 }
