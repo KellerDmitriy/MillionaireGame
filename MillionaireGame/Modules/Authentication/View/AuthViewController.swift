@@ -32,7 +32,7 @@ final class AuthViewController: UIViewController {
     private let nickNameLabel: UILabel = {
         let nickLabel = UILabel()
         nickLabel.textAlignment = .left
-        nickLabel.text = "Введите свой никнейм"
+        nickLabel.text = "Enter your name"
         nickLabel.textColor = .white
         nickLabel.font = UIFont(name: "Roboto-Bold", size: 28)
         return nickLabel

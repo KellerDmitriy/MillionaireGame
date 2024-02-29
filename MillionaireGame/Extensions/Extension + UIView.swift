@@ -10,7 +10,7 @@ import UIKit.UIView
 extension UIView {
     func addVerticalGradientLayer() {
         let bottomColor = UIColor(
-            red: 30/255,
+            red: 130/255,
             green: 38/255,
             blue: 79/255,
             alpha: 1.0
