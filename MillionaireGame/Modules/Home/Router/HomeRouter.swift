@@ -20,7 +20,9 @@ final class HomeRouter: HomeRouterProtocol {
     }
     
     func routeToGame() {
-
+        guard let navigationController else { return }
+        let authViewController = AuthBuilder(navigationController: navigationController).build()
+        navigationController.pushViewController(authViewController, animated: true)
     }
     
     func routeToRules(rulesText: String) {
