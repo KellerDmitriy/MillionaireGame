@@ -14,7 +14,8 @@ struct ButtonFactory {
         button.titleLabel?.font = .robotoExtraBold32()
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 15
-        button.backgroundColor = .darkGray
+        button.setBackgroundImage(UIImage(named: "background"), for: .normal)
+        button.layer.masksToBounds = true
         
         // Обводка
         button.layer.borderWidth = 0.5
