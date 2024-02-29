@@ -48,6 +48,7 @@ final class GamePresenter: GamePresenterProtocol {
     var isLoaded = false
     var waitCheckAnswer = false
     var numberQuestion = 0
+    private var tottalQuestion = 0
     var userName = ""
     weak var view: GameViewProtocol?
     
@@ -66,7 +67,8 @@ final class GamePresenter: GamePresenterProtocol {
     }
     
     func addToNumberQuestion() {
-        if !checkDifficulty(numberQuestion: numberQuestion) {
+        tottalQuestion += 1
+        if !checkDifficulty() {
             print("add")
             numberQuestion += 1
         } else{
@@ -96,14 +98,12 @@ final class GamePresenter: GamePresenterProtocol {
             .assign(to: &$progress)
     }
     
-    private func checkDifficulty(numberQuestion: Int) -> Bool {
-        if numberQuestion == 4 {
-            getQuestions(difficulty: .medium)
-            //numberQuestion = 0
+    private func checkDifficulty() -> Bool {
+        if tottalQuestion == 5 {
+            getQuestionsMediumHard(difficulty: .medium)
             return true
-        } else if numberQuestion == 9 {
-            getQuestions(difficulty: .hard)
-            //numberQuestion = 0
+        } else if tottalQuestion == 10 {
+            getQuestionsMediumHard(difficulty: .hard)
             return true
         }
         return false
@@ -127,9 +127,26 @@ final class GamePresenter: GamePresenterProtocol {
         }
     }
     
+    private func getQuestionsMediumHard(difficulty: Difficulty) {
+        isLoaded = false
+        Task{ @MainActor in
+            do{
+                questData  = [] //чистим для нового запроса
+                let data = try await gameManager.fetchQuestions(difficulty: difficulty)
+                questData = data
+                print("difficulty \(difficulty) question Data \(questData)")
+                isLoaded = true
+                view?.setUpUIWhenLoaded()
+                view?.activityIndicStop()
+            }catch{
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
 //MARK: - Navigation
     func routeToSubTotal() {
-        router.routeToListQuestions(userName: userName, numberQuestion: numberQuestion)
+        router.routeToListQuestions(userName: userName, numberQuestion: tottalQuestion)
     }
     
     func routeToResult() {
