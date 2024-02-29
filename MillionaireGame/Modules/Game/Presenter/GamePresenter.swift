@@ -10,6 +10,9 @@ import Foundation
 //ViewController
 protocol GameViewProtocol: AnyObject {
     func setUpUIWhenLoaded()
+    func activityIndicStop()
+    func startTimer30Sec()
+    func cleanUI()
 }
 
 //Presenter
@@ -18,7 +21,7 @@ protocol ManageTimerProtocol{
     
     func start30Timer()
     func stop30Timer()
-    func start5Timer(music: String)
+    func start5Timer(music: String, completion: @escaping () -> Void)
     
     func routeToSubTotal()
     func routeToResult()
@@ -26,10 +29,11 @@ protocol ManageTimerProtocol{
 
 protocol GamePresenterProtocol: ManageTimerProtocol {
     var numberQuestion: Int { get set }
-    var questEasyData: [OneQuestionModel] { get set }
+    var questData: [OneQuestionModel] { get set }
     var isLoaded: Bool { get set }
     var userName: String { get }
     func addToNumberQuestion()
+    var waitCheckAnswer: Bool { get set }
 }
 
 final class GamePresenter: GamePresenterProtocol {
@@ -40,8 +44,9 @@ final class GamePresenter: GamePresenterProtocol {
     
     @Published var progress: Float = 0.0
     var progressToGamePublisher: Published<Float>.Publisher { $progress }
-    var questEasyData: [OneQuestionModel] = .init()
+    var questData: [OneQuestionModel] = .init()
     var isLoaded = false
+    var waitCheckAnswer = false
     var numberQuestion = 0
     var userName = ""
     weak var view: GameViewProtocol?
@@ -57,11 +62,20 @@ final class GamePresenter: GamePresenterProtocol {
         self.timeManager = timeManager
         
         observeProgressBar()
-        getEasyQuestions()
+        getQuestions(difficulty: .easy)
     }
     
     func addToNumberQuestion() {
-        numberQuestion += 1
+        if !checkDifficulty(numberQuestion: numberQuestion) {
+            print("add")
+            numberQuestion += 1
+        } else{
+            print("not add")
+            numberQuestion = 0
+        }
+        timeManager.set30TimerGoToSubtotal()
+        view?.cleanUI()
+        view?.setUpUIWhenLoaded()
     }
     
     func start30Timer() {
@@ -72,8 +86,8 @@ final class GamePresenter: GamePresenterProtocol {
         timeManager.stopTimer30Seconds()
     }
     
-    func start5Timer(music: String) {
-        timeManager.startTimer5Seconds(music: music)
+    func start5Timer(music: String, completion: @escaping () -> Void) {
+        timeManager.startTimer5Seconds(music: music, completion: completion)
     }
     
     func observeProgressBar() {
@@ -82,14 +96,31 @@ final class GamePresenter: GamePresenterProtocol {
             .assign(to: &$progress)
     }
     
-    private func getEasyQuestions() {
+    private func checkDifficulty(numberQuestion: Int) -> Bool {
+        if numberQuestion == 4 {
+            getQuestions(difficulty: .medium)
+            //numberQuestion = 0
+            return true
+        } else if numberQuestion == 9 {
+            getQuestions(difficulty: .hard)
+            //numberQuestion = 0
+            return true
+        }
+        return false
+    }
+    
+    private func getQuestions(difficulty: Difficulty) {
+        isLoaded = false
         Task{ @MainActor in
             do{
-                questEasyData  = [] //чистим для нового запроса
-                let data = try await gameManager.fetchQuestions(difficulty: .easy)
-                questEasyData = data
+                questData  = [] //чистим для нового запроса
+                let data = try await gameManager.fetchQuestions(difficulty: difficulty)
+                questData = data
+                print("difficulty \(difficulty) question Data \(questData)")
                 isLoaded = true
                 view?.setUpUIWhenLoaded()
+                view?.activityIndicStop()
+                view?.startTimer30Sec()
             }catch{
                 print(error.localizedDescription)
             }
@@ -97,7 +128,6 @@ final class GamePresenter: GamePresenterProtocol {
     }
     
 //MARK: - Navigation
-    
     func routeToSubTotal() {
         router.routeToListQuestions(userName: userName, numberQuestion: numberQuestion)
     }

@@ -61,6 +61,8 @@ final class GameViewController: UIViewController {
         return $0
     }(UIStackView())
     
+    private let activityIndicator = UIActivityIndicatorView(frame: .zero)
+    
     private let aAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "A")
     private let bAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "B")
     private let cAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "C")
@@ -107,6 +109,11 @@ final class GameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        if !presenter.isLoaded{
+            activityIndicator.startAnimating()
+        } else{
+            presenter.start30Timer() //когда возвращаемся с subTotal , предварительно обнулив все его счетчики
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -116,15 +123,15 @@ final class GameViewController: UIViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        cancellables = Set<AnyCancellable>() //вроде бы при deinit экрана cancellables тоже deinit и тогда это не нужно
+        //cancellables = Set<AnyCancellable>() // не нужно иначе при возврате с subTotal не будет срабатывать progreeBar (не будет работать observeProgress() в setUpUIWhenLoaded())
     }
     //MARK: - SetUp UI Text
     func setUpUIText(){
-        for (index, answer) in presenter.questEasyData[presenter.numberQuestion].allAnswers.enumerated() {
+        for (index, answer) in presenter.questData[presenter.numberQuestion].allAnswers.enumerated() {
             let answerButton = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton][index]
             answerButton.setUptext(text: answer.answerText)
         }
-        questionLabel.text = presenter.questEasyData[presenter.numberQuestion].question
+        questionLabel.text = presenter.questData[presenter.numberQuestion].question
     }
     
     //MARK: - Buttons Action
@@ -133,6 +140,7 @@ final class GameViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in
                 guard let self = self else {return}
+               // print("progress from vc \(progress)")
                 progressBar.progress = progress
             }
             .store(in: &cancellables)
@@ -148,22 +156,33 @@ final class GameViewController: UIViewController {
         phoneHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
         hostHelpButton.addTarget(self, action: #selector(testTimer(_:)), for: .touchUpInside)
     }
-    
     @objc private func didTapAnswerButton(_ sender: UIButton) {
         presenter.stop30Timer()
-        presenter.start5Timer(music: "otvet-prinyat")
-        switch sender{
-        case aAnswerButton: print(aAnswerButton.anwerText) 
-            presenter.routeToSubTotal()//дергаем метод презентера для сравнения
-        case bAnswerButton: print(bAnswerButton.anwerText)
-            presenter.routeToSubTotal()
-        case cAnswerButton: print(cAnswerButton.anwerText)
-            presenter.routeToSubTotal()
-        case dAnswerButton: print(dAnswerButton.anwerText)
-            default: print("Default Answers tapped")}
+        presenter.start5Timer(music: "otvet-prinyat", completion: { [weak self] in
+            guard let self = self else { return }
+            switch sender {
+            case self.aAnswerButton:
+                print(self.aAnswerButton.anwerText)
+                self.presenter.addToNumberQuestion()
+                self.presenter.routeToSubTotal() // дергаем метод презентера для сравнения
+            case self.bAnswerButton:
+                print(self.bAnswerButton.anwerText)
+                self.presenter.addToNumberQuestion()
+                self.presenter.routeToSubTotal()
+            case self.cAnswerButton:
+                print(self.cAnswerButton.anwerText)
+                self.presenter.addToNumberQuestion()
+                self.presenter.routeToSubTotal()
+            case self.dAnswerButton:
+                print(self.dAnswerButton.anwerText)
+                self.presenter.addToNumberQuestion()
+                self.presenter.routeToSubTotal()
+            default:
+                print("Default Answers tapped")
+            }
+        })
     }
-    
-    
+        
     @objc func testTimer(_ sender: UIButton) {
         presenter.stop30Timer()
         takeTip(sender)
@@ -177,16 +196,34 @@ final class GameViewController: UIViewController {
             default: print("Default tips")}
         presenter.start30Timer()
     }
+    
+    private func normalStateForHelpButton(){
+        fiftyHelpButton.setBackgroundImage(.fiftyFifty, for: .normal)
+        phoneHelpButton.setBackgroundImage(.phone, for: .normal)
+        hostHelpButton.setBackgroundImage(.host, for: .normal)
+    }
 }
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
+    func cleanUI() {
+        //progressBar.progress = 0
+        normalStateForHelpButton()
+    }
+    
+    func activityIndicStop() {
+        activityIndicator.stopAnimating()
+    }
+    
+    func startTimer30Sec() {
+        presenter.start30Timer()
+    }
+    
     func setUpUIWhenLoaded() {
         addTargetButtons()
         observeProgress()
-        print("presenter easyData \(presenter.questEasyData)")
+//        print("presenter easyData \(presenter.questData)")
         setUpUIText()
-        presenter.start30Timer()
     }
 }
 
@@ -216,6 +253,16 @@ private extension GameViewController {
     }
     
     func setConstraints() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.style = .large
+        activityIndicator.color = .purple
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+               activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+               activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+           ])
         
         NSLayoutConstraint.activate([
             logoImageView.heightAnchor.constraint(equalToConstant: 86),

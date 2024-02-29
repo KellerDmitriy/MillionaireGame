@@ -59,6 +59,8 @@ final class GameManager{
         case trademark = "™"
         case paragraph = "¶"
         case section = "§"
+        case special = "&aacute;"
+        case special1 = "&iacute;"
         
         var replacementCharacter: String {
             switch self {
@@ -72,6 +74,8 @@ final class GameManager{
             case .trademark: return "™"
             case .paragraph: return "¶"
             case .section: return "§"
+            case .special: return "á"
+            case .special1: return "í"
             }
         }
     }

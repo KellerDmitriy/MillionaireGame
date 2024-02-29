@@ -28,8 +28,9 @@ final class SubTotalRouter: SubTotalRouterProtocol {
     
     func routeToGame(userName: String) {
         guard let navigationController else { return }
-        let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName)
-        navigationController.pushViewController(gameViewController, animated: true)
+        //let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName)
+        //navigationController.pushViewController(gameViewController, animated: true)
+        navigationController.popViewController(animated: true)
     }
 }
 

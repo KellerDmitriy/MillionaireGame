@@ -35,6 +35,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
         self.userName = userName
         self.numberQuestion = numberQuestion
         self.router = router
+        print("numberQuestion \(numberQuestion)")
     }
     
     func routeToGame() {
