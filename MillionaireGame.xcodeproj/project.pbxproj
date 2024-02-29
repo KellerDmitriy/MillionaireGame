@@ -34,12 +34,8 @@
 		E16A44C22B8BA32900A9C234 /* zvuk-nepravilnogo-otveta.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BD2B8BA32800A9C234 /* zvuk-nepravilnogo-otveta.mp3 */; };
 		E16A44C32B8BA32900A9C234 /* otvet-prinyat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BE2B8BA32900A9C234 /* otvet-prinyat.mp3 */; };
 		E16A44C42B8BA32900A9C234 /* zvuk-chasov-vo-vremya-igryi.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E16A44BF2B8BA32900A9C234 /* zvuk-chasov-vo-vremya-igryi.mp3 */; };
-		E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A44CA2B8BCB6E00A9C234 /* HomeRouter.swift */; };
-		E16A44CD2B8BCB7F00A9C234 /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A44CC2B8BCB7F00A9C234 /* HomePresenter.swift */; };
-		E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16A44CE2B8BCBA000A9C234 /* HomeBuilder.swift */; };
 		E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A212B8B7B000006CB8B /* AppDelegate.swift */; };
 		E1BE9A242B8B7B000006CB8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A232B8B7B000006CB8B /* SceneDelegate.swift */; };
-		E1BE9A262B8B7B000006CB8B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A252B8B7B000006CB8B /* HomeViewController.swift */; };
 		E1BE9A2B2B8B7B010006CB8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1BE9A2A2B8B7B010006CB8B /* Assets.xcassets */; };
 		E1BE9A2E2B8B7B010006CB8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1BE9A2C2B8B7B010006CB8B /* LaunchScreen.storyboard */; };
 		E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1BE9A392B8B7EE30006CB8B /* GameManager.swift */; };
@@ -54,6 +50,11 @@
 		E1F2F11B2B8FCEB500DBE9AF /* AuthBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1162B8FCEB500DBE9AF /* AuthBuilder.swift */; };
 		E1F2F11C2B8FCEB500DBE9AF /* AuthRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1182B8FCEB500DBE9AF /* AuthRouter.swift */; };
 		E1F2F11F2B8FDD7F00DBE9AF /* SubTotalRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F11E2B8FDD7F00DBE9AF /* SubTotalRouter.swift */; };
+		E1F2F12A2B90970300DBE9AF /* HomePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1222B90970300DBE9AF /* HomePresenter.swift */; };
+		E1F2F12B2B90970300DBE9AF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1242B90970300DBE9AF /* HomeViewController.swift */; };
+		E1F2F12C2B90970300DBE9AF /* RulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1252B90970300DBE9AF /* RulesViewController.swift */; };
+		E1F2F12D2B90970300DBE9AF /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1272B90970300DBE9AF /* HomeBuilder.swift */; };
+		E1F2F12E2B90970300DBE9AF /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1292B90970300DBE9AF /* HomeRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,13 +85,9 @@
 		E16A44BD2B8BA32800A9C234 /* zvuk-nepravilnogo-otveta.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "zvuk-nepravilnogo-otveta.mp3"; sourceTree = "<group>"; };
 		E16A44BE2B8BA32900A9C234 /* otvet-prinyat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "otvet-prinyat.mp3"; sourceTree = "<group>"; };
 		E16A44BF2B8BA32900A9C234 /* zvuk-chasov-vo-vremya-igryi.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "zvuk-chasov-vo-vremya-igryi.mp3"; sourceTree = "<group>"; };
-		E16A44CA2B8BCB6E00A9C234 /* HomeRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
-		E16A44CC2B8BCB7F00A9C234 /* HomePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
-		E16A44CE2B8BCBA000A9C234 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		E1BE9A1E2B8B7B000006CB8B /* MillionaireGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MillionaireGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1BE9A212B8B7B000006CB8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E1BE9A232B8B7B000006CB8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E1BE9A252B8B7B000006CB8B /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E1BE9A2A2B8B7B010006CB8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1BE9A2D2B8B7B010006CB8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1BE9A2F2B8B7B010006CB8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -106,6 +103,11 @@
 		E1F2F1162B8FCEB500DBE9AF /* AuthBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthBuilder.swift; sourceTree = "<group>"; };
 		E1F2F1182B8FCEB500DBE9AF /* AuthRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRouter.swift; sourceTree = "<group>"; };
 		E1F2F11E2B8FDD7F00DBE9AF /* SubTotalRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTotalRouter.swift; sourceTree = "<group>"; };
+		E1F2F1222B90970300DBE9AF /* HomePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomePresenter.swift; sourceTree = "<group>"; };
+		E1F2F1242B90970300DBE9AF /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E1F2F1252B90970300DBE9AF /* RulesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulesViewController.swift; sourceTree = "<group>"; };
+		E1F2F1272B90970300DBE9AF /* HomeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
+		E1F2F1292B90970300DBE9AF /* HomeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,49 +231,6 @@
 			path = NetworkLayer;
 			sourceTree = "<group>";
 		};
-		E16A44C52B8BCB0300A9C234 /* Home */ = {
-			isa = PBXGroup;
-			children = (
-				E16A44C62B8BCB1B00A9C234 /* Builder */,
-				E16A44C72B8BCB2800A9C234 /* View */,
-				E16A44C82B8BCB3800A9C234 /* Presenter */,
-				E16A44C92B8BCB4C00A9C234 /* Router */,
-			);
-			path = Home;
-			sourceTree = "<group>";
-		};
-		E16A44C62B8BCB1B00A9C234 /* Builder */ = {
-			isa = PBXGroup;
-			children = (
-				E16A44CE2B8BCBA000A9C234 /* HomeBuilder.swift */,
-			);
-			path = Builder;
-			sourceTree = "<group>";
-		};
-		E16A44C72B8BCB2800A9C234 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				E1BE9A252B8B7B000006CB8B /* HomeViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		E16A44C82B8BCB3800A9C234 /* Presenter */ = {
-			isa = PBXGroup;
-			children = (
-				E16A44CC2B8BCB7F00A9C234 /* HomePresenter.swift */,
-			);
-			path = Presenter;
-			sourceTree = "<group>";
-		};
-		E16A44C92B8BCB4C00A9C234 /* Router */ = {
-			isa = PBXGroup;
-			children = (
-				E16A44CA2B8BCB6E00A9C234 /* HomeRouter.swift */,
-			);
-			path = Router;
-			sourceTree = "<group>";
-		};
 		E1BE9A152B8B7B000006CB8B = {
 			isa = PBXGroup;
 			children = (
@@ -313,7 +272,7 @@
 		E1BE9A362B8B7B100006CB8B /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				E16A44C52B8BCB0300A9C234 /* Home */,
+				E1F2F1202B90970300DBE9AF /* Home */,
 				E1F2F1102B8FCEB500DBE9AF /* Authentication */,
 				8606033C2B8DD07F00EB8A36 /* Game */,
 				E1F2F0F92B8FB83200DBE9AF /* SubTotal */,
@@ -462,6 +421,50 @@
 			path = Router;
 			sourceTree = "<group>";
 		};
+		E1F2F1202B90970300DBE9AF /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1262B90970300DBE9AF /* Builder */,
+				E1F2F1212B90970300DBE9AF /* Presenter */,
+				E1F2F1232B90970300DBE9AF /* View */,
+				E1F2F1282B90970300DBE9AF /* Router */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		E1F2F1212B90970300DBE9AF /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1222B90970300DBE9AF /* HomePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		E1F2F1232B90970300DBE9AF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1242B90970300DBE9AF /* HomeViewController.swift */,
+				E1F2F1252B90970300DBE9AF /* RulesViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E1F2F1262B90970300DBE9AF /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1272B90970300DBE9AF /* HomeBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		E1F2F1282B90970300DBE9AF /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1292B90970300DBE9AF /* HomeRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -544,36 +547,37 @@
 			files = (
 				E1F2F1192B8FCEB500DBE9AF /* AuthPresenter.swift in Sources */,
 				860603442B8DD15F00EB8A36 /* GameRouter.swift in Sources */,
-				E16A44CD2B8BCB7F00A9C234 /* HomePresenter.swift in Sources */,
 				522A0A9B2B8CCE640041B256 /* ResultPresenter.swift in Sources */,
 				E1F2F11A2B8FCEB500DBE9AF /* AuthViewController.swift in Sources */,
-				E1BE9A262B8B7B000006CB8B /* HomeViewController.swift in Sources */,
 				E1F2F11C2B8FCEB500DBE9AF /* AuthRouter.swift in Sources */,
 				E1F2F1012B8FB83200DBE9AF /* SubTotalViewController.swift in Sources */,
-				E16A44CB2B8BCB6E00A9C234 /* HomeRouter.swift in Sources */,
 				860603422B8DD0F100EB8A36 /* GameViewController.swift in Sources */,
 				522A0A9F2B8CCF0C0041B256 /* ResultBuilder.swift in Sources */,
 				866AAB0A2B8E7FD600628519 /* QuestionsModel.swift in Sources */,
 				E1BE9A3A2B8B7EE30006CB8B /* GameManager.swift in Sources */,
 				860603462B8DD2EC00EB8A36 /* GamePresenter.swift in Sources */,
 				E1F2F1022B8FB83200DBE9AF /* SubTotalBuilder.swift in Sources */,
-				E16A44CF2B8BCBA000A9C234 /* HomeBuilder.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
 				E1F2F11B2B8FCEB500DBE9AF /* AuthBuilder.swift in Sources */,
 				E1F2F11F2B8FDD7F00DBE9AF /* SubTotalRouter.swift in Sources */,
+				E1F2F12A2B90970300DBE9AF /* HomePresenter.swift in Sources */,
 				866AAB0C2B8E7FE600628519 /* Extension + String.swift in Sources */,
+				E1F2F12D2B90970300DBE9AF /* HomeBuilder.swift in Sources */,
 				866AAB072B8E7FD600628519 /* NetworkErrors.swift in Sources */,
 				E1F2F0E92B8F393900DBE9AF /* Extension + UIView.swift in Sources */,
 				36E7A71F2B8F4C140073E6B4 /* TimerManager.swift in Sources */,
 				E1F2F1002B8FB83200DBE9AF /* SubTotalPresenter.swift in Sources */,
 				866AAB082B8E7FD600628519 /* NetworkManager.swift in Sources */,
+				E1F2F12C2B90970300DBE9AF /* RulesViewController.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
+				E1F2F12E2B90970300DBE9AF /* HomeRouter.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,
 				8606034C2B8DF62F00EB8A36 /* CustomHelpButton.swift in Sources */,
 				E1F2F0E72B8F2BD700DBE9AF /* ButtonFactory.swift in Sources */,
 				8606034A2B8DE39000EB8A36 /* CustomAnswerButton.swift in Sources */,
 				860603482B8DD3CF00EB8A36 /* GameBuilder.swift in Sources */,
 				36E7A71B2B8F05920073E6B4 /* OneQuestionModel.swift in Sources */,
+				E1F2F12B2B90970300DBE9AF /* HomeViewController.swift in Sources */,
 				866AAB092B8E7FD600628519 /* QuestionRequest.swift in Sources */,
 				E1BE9A3D2B8B7F930006CB8B /* Extension + UIFont.swift in Sources */,
 				E1BE9A242B8B7B000006CB8B /* SceneDelegate.swift in Sources */,
