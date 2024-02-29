@@ -8,60 +8,63 @@
 import UIKit
 
 class BlueCollectionViewCell: UICollectionViewCell {
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "blueViewBackground")
-        imageView.contentMode = .scaleAspectFill
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 16
-        imageView.layer.masksToBounds = true
-        return imageView
-    }()
 
-    private let numberLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+  private let imageView: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "blueViewBackground")
+    imageView.contentMode = .scaleAspectFill
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    imageView.layer.cornerRadius = 16
+    imageView.layer.masksToBounds = true
+    return imageView
+  }()
 
-    private let sumLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+  private let numberLabel: UILabel = {
+    let label = UILabel()
+    label.textColor = .white
+    label.font = UIFont.boldSystemFont(ofSize: 16)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupUI()
-    }
+  private let sumLabel: UILabel = {
+    let label = UILabel()
+    label.textColor = .white
+    label.font = UIFont.boldSystemFont(ofSize: 16)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
 
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupUI()
+  }
 
-    private func setupUI() {
-        addSubview(imageView)
-        addSubview(numberLabel)
-        addSubview(sumLabel)
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+  private func setupUI() {
+    addSubview(imageView)
+    addSubview(numberLabel)
+    addSubview(sumLabel)
 
-            numberLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            numberLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
+    NSLayoutConstraint.activate([
+      imageView.topAnchor.constraint(equalTo: topAnchor),
+      imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+      imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+      imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            sumLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
-            sumLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
-        ])
+      numberLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+      numberLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
 
-        numberLabel.text = "1"
-        sumLabel.text = "100 USD"
-    }
+      sumLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+      sumLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+    ])
+  }
+
+  func configureCell(number: String, sum: String) {
+          numberLabel.text = number
+          sumLabel.text = sum
+      }
 }

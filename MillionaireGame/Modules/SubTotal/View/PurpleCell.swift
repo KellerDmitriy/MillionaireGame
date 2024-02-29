@@ -1,5 +1,5 @@
 //
-//  GreenCell.swift
+//  PurpleCell.swift
 //  MillionaireGame
 //
 //  Created by Александра Савчук on 29.02.2024.
@@ -7,10 +7,10 @@
 
 import UIKit
 
-class GreenCollectionViewCell: UICollectionViewCell {
+class PurpleCollectionViewCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "greenViewBackground")
+        imageView.image = UIImage(named: "purpleViewBackground")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 16
@@ -67,3 +67,4 @@ class GreenCollectionViewCell: UICollectionViewCell {
           sumLabel.text = sum
       }
 }
+
