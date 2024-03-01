@@ -105,7 +105,6 @@ final class GameViewController: UIViewController {
         setupUI()
         setConstraints()
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -192,12 +191,6 @@ final class GameViewController: UIViewController {
         presenter.start30Timer()
     }
     
-    private func normalStateForHelpButton() {
-        fiftyHelpButton.setBackgroundImage(.fiftyFifty, for: .normal)
-        phoneHelpButton.setBackgroundImage(.phone, for: .normal)
-        hostHelpButton.setBackgroundImage(.host, for: .normal)
-    }
-    
     private func setDefaultBackGroundForAnswerButtons() {
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
         for button in arrayButtons {
@@ -236,7 +229,6 @@ extension GameViewController: GameViewProtocol {
     }
     
     func cleanUI() {
-        normalStateForHelpButton()
         setDefaultBackGroundForAnswerButtons()
     }
     
