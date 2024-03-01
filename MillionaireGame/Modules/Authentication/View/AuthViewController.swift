@@ -151,7 +151,7 @@ extension AuthViewController: AuthViewProtocol {
             return false
         }
         
-        let validCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        let validCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ")
         guard name.rangeOfCharacter(from: validCharacterSet.inverted) == nil else {
             return false
         }

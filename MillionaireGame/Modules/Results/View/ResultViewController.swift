@@ -21,6 +21,7 @@ final class ResultViewController: UIViewController {
         label.font = .robotoMedium24()
         label.textColor = .white
         label.textAlignment = .center
+        label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -89,7 +90,7 @@ extension ResultViewController: ResultViewProtocol {
             resultLabel.text = "\(name) you WIN"
             resultLabel.textColor = .specialGreen
         case false:
-            descriptionLabel.text = "You didn't reach victory, but you won  \(score) RUB"
+            descriptionLabel.text = "You didn't reach victory, you won  \(score) RUB"
             resultLabel.text = "\(name) you LOSE"
             resultLabel.textColor = .specialOrange
         }
