@@ -156,6 +156,8 @@ final class SubTotalViewController: UIViewController {
 }
 
 extension SubTotalViewController: SubTotalViewProtocol {
+  
+    
     
     private func showAlert(alertType: AlertType, completion: @escaping (Bool) -> Void) {
         let alertController = AlertControllerFactory().createAlert(type: alertType) { isConfirmed in
@@ -174,7 +176,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
         }
     }
     
-     func showLoseInfo() {
+    func showLoseInfo() {
         if presenter.isCorrect {
             continueButton.isHidden = false
         } else {
@@ -182,6 +184,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
             showAlert(alertType: .loseInformation) {_ in
                 self.presenter.routeToResult() }
         }
+    }
     func showLoseInfo(questionIndex: Int) {
         indexPathFromGame = IndexPath(item: questionIndex, section: 0) //нужно думаю глобально сохранять index path
         print("indexPathFromGame \(indexPathFromGame)")
