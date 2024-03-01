@@ -6,8 +6,6 @@ final class ResultViewController: UIViewController {
     
     var presenter: ResultPresenterProtocol!
     
-    var result = true
-    
     //MARK: - UI
 
     private let logoImage: UIImageView = {
@@ -84,15 +82,15 @@ extension ResultViewController: ResultRouterProtocol {
 //MARK: - ResultViewProtocol
 
 extension ResultViewController: ResultViewProtocol {
-    func setResult(result: Bool, count: Int) {
+    func setResult(name: String, result: Bool, score: Int) {
         switch result {
         case true:
-            descriptionLabel.text = "You win on \(count) attempt"
-            resultLabel.text = "WIN"
+            descriptionLabel.text = "You win \(score) RUB"
+            resultLabel.text = "\(name) you WIN"
             resultLabel.textColor = .specialGreen
         case false:
-            descriptionLabel.text = "You lose on \(count) attempt"
-            resultLabel.text = "LOSE"
+            descriptionLabel.text = "You didn't reach victory, but you won  \(score) RUB"
+            resultLabel.text = "\(name) you LOSE"
             resultLabel.textColor = .specialOrange
         }
     }
