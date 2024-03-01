@@ -8,8 +8,8 @@
 import UIKit
 
 protocol SubTotalRouterProtocol: AnyObject {
-    func routeToResult(userName: String, score: Int)
-    func routeToGame(userName: String, totalQuestion: Int, difficulty: Difficulty)
+    func routeToResult(name: String, score: Int, isLose: Bool)
+    func routeToGame(userName: String, totalQuestion: Int)
 }
 
 final class SubTotalRouter: SubTotalRouterProtocol {
@@ -20,15 +20,15 @@ final class SubTotalRouter: SubTotalRouterProtocol {
         self.navigationController = navigationController
     }
     
-    func routeToResult(userName: String, score: Int) {
+    func routeToResult(name: String, score: Int, isLose: Bool) {
         guard let navigationController else { return }
-        let resultViewController = ResultBuilder(navigationController: navigationController).build()
+        let resultViewController = ResultBuilder(navigationController: navigationController).build(name: name, score: score, isLose: isLose)
         navigationController.pushViewController(resultViewController, animated: true)
     }
     
-    func routeToGame(userName: String, totalQuestion: Int, difficulty: Difficulty) {
+    func routeToGame(userName: String, totalQuestion: Int) {
         guard let navigationController else { return }
-        let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName, totalQuestion: totalQuestion)
+
         navigationController.popViewController(animated: true) }
     
 }

@@ -79,7 +79,7 @@ final class SubTotalViewController: UIViewController {
         setConstraints()
         showWinView()
         setupCollectionView()
-        
+        showLoseInfo()
         presenter.moveGreenView()
     }
     
@@ -156,39 +156,36 @@ final class SubTotalViewController: UIViewController {
 
 extension SubTotalViewController: SubTotalViewProtocol {
     
-    private func showAlert() {
-        let alert = UIAlertController(title: "Do you want to withdraw money?",
-                                      message: "You can withdraw your winnings or continue playing",
-                                      preferredStyle: .alert
-        )
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
-            self?.presenter.routeToResult()
-            
+    private func showAlert(alertType: AlertType, completion: @escaping (Bool) -> Void) {
+        let alertController = AlertControllerFactory().createAlert(type: alertType) { isConfirmed in
+            completion(isConfirmed)
         }
-        let noAction = UIAlertAction(title: "No", style: .default) { [weak self] _ in
-            self?.presenter.routeToGame()
-        }
-        alert.addAction(yesAction)
-        alert.addAction(noAction)
-        present(alert, animated: true)
+        present(alertController, animated: true)
     }
     
     func continueButtonTap() {
-        if presenter.isCorrect {
-            showAlert()
-        } else {
-            presenter.routeToResult()
+        showAlert(alertType: .action) { isConfirmed in
+            if isConfirmed {
+                self.presenter.routeToResult()
+            } else {
+                self.presenter.routeToGame()
+            }
         }
     }
     
-    func showLoseInfo() {
-        //        TODO:
+     func showLoseInfo() {
+        if presenter.isCorrect {
+            continueButton.isHidden = false
+        } else {
+            continueButton.isHidden = true
+            showAlert(alertType: .loseInformation) {_ in
+                self.presenter.routeToResult() }
+        }
     }
     
     func updateUI() {
         //        TODO:
     }
-    
     
 }
 
