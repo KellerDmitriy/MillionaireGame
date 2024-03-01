@@ -10,6 +10,7 @@ import Foundation
 protocol GameManagerProtocol{    
     func fetchQuestions(difficulty: Difficulty) async throws -> [OneQuestionModel]
     func helpFiftyFifty(data: OneQuestionModel) -> (String?, String?)
+    func randomQuestion(data: OneQuestionModel, probability: Double) -> String? 
 }
 
 final class GameManager{
@@ -61,6 +62,7 @@ final class GameManager{
         case section = "§"
         case special = "&aacute;"
         case special1 = "&iacute;"
+        case special2 = "&ntilde"
         
         var replacementCharacter: String {
             switch self {
@@ -76,6 +78,7 @@ final class GameManager{
             case .section: return "§"
             case .special: return "á"
             case .special1: return "í"
+            case .special2: return "ñ"
             }
         }
     }
@@ -88,10 +91,23 @@ extension GameManager: GameManagerProtocol{
         let arrayQustionsShuffle = getArrayQustionsShuffle(result: result.results)
         return arrayQustionsShuffle
     }
+    
     func helpFiftyFifty(data: OneQuestionModel) -> (String?, String?){
         let correctAnswer = data.allAnswers.first(where: \.correct)
         let incorrectAnswers = data.allAnswers.filter { !$0.correct }
         let randomIncorrectAnswer = incorrectAnswers.randomElement()
         return (correctAnswer?.answerText, randomIncorrectAnswer?.answerText)
+    }
+    
+    func randomQuestion(data: OneQuestionModel, probability: Double) -> String?{
+        let correctAnswer = data.allAnswers.first(where: \.correct)
+        let incorrectAnswers = data.allAnswers.filter { !$0.correct }
+        let randomNumber = Double.random(in: 0...1) // generate a random number between 0 and 1
+        if randomNumber < probability { // if the number is less than 0.7, return the correct answer
+            return correctAnswer?.answerText
+        } else { // otherwise, return a random incorrect answer
+            let randomIncorrectAnswer = incorrectAnswers.randomElement()
+            return randomIncorrectAnswer?.answerText
+        }
     }
 }

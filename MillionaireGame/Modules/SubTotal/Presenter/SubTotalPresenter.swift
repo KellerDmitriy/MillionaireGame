@@ -9,8 +9,8 @@ import Foundation
 
 protocol SubTotalViewProtocol: AnyObject {
     func continueButtonTap()
-    func showLoseInfo()
-    func updateUI()
+    func showLoseInfo(questionIndex: Int)
+    func updateUI(questionIndex: Int)
     
 }
 
@@ -50,9 +50,9 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     func moveGreenView() {
         //TODO:
         if isCorrect {
-            view?.updateUI()
+            view?.updateUI(questionIndex: totalQuestion - 1) //так как сюда сразу 1 вопрос придет
         } else {
-            view?.showLoseInfo()
+            view?.showLoseInfo(questionIndex: totalQuestion - 1)
         }
     }
     

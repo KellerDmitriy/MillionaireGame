@@ -28,8 +28,7 @@ final class SubTotalRouter: SubTotalRouterProtocol {
     
     func routeToGame(userName: String, totalQuestion: Int, difficulty: Difficulty) {
         guard let navigationController else { return }
-        let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName, totalQuestion: totalQuestion)
-        navigationController.popViewController(animated: true) }
-    
+        navigationController.popViewController(animated: true)
+    }
 }
 

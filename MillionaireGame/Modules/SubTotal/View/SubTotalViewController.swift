@@ -30,6 +30,7 @@ final class SubTotalViewController: UIViewController {
     
     var nextGreenCell = true
     var greenCellIndex = 0
+    var indexPathFromGame: IndexPath = .init()
     
     func setGreenCells() {
         nextGreenCell = true
@@ -181,12 +182,16 @@ extension SubTotalViewController: SubTotalViewProtocol {
         }
     }
     
-    func showLoseInfo() {
-        //        TODO:
+    func showLoseInfo(questionIndex: Int) {
+        indexPathFromGame = IndexPath(item: questionIndex, section: 0) //нужно думаю глобально сохранять index path
+        print("indexPathFromGame \(indexPathFromGame)")
+        collectionView.reloadData()
     }
     
-    func updateUI() {
-        //        TODO:
+    func updateUI(questionIndex: Int) {
+        indexPathFromGame = IndexPath(item: questionIndex, section: 0) //нужно думаю глобально сохранять index path
+        print("indexPathFromGame \(indexPathFromGame)")
+        collectionView.reloadData()
     }
     
     
@@ -194,18 +199,31 @@ extension SubTotalViewController: SubTotalViewProtocol {
 
 extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 15
+        return question.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let reversedIndex = 14 - indexPath.item
+        if reversedIndex == indexPathFromGame.item {
+            guard let greenCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GreenCell", for: indexPath) as? GreenCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            greenCell.configureCell(number:"Вопрос " + String(indexPathFromGame.item + 1), sum: question[String(indexPathFromGame.item + 1)] ?? "000")
+            if presenter.isCorrect {
+                greenCell.setCellColor(.greenViewBackground)
+            } else {
+                greenCell.setCellColor(.redViewBackground)
+            }
+            return greenCell
+        }
+
         if reversedIndex == 0 {
             guard let greenCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GreenCell", for: indexPath) as? GreenCollectionViewCell else {
                 return UICollectionViewCell()
             }
             if let questionData = question["1"] {
                 greenCell.configureCell(number: "Вопрос 1", sum: questionData)
-                greenCell.setCellColor(.greenViewBackground)
+                greenCell.setCellColor(.blueViewBackground)
             }
             return greenCell
         } else if nextGreenCell && reversedIndex <= greenCellIndex {
