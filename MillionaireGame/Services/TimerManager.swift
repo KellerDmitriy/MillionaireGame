@@ -93,7 +93,6 @@ final class TimeManager: TimeManagerProtocol{
     }
     
     private func update5SecondsTimer() {
-        print(pass5SecondsGame)
         pass5SecondsGame += 1
         if pass5SecondsGame == 5 {
             playerStop()

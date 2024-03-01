@@ -62,7 +62,7 @@ final class GamePresenter: GamePresenterProtocol {
     var numberQuestion = 0
     var totalQuestion: Int
     var difficulty: Difficulty = .easy
-    var userName = ""
+    var userName: String
     
     private let easyCostArray = ["100","200","300","500","1000"]
     private let mediumCostArray = ["2000","4000","8000","16000","32000"]
@@ -122,7 +122,7 @@ final class GamePresenter: GamePresenterProtocol {
         checkTotalQuestion(totalQuestion: totalQuestion) // если не сделать numberQuestion = 0 то при переходе на другой уровень сложности вызовется view?.setUpUIWhenLoaded() и будет index out of range
         setUPDefaultUI()
     }
-    //MARK: - Dowload Data for difficulty level
+    //MARK: - Download Data for difficulty level
     func loadEasyMediumHardData() {
         if totalQuestion == 0 || totalQuestion == 5 || totalQuestion == 10  {
             print("load \(difficulty)")
@@ -181,17 +181,17 @@ final class GamePresenter: GamePresenterProtocol {
     
     private func getQuestions(difficulty: Difficulty) {
         isLoaded = false
-        Task{ @MainActor in
+        Task { @MainActor in
             do{
                 questData  = [] //чистим для нового запроса
                 let data = try await gameManager.fetchQuestions(difficulty: difficulty)
                 questData = data
-                print("difficulty \(difficulty) question Data \(questData)")
+                print("difficulty \(difficulty)")
                 isLoaded = true
                 view?.setUpUIWhenLoaded()
                 view?.activityIndicStop()
                 view?.startTimer30Sec()
-            }catch{
+            } catch {
                 print(error.localizedDescription)
             }
         }

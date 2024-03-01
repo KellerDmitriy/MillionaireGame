@@ -8,12 +8,15 @@
 import UIKit
 
 final class CustomAnswerButton: UIButton {
-    var anwerText: String
+    var answerText: String
     var letterAnswer: String
     private let answerLetterLabel: UILabel = {
         $0.font = .robotoMedium24()
         $0.textColor = .white
+        $0.numberOfLines = 0
         $0.textAlignment = .left
+        $0.adjustsFontSizeToFitWidth = true
+        $0.adjustsFontForContentSizeCategory = true
         return $0
     }(UILabel())
     
@@ -33,12 +36,11 @@ final class CustomAnswerButton: UIButton {
     }(UIStackView())
     
     init(answerText: String, letterAnswer: String) {
-        self.anwerText = answerText
+        self.answerText = answerText
         self.letterAnswer = letterAnswer
         super.init(frame: .zero)
         setupUI()
         setConstraints()
-       
     }
     
     required init?(coder: NSCoder) {
@@ -47,7 +49,7 @@ final class CustomAnswerButton: UIButton {
     
     func setUptext(text: String){
         answerLetterLabel.text = text
-        anwerText = text
+        answerText = text
     }
     
     private func setupUI() {
@@ -70,14 +72,11 @@ final class CustomAnswerButton: UIButton {
         layer.masksToBounds = false
         
         answerLabel.text = letterAnswer
-        
-        
-  //      addTarget(self, action: #selector(didTapAnswerButton), for: .touchUpInside)
     }
     
-//    @objc private func didTapAnswerButton() {
-//        print(answerLabel.text ?? "")
-//    }
+    func setValue(answer: String) {
+        answerLabel.text = answer
+    }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -88,9 +87,5 @@ final class CustomAnswerButton: UIButton {
             heightAnchor.constraint(equalToConstant: 54),
             widthAnchor.constraint(equalToConstant: 322)
         ])
-    }
-    
-    func setValue(answer: String) {
-        answerLabel.text = answer
     }
 }

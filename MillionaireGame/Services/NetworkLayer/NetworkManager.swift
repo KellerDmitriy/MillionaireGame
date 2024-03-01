@@ -31,8 +31,6 @@ final class NetworkManager: NetworkMangerProtocol {
         
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            print("url \(request.url)")
-            print("statusCode \(response)")
             throw NetworkErrors.invalidResponse}
         do {
             let questionInfo = try request.decode(data)

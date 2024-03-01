@@ -19,6 +19,14 @@ final class AlertControllerFactory: AlertFactoryProtocol {
             preferredStyle: .alert
         )
         
+        let titleFont = UIFont.systemFont(ofSize: 20.0)
+        let titleColor: UIColor = (type == .loseInformation) ? .red : .black
+        let attributedTitle = NSAttributedString(string: type.title, attributes: [
+            NSAttributedString.Key.font: titleFont,
+            NSAttributedString.Key.foregroundColor: titleColor
+        ])
+        alertController.setValue(attributedTitle, forKey: "attributedTitle")
+        
         switch type {
         case .information, .loseInformation:
             let okAction = UIAlertAction(title: "OK", style: .default) { _ in
@@ -48,11 +56,11 @@ enum AlertType {
     var title: String {
         switch self {
         case .information:
-            return "Incorrect Text Format"
+            return "Incorrect Text Format 😏"
         case .loseInformation:
-            return "You Lose"
+            return "You Lose 🫣"
         case .action:
-            return "Do you want to withdraw money?"
+            return "Do you want to take money 🫢?"
         }
     }
     
@@ -63,7 +71,7 @@ enum AlertType {
         case .loseInformation:
             return "You lost, look at the game results"
         case .action:
-            return "You can withdraw your winnings or continue playing"
+            return "You can take your winnings or continue playing"
         }
     }
 }
