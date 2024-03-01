@@ -9,7 +9,7 @@ import UIKit
 
 protocol SubTotalRouterProtocol: AnyObject {
     func routeToResult(userName: String, score: Int)
-    func routeToGame(userName: String) 
+    func routeToGame(userName: String, totalQuestion: Int, difficulty: Difficulty)
 }
 
 final class SubTotalRouter: SubTotalRouterProtocol {
@@ -26,10 +26,10 @@ final class SubTotalRouter: SubTotalRouterProtocol {
         navigationController.pushViewController(resultViewController, animated: true)
     }
     
-    func routeToGame(userName: String) {
+    func routeToGame(userName: String, totalQuestion: Int, difficulty: Difficulty) {
         guard let navigationController else { return }
-        let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName)
-        navigationController.pushViewController(gameViewController, animated: true)
-    }
+        let gameViewController = GameBuilder(navigationController: navigationController).build(userName: userName, totalQuestion: totalQuestion)
+        navigationController.popViewController(animated: true) }
+    
 }
 

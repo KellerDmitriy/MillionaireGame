@@ -10,9 +10,11 @@ import AVFoundation
 
 protocol TimeManagerProtocol{
     func startTimer30Seconds()
-    func startTimer5Seconds(music: String)
+    func startTimer5Seconds(music: String, completion: @escaping () -> Void)
+    func startTimer2Seconds(completion: @escaping () -> Void)
     func stopTimer30Seconds()
     func stop5Seconds()
+    func set30TimerGoToSubtotal()
     var progresPublisher: Published<Float>.Publisher { get }
 }
 
@@ -27,6 +29,11 @@ final class TimeManager: TimeManagerProtocol{
     
     private var timer5SecondsGame = Timer()
     private var pass5SecondsGame = 0
+    private var completionHandler5Sec: (() -> Void)?
+    
+    private var timer2SecondsGame = Timer()
+    private var pass2SecondsGame = 0
+    private var completionHandler2Sec: (() -> Void)?
     
     
     private var player: AVAudioPlayer?
@@ -37,13 +44,20 @@ final class TimeManager: TimeManagerProtocol{
         }
     }
     
-    func startTimer5Seconds(music: String) {
+    func startTimer5Seconds(music: String, completion: @escaping () -> Void) {
+        self.completionHandler5Sec = completion
         timer5SecondsGame = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.update5SecondsTimer()
         }
         playerStart(resource: music)
     }
     
+    func startTimer2Seconds(completion: @escaping () -> Void) {
+        self.completionHandler2Sec = completion
+        timer2SecondsGame = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.update2SecondsTimer()
+        }
+    }
     
     func stopTimer30Seconds() {
         timer30Seconds.invalidate()
@@ -56,14 +70,23 @@ final class TimeManager: TimeManagerProtocol{
         playerStop()
     }
     
+    func set30TimerGoToSubtotal() {
+        count30SecondsTotal = 30
+        passSeconds30 = 0
+        progrees = 0
+        playerStop()
+        timer30Seconds.invalidate()
+    }
+    
     private func update30Timer() {
-        print(count30SecondsTotal)
+        //print("progress from timeManager start \(progrees)")
         count30SecondsTotal -= 1
         passSeconds30 += 1
         progrees = Float(passSeconds30) / Float(totalSecondsProgress)
+        //print("progress from timeManager finish \(progrees)")
         if count30SecondsTotal == 0 {
-            playerStop()
             passSeconds30 = 0
+            playerStop()
             timer30Seconds.invalidate()
         }
     }
@@ -75,6 +98,16 @@ final class TimeManager: TimeManagerProtocol{
             playerStop()
             pass5SecondsGame = 0
             timer5SecondsGame.invalidate()
+            completionHandler5Sec?()
+        }
+    }
+    
+    private func update2SecondsTimer() {
+        pass2SecondsGame += 1
+        if pass2SecondsGame == 2 {
+            pass2SecondsGame = 0
+            timer2SecondsGame.invalidate()
+            completionHandler2Sec?()
         }
     }
         
@@ -84,7 +117,7 @@ final class TimeManager: TimeManagerProtocol{
             player = try AVAudioPlayer(contentsOf: url!)
             player?.play()
         } catch {
-            print("30SecondsTimer error")
+            print("Timer error")
         }
     }
     

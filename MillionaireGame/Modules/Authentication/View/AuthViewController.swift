@@ -11,14 +11,17 @@ final class AuthViewController: UIViewController {
     
     var presenter: AuthPresenterProtocol!
     
-    private let textField = {
+    private let textField: UITextField = {
         let text = UITextField()
         text.backgroundColor = UIColor.clear
-        text.layer.cornerRadius = 10
+        text.textColor = .white
+        text.layer.cornerRadius = 15
         text.layer.masksToBounds = true
         text.layer.borderWidth = 1.0
         text.layer.borderColor = UIColor.white.cgColor
         text.translatesAutoresizingMaskIntoConstraints = false
+        text.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: text.frame.height))
+        text.leftViewMode = .always
         return text
     }()
     
@@ -39,7 +42,7 @@ final class AuthViewController: UIViewController {
     }()
     
     private lazy var authButton: UIButton = {
-        return ButtonFactory.makeButton(
+        return CustomButton.makeButton(
             title: "Play") { [weak self] in
                 self?.authButtonTap()
             }
@@ -47,11 +50,11 @@ final class AuthViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        textField.delegate = self
-        
+    
         setViews()
         setConstraints()
+        setupKeyboard()
+        textField.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,6 +115,19 @@ final class AuthViewController: UIViewController {
 }
 
 extension AuthViewController: AuthViewProtocol {
+    func setupKeyboard() {
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        toolbar.setItems([flexibleSpace, doneButton], animated: false)
+        textField.inputAccessoryView = toolbar
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     func authButtonTap() {
         presenter.routeToGame()
     }

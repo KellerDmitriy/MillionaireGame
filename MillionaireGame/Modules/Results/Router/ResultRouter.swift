@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ResultRouterProtocol: AnyObject {
-    func routeToGame()
+    func playAgainButtonTap()
 }
 
 final class ResultRouter: ResultRouterProtocol {
@@ -12,7 +12,7 @@ final class ResultRouter: ResultRouterProtocol {
     }
     
     //переход на Экран игры / Главный Экран
-    func routeToGame() {
+    func playAgainButtonTap() {
         guard let navigationController else { return }
         let homeViewController = HomeBuilder(navigationController: navigationController).build()
         navigationController.pushViewController(homeViewController, animated: true)

@@ -19,14 +19,14 @@ final class HomeViewController: UIViewController {
     }()
     
     private lazy var authButton: UIButton = {
-        return ButtonFactory.makeButton(
+        return CustomButton.makeButton(
             title: "START GAME") { [weak self] in
                 self?.startGameButtonTapped()
             }
     }()
     
     private lazy var rulesButton: UIButton = {
-        return ButtonFactory.makeButton(
+        return CustomButton.makeButton(
             title: "RULES") { [weak self] in
                 self?.rulesButtonTapped()
             }
@@ -37,6 +37,16 @@ final class HomeViewController: UIViewController {
         setViews()
         setConstraints()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     // MARK: - Setup UI

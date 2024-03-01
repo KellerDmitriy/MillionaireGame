@@ -26,6 +26,6 @@ final class ResultPresenter: ResultPresenterProtocol {
     
     //MARK: - Navigation
     func showGame() {
-        router.routeToGame()
+        router.playAgainButtonTap()
     }
 }

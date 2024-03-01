@@ -38,7 +38,6 @@ final class GameViewController: UIViewController {
     }(UIStackView())
     
     private lazy var questionNumberLabel: UILabel = {
-        $0.text = "Вопрос №\(questionNumber)"
         $0.font = .robotoMedium24()
         $0.textAlignment = .left
         $0.textColor = .white
@@ -46,7 +45,7 @@ final class GameViewController: UIViewController {
     }(UILabel())
     
     private lazy var questionCostLabel: UILabel = {
-        $0.text = "\(questionCost) RUB"
+       // $0.text = "\(questionCost) RUB"
         $0.font = .robotoMedium24()
         $0.textAlignment = .right
         $0.textColor = .white
@@ -60,6 +59,8 @@ final class GameViewController: UIViewController {
         $0.spacing = 10
         return $0
     }(UIStackView())
+    
+    private let activityIndicator = UIActivityIndicatorView(frame: .zero)
     
     private let aAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "A")
     private let bAnswerButton = CustomAnswerButton(answerText: "", letterAnswer: "B")
@@ -93,20 +94,36 @@ final class GameViewController: UIViewController {
     }(UIProgressView(progressViewStyle: .default))
     
     //MARK: - Public properties
-    var questionNumber = 1
-    var questionCost = 100
+    //var questionCost = 100
     var presenter: GamePresenterProtocol!
     
     //MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        observeProgress()
+        configActivityIndecator()
         setupUI()
         setConstraints()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        if !presenter.isLoaded{
+            activityIndicator.startAnimating()
+        }
+        
+        presenter.checkDifficulty()
+        presenter.loadEasyMediumHardData()// проверка уровня сложности
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if presenter.isLoaded { //когда возвращаемся с subTotal, и новые данные не подгружаем
+            print("Правильный ответ \(presenter.questData[presenter.numberQuestion].allAnswers.first(where: \.correct)!)")
+            presenter.start30Timer()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -114,17 +131,15 @@ final class GameViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        cancellables = Set<AnyCancellable>() //вроде бы при deinit экрана cancellables тоже deinit и тогда это не нужно
-    }
     //MARK: - SetUp UI Text
     func setUpUIText(){
-        for (index, answer) in presenter.questEasyData[presenter.numberQuestion].allAnswers.enumerated() {
+        for (index, answer) in presenter.questData[presenter.numberQuestion].allAnswers.enumerated() { // перенести в презентер
             let answerButton = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton][index]
             answerButton.setUptext(text: answer.answerText)
         }
-        questionLabel.text = presenter.questEasyData[presenter.numberQuestion].question
+        questionLabel.text = presenter.questData[presenter.numberQuestion].question
+        questionNumberLabel.text = String(presenter.totalQuestion + 1)
+        questionCostLabel.text = presenter.setCost()
     }
     
     //MARK: - Buttons Action
@@ -133,6 +148,7 @@ final class GameViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in
                 guard let self = self else {return}
+                //print("progress from vc \(progress)")
                 progressBar.progress = progress
             }
             .store(in: &cancellables)
@@ -150,48 +166,94 @@ final class GameViewController: UIViewController {
     }
     
     @objc private func didTapAnswerButton(_ sender: UIButton) {
+        sender.isSelected = !sender.isSelected //меняем состояние у нажатой кнопки чтобы потом перекрасить
         presenter.stop30Timer()
-        presenter.start5Timer(music: "otvet-prinyat")
-        switch sender{
-        case aAnswerButton: print(aAnswerButton.anwerText) 
-            presenter.routeToSubTotal()//дергаем метод презентера для сравнения
-        case bAnswerButton: print(bAnswerButton.anwerText)
-            presenter.routeToSubTotal()
-        case cAnswerButton: print(cAnswerButton.anwerText)
-            presenter.routeToSubTotal()
-        case dAnswerButton: print(dAnswerButton.anwerText)
-            default: print("Default Answers tapped")}
+        presenter.start5Timer(music: "otvet-prinyat", completion: { [weak self] in
+            guard let self = self else { return }
+            let button = sender as? CustomAnswerButton
+            button.map(\.anwerText).map {
+                self.presenter.checkAnswer(answer: $0)
+            }
+        })
     }
-    
-    
+        
     @objc func testTimer(_ sender: UIButton) {
         presenter.stop30Timer()
         takeTip(sender)
     }
     
-    private func takeTip(_ sender: UIButton){
-        switch sender{
-        case fiftyHelpButton: print("fiftyHelpButton") //дергаем метод презентера для подсказок
+    private func takeTip(_ sender: UIButton) {
+        switch sender {
+        case fiftyHelpButton: presenter.fiftyFifty() //дергаем метод презентера для подсказок
         case phoneHelpButton: print("phoneHelpButton") //дергаем метод презентера для подсказок
         case hostHelpButton: print("hostHelpButton") //дергаем метод презентера для подсказок
             default: print("Default tips")}
         presenter.start30Timer()
     }
+    
+    private func setDefaultBackGroundForAnswerButtons() {
+        let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
+        for button in arrayButtons {
+            button.setBackgroundImage(.blueViewBackground, for: .normal)
+            button.isSelected = false
+        }
+    }
 }
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
+    func helpFiftyFity(result: (String?, String?)) {
+        let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
+        for button in arrayButtons{
+            if let correctAnswer = result.0, button.anwerText == correctAnswer {
+                button.setBackgroundImage(.blueViewBackground, for: .normal)
+            } else if let incorrectAnswer = result.1, button.anwerText == incorrectAnswer {
+                button.setBackgroundImage(.blueViewBackground, for: .normal)
+            } else {
+                button.setBackgroundImage(.yellowViewBackground, for: .normal)
+            }
+        }
+    }
+    
+    func changeColorButton(isCorrect: Bool) {
+        let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
+        for button in arrayButtons{
+            if button.isSelected{ // если кнопка была нажата красим ее
+                print("\(button.anwerText) correct \(isCorrect)")
+                button.setBackgroundImage(isCorrect ? .greenViewBackground : .redViewBackground, for: .normal)
+            }
+        }
+        presenter.start2Timer {
+            self.presenter.routeToSubTotalOrResult(isCorrect: isCorrect)
+        }
+    }
+    
+    func cleanUI() {
+        setDefaultBackGroundForAnswerButtons()
+    }
+    
+    func activityIndicStop() {
+        activityIndicator.stopAnimating()
+    }
+    
+    func startTimer30Sec() {
+        print("Правильный ответ \(presenter.questData[presenter.numberQuestion].allAnswers.first(where: \.correct)!)")
+        presenter.start30Timer()
+    }
+    
     func setUpUIWhenLoaded() {
         addTargetButtons()
-        observeProgress()
-        print("presenter easyData \(presenter.questEasyData)")
         setUpUIText()
-        presenter.start30Timer()
     }
 }
 
 //MARK: - GameViewController
 private extension GameViewController {
+    func configActivityIndecator(){
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.style = .large
+        activityIndicator.color = .purple
+    }
     
     func setupUI() {
         view.addVerticalGradientLayer()
@@ -216,6 +278,13 @@ private extension GameViewController {
     }
     
     func setConstraints() {
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([
+               activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+               activityIndicator.topAnchor.constraint(equalTo: answerButtonStackView.bottomAnchor, constant: 25)
+           ])
         
         NSLayoutConstraint.activate([
             logoImageView.heightAnchor.constraint(equalToConstant: 86),
@@ -235,14 +304,14 @@ private extension GameViewController {
         ])
         
         NSLayoutConstraint.activate([
-            answerButtonStackView.topAnchor.constraint(equalTo: questionNumberStackView.bottomAnchor, constant: 24),
-            answerButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            progressBar.topAnchor.constraint(equalTo: questionNumberStackView.bottomAnchor, constant: 20),
+            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
         NSLayoutConstraint.activate([
-            progressBar.topAnchor.constraint(equalTo: answerButtonStackView.bottomAnchor, constant: 20),
-            progressBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            progressBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            answerButtonStackView.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 30),
+            answerButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
         NSLayoutConstraint.activate([

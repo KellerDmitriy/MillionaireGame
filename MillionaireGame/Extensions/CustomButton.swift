@@ -1,5 +1,5 @@
 //
-//  ButtonFactory.swift
+//  CustomButton.swift
 //  MillionaireGame
 //
 //  Created by Келлер Дмитрий on 28.02.2024.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-struct ButtonFactory {
+struct CustomButton {
     static func makeButton(title: String, action: @escaping () -> Void) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
-        button.titleLabel?.font = .robotoExtraBold32()
+        button.titleLabel?.font = .robotoMedium36()
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 15
         button.setBackgroundImage(UIImage(named: "background"), for: .normal)
