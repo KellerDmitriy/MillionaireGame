@@ -9,12 +9,17 @@ import Foundation
 
 protocol SubTotalViewProtocol: AnyObject {
     func continueButtonTap()
+    func showLoseInfo()
+    func updateUI()
+    
 }
 
 protocol SubTotalPresenterProtocol {
     var userName: String { get }
     var score: Int { get set }
     var isCorrect: Bool { get }
+    
+    func moveGreenView()
     
     func routeToGame()
     func routeToResult()
@@ -32,27 +37,27 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     
     var score = 0
     
-//    MARK: - Init
+    //    MARK: - Init
     init(userName: String, router: SubTotalRouterProtocol, totalQuestion: Int, isCorrect: Bool) {
         self.userName = userName
         self.router = router
         self.totalQuestion = totalQuestion
         self.isCorrect = isCorrect
         print("get totaalQuestion subTotal \(totalQuestion) and isCorrect \(isCorrect)")
-        checkDifficulty()
     }
     
-    private func checkDifficulty(){
-        if totalQuestion == 5 {
-            print("5Check")
-            difficulty = .medium
-        } else if totalQuestion == 10 {
-            difficulty = .hard
-        } else{
-            print("nothing change in check")
+    
+    func moveGreenView() {
+        //TODO:
+        if isCorrect {
+            view?.updateUI()
+        } else {
+            view?.showLoseInfo()
         }
     }
     
+    
+    //MARK: - Navigation
     func routeToGame() {
         print("subTotal Presenter \(difficulty)")
         router.routeToGame(userName: userName, totalQuestion: totalQuestion, difficulty: difficulty)

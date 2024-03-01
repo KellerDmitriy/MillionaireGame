@@ -39,7 +39,8 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
     func loadEasyMediumHardData()
     func checkAnswer(answer:String)
     
-    func fifftyFifty()
+    func checkDifficulty()
+    func fiftyFifty()
     
     func routeToSubTotalOrResult(isCorrect: Bool)
 }
@@ -56,7 +57,7 @@ final class GamePresenter: GamePresenterProtocol {
     
     var numberQuestion = 0
     var totalQuestion: Int
-    var difficulty: Difficulty
+    var difficulty: Difficulty = .easy
     var userName = ""
     
     private let easyCostArray = ["100","200","300","500","1000"]
@@ -69,8 +70,7 @@ final class GamePresenter: GamePresenterProtocol {
          router: GameRouterProtocol,
          gameManager: GameManagerProtocol,
          timeManager: TimeManagerProtocol,
-         totalQuestion: Int,
-         difficulty: Difficulty
+         totalQuestion: Int
          
     ) {
         self.userName = userName
@@ -78,12 +78,11 @@ final class GamePresenter: GamePresenterProtocol {
         self.gameManager = gameManager
         self.timeManager = timeManager
         self.totalQuestion = totalQuestion
-        self.difficulty = difficulty
         
         observeProgressBar()
     }
     //MARK: - fifftyFifty Help
-    func fifftyFifty(){
+    func fiftyFifty(){
         print("fiftyFifty \( gameManager.helpFiftyFifty(data: questData[numberQuestion]))")
         view?.helpFiftyFity(result: gameManager.helpFiftyFifty(data: questData[numberQuestion]))
         //gameManager.helpFiftyFifty(data: questData[numberQuestion])
@@ -110,12 +109,24 @@ final class GamePresenter: GamePresenterProtocol {
         setUPDefaultUI()
     }
     //MARK: - Dowload Data for difficulty level
-    func loadEasyMediumHardData(){
+    func loadEasyMediumHardData() {
         if totalQuestion == 0 || totalQuestion == 5 || totalQuestion == 10  {
             print("load \(difficulty)")
             getQuestions(difficulty: difficulty)
         }
     }
+    
+    func checkDifficulty() {
+        if totalQuestion == 5 {
+            print("5Check")
+            difficulty = .medium
+        } else if totalQuestion == 10 {
+            difficulty = .hard
+        } else{
+            print("nothing change in check")
+        }
+    }
+    
     //MARK: - Timer Methods
     func start30Timer() {
         timeManager.startTimer30Seconds()

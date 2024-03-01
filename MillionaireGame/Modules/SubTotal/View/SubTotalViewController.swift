@@ -72,17 +72,15 @@ final class SubTotalViewController: UIViewController {
             }
     }()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setViews()
         setConstraints()
         showWinView()
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(GreenCollectionViewCell.self, forCellWithReuseIdentifier: "GreenCell")
-        collectionView.register(BlueCollectionViewCell.self, forCellWithReuseIdentifier: "BlueCell")
-        collectionView.register(PurpleCollectionViewCell.self, forCellWithReuseIdentifier: "PurpleCell")
-        collectionView.register(YellowCollectionViewCell.self, forCellWithReuseIdentifier: "YellowCell")
+        setupCollectionView()
+        
+        presenter.moveGreenView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -111,6 +109,15 @@ final class SubTotalViewController: UIViewController {
     }
     
     // MARK: - Setup UI
+    fileprivate func setupCollectionView() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(GreenCollectionViewCell.self, forCellWithReuseIdentifier: "GreenCell")
+        collectionView.register(BlueCollectionViewCell.self, forCellWithReuseIdentifier: "BlueCell")
+        collectionView.register(PurpleCollectionViewCell.self, forCellWithReuseIdentifier: "PurpleCell")
+        collectionView.register(YellowCollectionViewCell.self, forCellWithReuseIdentifier: "YellowCell")
+    }
+    
     private func setViews() {
         view.addVerticalGradientLayer()
         view.addSubview(logoImage)
@@ -173,6 +180,16 @@ extension SubTotalViewController: SubTotalViewProtocol {
             presenter.routeToResult()
         }
     }
+    
+    func showLoseInfo() {
+        //        TODO:
+    }
+    
+    func updateUI() {
+        //        TODO:
+    }
+    
+    
 }
 
 extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {

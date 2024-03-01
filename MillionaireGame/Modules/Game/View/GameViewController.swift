@@ -104,6 +104,8 @@ final class GameViewController: UIViewController {
         configActivityIndecator()
         setupUI()
         setConstraints()
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,12 +114,15 @@ final class GameViewController: UIViewController {
         if !presenter.isLoaded{
             activityIndicator.startAnimating()
         }
+        
+        presenter.checkDifficulty()
         presenter.loadEasyMediumHardData()// проверка уровня сложности
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if presenter.isLoaded{ //когда возвращаемся с subTotal, и новые данные не подгружаем
+        if presenter.isLoaded { //когда возвращаемся с subTotal, и новые данные не подгружаем
+            print("Правильный ответ \(presenter.questData[presenter.numberQuestion].allAnswers.first(where: \.correct)!)")
             presenter.start30Timer()
         }
     }
@@ -178,22 +183,22 @@ final class GameViewController: UIViewController {
         takeTip(sender)
     }
     
-    private func takeTip(_ sender: UIButton){
-        switch sender{
-        case fiftyHelpButton: presenter.fifftyFifty() //дергаем метод презентера для подсказок
+    private func takeTip(_ sender: UIButton) {
+        switch sender {
+        case fiftyHelpButton: presenter.fiftyFifty() //дергаем метод презентера для подсказок
         case phoneHelpButton: print("phoneHelpButton") //дергаем метод презентера для подсказок
         case hostHelpButton: print("hostHelpButton") //дергаем метод презентера для подсказок
             default: print("Default tips")}
         presenter.start30Timer()
     }
     
-    private func normalStateForHelpButton(){
+    private func normalStateForHelpButton() {
         fiftyHelpButton.setBackgroundImage(.fiftyFifty, for: .normal)
         phoneHelpButton.setBackgroundImage(.phone, for: .normal)
         hostHelpButton.setBackgroundImage(.host, for: .normal)
     }
     
-    private func setDefaultBackGroundForAnswerButtons(){
+    private func setDefaultBackGroundForAnswerButtons() {
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
         for button in arrayButtons {
             button.setBackgroundImage(.blueViewBackground, for: .normal)
@@ -240,6 +245,7 @@ extension GameViewController: GameViewProtocol {
     }
     
     func startTimer30Sec() {
+        print("Правильный ответ \(presenter.questData[presenter.numberQuestion].allAnswers.first(where: \.correct)!)")
         presenter.start30Timer()
     }
     
