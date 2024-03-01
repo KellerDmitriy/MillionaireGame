@@ -85,7 +85,7 @@ final class GamePresenter: GamePresenterProtocol {
         
         observeProgressBar()
     }
-    //MARK: -  Help
+    //MARK: -  Help Methods
     func fiftyFifty(){
         let result = gameManager.helpFiftyFifty(data: questData[numberQuestion])
         print("result \(result)")
@@ -200,6 +200,6 @@ final class GamePresenter: GamePresenterProtocol {
     //MARK: - Navigation
     func routeToSubTotalOrResult(isCorrect: Bool) {
         checkTotalQuestion()
-        router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect)
+        router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect, timeManager: TimeManager())
     }
 }

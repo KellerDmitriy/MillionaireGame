@@ -81,11 +81,9 @@ final class TimeManager: TimeManagerProtocol{
     }
     
     private func update30Timer() {
-        //print("progress from timeManager start \(progrees)")
         count30SecondsTotal -= 1
         passSeconds30 += 1
         progrees = Float(passSeconds30) / Float(totalSecondsProgress)
-        //print("progress from timeManager finish \(progrees)")
         if count30SecondsTotal == 0 {
             passSeconds30 = 0
             playerStop()

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GameRouterProtocol: AnyObject {
-    func routeToListQuestions(userName: String, totalQuestion: Int, isCorrect: Bool)
+    func routeToListQuestions(userName: String, totalQuestion: Int, isCorrect: Bool, timeManager: TimeManager)
 }
 
 final class GameRouter: GameRouterProtocol {
@@ -18,10 +18,10 @@ final class GameRouter: GameRouterProtocol {
         self.navigationController = navigationController
     }
     
-    func routeToListQuestions(userName: String, totalQuestion: Int, isCorrect: Bool) {
+    func routeToListQuestions(userName: String, totalQuestion: Int, isCorrect: Bool, timeManager: TimeManager) {
         guard let navigationController else { return }
         
-        let subTotalViewController = SubTotalBuilder(navigationController: navigationController).build(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect)
+        let subTotalViewController = SubTotalBuilder(navigationController: navigationController).build(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect, timeManager: timeManager)
         navigationController.pushViewController(subTotalViewController, animated: true)
     }
 }

@@ -95,11 +95,17 @@ final class SubTotalViewController: UIViewController {
         setGreenCells()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        presenter.playMusicIsCorrect()
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+    // MARK: - Private Methods
     private func showWinView() {
         loseLabel.isHidden = true
     }
@@ -154,11 +160,8 @@ final class SubTotalViewController: UIViewController {
         ])
     }
 }
-
+// MARK: - SubTotalViewProtocol
 extension SubTotalViewController: SubTotalViewProtocol {
-  
-    
-    
     private func showAlert(alertType: AlertType, completion: @escaping (Bool) -> Void) {
         let alertController = AlertControllerFactory().createAlert(type: alertType) { isConfirmed in
             completion(isConfirmed)
@@ -169,8 +172,10 @@ extension SubTotalViewController: SubTotalViewProtocol {
     func continueButtonTap() {
         showAlert(alertType: .action) { isConfirmed in
             if isConfirmed {
+                self.presenter.stop5Timer()
                 self.presenter.routeToResult()
             } else {
+                self.presenter.stop5Timer()
                 self.presenter.routeToGame()
             }
         }
@@ -182,9 +187,11 @@ extension SubTotalViewController: SubTotalViewProtocol {
         } else {
             continueButton.isHidden = true
             showAlert(alertType: .loseInformation) {_ in
+                self.presenter.stop5Timer()
                 self.presenter.routeToResult() }
         }
     }
+    
     func showLoseInfo(questionIndex: Int) {
         indexPathFromGame = IndexPath(item: questionIndex, section: 0) //нужно думаю глобально сохранять index path
         print("indexPathFromGame \(indexPathFromGame)")
@@ -198,7 +205,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
     }
     
 }
-
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return question.count
@@ -211,11 +218,7 @@ extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDe
                 return UICollectionViewCell()
             }
             greenCell.configureCell(number:"Вопрос " + String(indexPathFromGame.item + 1), sum: question[String(indexPathFromGame.item + 1)] ?? "000")
-            if presenter.isCorrect {
-                greenCell.setCellColor(.greenViewBackground)
-            } else {
-                greenCell.setCellColor(.redViewBackground)
-            }
+            greenCell.setCellColor(presenter.isCorrect ? .greenViewBackground : .redViewBackground)
             return greenCell
         }
 
