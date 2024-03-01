@@ -195,6 +195,7 @@ final class GameViewController: UIViewController {
         for button in arrayButtons {
             button.setBackgroundImage(.blueViewBackground, for: .normal)
             button.isSelected = false
+            button.isEnabled = true
         }
     }
     
@@ -219,10 +220,11 @@ extension GameViewController: GameViewProtocol {
     }
     
     func helpFiftyFity(result: (String?, String?)) {
-        
+        print("result in vc \(result)")
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
         arrayButtons.forEach { button in
-            button.setBackgroundImage(result.0 == button.anwerText || result.1 == button.anwerText ? .yellowViewBackground : .blueViewBackground,for: .normal)
+            button.setBackgroundImage(result.0 == button.anwerText || result.1 == button.anwerText ? .yellowViewBackground : .redViewBackground,for: .normal)
+            button.isEnabled = (result.0 == button.anwerText || result.1 == button.anwerText ? true : false)
         }
     }
     

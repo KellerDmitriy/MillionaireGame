@@ -24,19 +24,19 @@ protocol SubTotalPresenterProtocol {
     
     func routeToGame()
     func routeToResult()
+    func stop5Timer()
 }
 
 final class SubTotalPresenter: SubTotalPresenterProtocol {
     
     weak var view: SubTotalViewProtocol?
     private let router: SubTotalRouterProtocol
+    private let timeManager: TimeManager
     
     var userName: String
     var totalQuestion: Int
     var difficulty: Difficulty = .easy
     var isCorrect: Bool
-    
-    let timeManager: TimeManager
     
     var score = 0
     
@@ -50,7 +50,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
         print("get totaalQuestion subTotal \(totalQuestion) and isCorrect \(isCorrect)")
     }
     
-    
+    //    MARK: - Delegate Methods
     func moveGreenView() {
         if isCorrect {
             view?.updateUI(questionIndex: totalQuestion - 1) //так как сюда сразу 1 вопрос придет
@@ -63,12 +63,16 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
         let music = isCorrect ? "otvet-vernyiy" : "zvuk-nepravilnogo-otveta"
         start5Timer(music: music)
     }
-    
+    //    MARK: - Private Methods
     private func start5Timer(music: String) {
         timeManager.startTimer5Seconds(music: music, completion: doSome)
     }
     
-    func doSome(){}
+    func stop5Timer() {
+        timeManager.stop5Seconds()
+    }
+    
+    private func doSome(){}
     
     
     //MARK: - Navigation

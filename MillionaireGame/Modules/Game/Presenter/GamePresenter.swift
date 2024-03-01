@@ -85,7 +85,7 @@ final class GamePresenter: GamePresenterProtocol {
         
         observeProgressBar()
     }
-    //MARK: -  Help
+    //MARK: -  Help Methods
     func fiftyFifty(){
         let result = gameManager.helpFiftyFifty(data: questData[numberQuestion])
         print("result \(result)")
