@@ -9,34 +9,12 @@ import UIKit
 
 final class SubTotalViewController: UIViewController {
     var presenter: SubTotalPresenterProtocol!
-    
-    let question: [String: String] = [
-        "15": "1 Million RUB",
-        "14": "500000 RUB",
-        "13": "250000 RUB",
-        "12": "128 RUB",
-        "11": "64000 RUB",
-        "10": "32000 RUB",
-        "9": "16000 RUB",
-        "8": "8000 RUB",
-        "7": "4000 RUB",
-        "6": "2000 RUB",
-        "5": "1000 RUB",
-        "4": "500 RUB",
-        "3": "300 RUB",
-        "2": "200 RUB",
-        "1": "100 RUB"
-    ]
-    
+
     var nextGreenCell = true
     var greenCellIndex = 0
     var indexPathFromGame: IndexPath = .init()
     
-    func setGreenCells() {
-        nextGreenCell = true
-        greenCellIndex = 0
-    }
-    
+
     private let greenCell = GreenCollectionViewCell()
     private let blueImageView = BlueCollectionViewCell()
     private let purpleCell = PurpleCollectionViewCell()
@@ -57,14 +35,12 @@ final class SubTotalViewController: UIViewController {
         return logoImage
     }()
     
-    private let loseLabel: UILabel = {
-        let wonLabel = UILabel()
-        wonLabel.textAlignment = .left
-        wonLabel.text = "You LOSE"
-        wonLabel.textColor = .red
-        wonLabel.font = UIFont(name: "Roboto-Bold", size: 50)
-        return wonLabel
+    lazy var winImageView: UIImageView = {
+        let gif = UIImageView()
+        gif.translatesAutoresizingMaskIntoConstraints = false
+        return gif
     }()
+    
     
     private lazy var continueButton: UIButton = {
         return CustomButton.makeButton(
@@ -76,9 +52,9 @@ final class SubTotalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       
         setViews()
         setConstraints()
-        showWinView()
         setupCollectionView()
         showLoseInfo()
         presenter.moveGreenView()
@@ -106,13 +82,10 @@ final class SubTotalViewController: UIViewController {
     }
     
     // MARK: - Private Methods
-    private func showWinView() {
-        loseLabel.isHidden = true
-    }
     
-    private func showLoseView() {
-        loseLabel.isHidden = false
-        collectionView.isHidden = true
+    private func setGreenCells() {
+        nextGreenCell = true
+        greenCellIndex = 0
     }
     
     // MARK: - Setup UI
@@ -128,14 +101,12 @@ final class SubTotalViewController: UIViewController {
     private func setViews() {
         view.addVerticalGradientLayer()
         view.addSubview(logoImage)
-        view.addSubview(loseLabel)
         view.addSubview(collectionView)
         view.addSubview(continueButton)
     }
     
     private func setConstraints() {
         logoImage.translatesAutoresizingMaskIntoConstraints = false
-        loseLabel.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         
@@ -144,9 +115,6 @@ final class SubTotalViewController: UIViewController {
             logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             logoImage.widthAnchor.constraint(equalToConstant: 86),
             logoImage.heightAnchor.constraint(equalToConstant: 86),
-            
-            loseLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            loseLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             collectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             collectionView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 10),
@@ -162,6 +130,74 @@ final class SubTotalViewController: UIViewController {
 }
 // MARK: - SubTotalViewProtocol
 extension SubTotalViewController: SubTotalViewProtocol {
+    private func setGifImageView() {
+        collectionView.isHidden = true
+        view.addSubview(winImageView)
+        NSLayoutConstraint.activate([
+            winImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            winImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            winImageView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 30),
+            winImageView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 50),
+            winImageView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -50),
+            winImageView.bottomAnchor.constraint(equalTo: continueButton.topAnchor, constant: -30)
+        ])
+    }
+    
+    func showCongratulations() {
+        setGifImageView()
+        
+        guard let gifUrl = URL(string: "https://usagif.com/wp-content/uploads/gify/taylor-swift-heart-hand-gest-usagif.gif") else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: gifUrl) { data, response, error in
+            if let error = error {
+                print("Error loading GIF image:", error)
+                return
+            }
+            
+            guard let data = data else {
+                print("No data received for GIF image")
+                return
+            }
+       
+            guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
+                print("Failed to create image source")
+                return
+            }
+            
+            let frameCount = CGImageSourceGetCount(source)
+            
+            
+            var frames: [UIImage] = []
+            
+         
+            for i in 0..<frameCount {
+                guard let frame = CGImageSourceCreateImageAtIndex(source, i, nil) else {
+                    print("Failed to create image at index \(i)")
+                    continue
+                }
+                let uiImage = UIImage(cgImage: frame)
+                frames.append(uiImage)
+            }
+  
+            DispatchQueue.main.async {
+                self.animate(with: frames)
+            }
+        }.resume()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.presenter.routeToResult()
+        }
+    }
+
+    private func animate(with frames: [UIImage]) {
+        winImageView.animationImages = frames
+        winImageView.animationDuration = TimeInterval(frames.count) * 0.1
+        winImageView.animationRepeatCount = 1
+        winImageView.startAnimating()
+    }
+    
     private func showAlert(alertType: AlertType, completion: @escaping (Bool) -> Void) {
         let alertController = AlertControllerFactory().createAlert(type: alertType) { isConfirmed in
             completion(isConfirmed)
@@ -170,13 +206,14 @@ extension SubTotalViewController: SubTotalViewProtocol {
     }
     
     func continueButtonTap() {
-        showAlert(alertType: .action) { isConfirmed in
+        showAlert(alertType: .action) { [weak self] isConfirmed in
             if isConfirmed {
-                self.presenter.stop5Timer()
-                self.presenter.routeToResult()
+                self?.presenter.stop5Timer()
+                self?.presenter.getMoney()
+                self?.presenter.routeToResult()
             } else {
-                self.presenter.stop5Timer()
-                self.presenter.routeToGame()
+                self?.presenter.stop5Timer()
+                self?.presenter.routeToGame()
             }
         }
     }
@@ -186,21 +223,22 @@ extension SubTotalViewController: SubTotalViewProtocol {
             continueButton.isHidden = false
         } else {
             continueButton.isHidden = true
-            showAlert(alertType: .loseInformation) {_ in
-                self.presenter.stop5Timer()
-                self.presenter.routeToResult() }
+            showAlert(alertType: .loseInformation) { [weak self] _ in
+                self?.presenter.stop5Timer()
+                self?.presenter.getLoseMoney()
+                self?.presenter.routeToResult() }
         }
     }
     
     func showLoseInfo(questionIndex: Int) {
         indexPathFromGame = IndexPath(item: questionIndex, section: 0) //нужно думаю глобально сохранять index path
-        print("indexPathFromGame \(indexPathFromGame)")
+        
         collectionView.reloadData()
     }
     
     func updateUI(questionIndex: Int) {
         indexPathFromGame = IndexPath(item: questionIndex, section: 0) //нужно думаю глобально сохранять index path
-        print("indexPathFromGame \(indexPathFromGame)")
+     
         collectionView.reloadData()
     }
     
@@ -208,16 +246,18 @@ extension SubTotalViewController: SubTotalViewProtocol {
 // MARK: - UICollectionViewDataSource, UICollectionViewDelegate
 extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return question.count
+        return presenter.question.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let reversedIndex = 14 - indexPath.item
+        let question = presenter.question
+        
         if reversedIndex == indexPathFromGame.item {
             guard let greenCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GreenCell", for: indexPath) as? GreenCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            greenCell.configureCell(number:"Вопрос " + String(indexPathFromGame.item + 1), sum: question[String(indexPathFromGame.item + 1)] ?? "000")
+            greenCell.configureCell(number:"Question " + String(indexPathFromGame.item + 1), sum: question[indexPathFromGame.item + 1] ?? "000")
             greenCell.setCellColor(presenter.isCorrect ? .greenViewBackground : .redViewBackground)
             return greenCell
         }
@@ -226,8 +266,8 @@ extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDe
             guard let greenCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GreenCell", for: indexPath) as? GreenCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            if let questionData = question["1"] {
-                greenCell.configureCell(number: "Вопрос 1", sum: questionData)
+            if let questionData = question[1] {
+                greenCell.configureCell(number: "Question 1", sum: questionData)
                 greenCell.setCellColor(.blueViewBackground)
             }
             return greenCell
@@ -242,24 +282,24 @@ extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDe
             guard let blueCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlueCell", for: indexPath) as? BlueCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            if let questionData = question["2"] {
-                blueCell.configureCell(number: "Вопрос \(reversedIndex + 1)", sum: questionData)
+            if let questionData = question[reversedIndex + 1] {
+                blueCell.configureCell(number: "Question \(reversedIndex + 1)", sum: questionData)
             }
             return blueCell
         } else if reversedIndex == 14 {
             guard let yellowCell = collectionView.dequeueReusableCell(withReuseIdentifier: "YellowCell", for: indexPath) as? YellowCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            if let questionData = question["15"] {
-                yellowCell.configureCell(number: "Вопрос 15", sum: questionData)
+            if let questionData = question[15] {
+                yellowCell.configureCell(number: "Question 15", sum: questionData)
             }
             return yellowCell
         } else {
             guard let purpleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PurpleCell", for: indexPath) as? PurpleCollectionViewCell else {
                 return UICollectionViewCell()
             }
-            if let questionData = question[String(reversedIndex + 1)] {
-                purpleCell.configureCell(number: "Вопрос \(reversedIndex + 1)", sum: questionData)
+            if let questionData = question[reversedIndex + 1] {
+                purpleCell.configureCell(number: "Question \(reversedIndex + 1)", sum: questionData)
             }
             return purpleCell
         }

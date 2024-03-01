@@ -49,7 +49,7 @@ extension UIView {
         let animation = CABasicAnimation(keyPath: "colors")
         animation.fromValue = [bottomColor.cgColor, middleColor.cgColor, topColor.cgColor, grayColor.cgColor]
         animation.toValue = [grayColor.cgColor, topColor.cgColor, middleColor.cgColor, bottomColor.cgColor]
-        animation.duration = 4.0
+        animation.duration = 2.0
         animation.autoreverses = true
         animation.repeatCount = .infinity
         gradient.add(animation, forKey: nil)

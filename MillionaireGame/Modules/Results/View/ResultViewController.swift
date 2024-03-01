@@ -83,14 +83,14 @@ extension ResultViewController: ResultRouterProtocol {
 //MARK: - ResultViewProtocol
 
 extension ResultViewController: ResultViewProtocol {
-    func setResult(name: String, result: Bool, score: Int) {
+    func setResult(name: String, result: Bool, score: String) {
         switch result {
         case true:
-            descriptionLabel.text = "You win \(score) RUB"
+            descriptionLabel.text = "You win \(score)"
             resultLabel.text = "\(name) you WIN"
             resultLabel.textColor = .specialGreen
         case false:
-            descriptionLabel.text = "You didn't reach victory, you won  \(score) RUB"
+            descriptionLabel.text = "You didn't reach victory, you won  \(score)"
             resultLabel.text = "\(name) you LOSE"
             resultLabel.textColor = .specialOrange
         }
@@ -109,8 +109,8 @@ private extension ResultViewController {
     }
     
     func configureStackView() {
-        stackView.addArrangedSubview(descriptionLabel)
         stackView.addArrangedSubview(resultLabel)
+        stackView.addArrangedSubview(descriptionLabel)
         stackView.axis = .vertical
         stackView.spacing = 5
         stackView.distribution = .fill
@@ -127,7 +127,7 @@ private extension ResultViewController {
             logoImage.heightAnchor.constraint(equalToConstant: 200),
             logoImage.widthAnchor.constraint(equalToConstant: 200),
         
-            stackView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 5),
+            stackView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 20),
             stackView.centerXAnchor.constraint(equalTo: logoImage.centerXAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 135),
             stackView.widthAnchor.constraint(equalToConstant: 345),

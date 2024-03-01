@@ -1,7 +1,7 @@
 import UIKit
 
 protocol ResultBuilderProtocol: AnyObject {
-    func build(name: String, score: Int, isLose: Bool) -> UIViewController
+    func build(name: String, score: String, isLose: Bool) -> UIViewController
     init(navigationController: UINavigationController)
 }
 
@@ -12,7 +12,7 @@ final class ResultBuilder: ResultBuilderProtocol {
         self.navigationController = navigationController
     }
     
-    func build(name: String, score: Int, isLose: Bool) -> UIViewController {
+    func build(name: String, score: String, isLose: Bool) -> UIViewController {
         guard let navigationController else {
             fatalError("ResultBuilder requires a valid navigationController")
         }

@@ -64,23 +64,23 @@ final class HomeViewController: UIViewController {
     private func setConstraints() {
         NSLayoutConstraint.activate([
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 75),
-            logoImage.widthAnchor.constraint(equalToConstant: 200),
-            logoImage.heightAnchor.constraint(equalToConstant: 200)
+            logoImage.topAnchor.constraint(equalTo: view.topAnchor, constant: 130),
+            logoImage.widthAnchor.constraint(equalToConstant: 330),
+            logoImage.heightAnchor.constraint(equalToConstant: 330)
         ])
         
         NSLayoutConstraint.activate([
             authButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            authButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 350),
+            authButton.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 100),
             authButton.widthAnchor.constraint(equalToConstant: 300),
-            authButton.heightAnchor.constraint(equalToConstant: 40)
+            authButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         
         NSLayoutConstraint.activate([
             rulesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             rulesButton.topAnchor.constraint(equalTo: authButton.bottomAnchor, constant: 20),
             rulesButton.widthAnchor.constraint(equalToConstant: 300),
-            rulesButton.heightAnchor.constraint(equalToConstant: 40)
+            rulesButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     

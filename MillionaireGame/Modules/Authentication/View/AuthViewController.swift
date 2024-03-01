@@ -43,7 +43,7 @@ final class AuthViewController: UIViewController {
     
     private lazy var authButton: UIButton = {
         return CustomButton.makeButton(
-            title: "Play") { [weak self] in
+            title: "Log In") { [weak self] in
                 self?.authButtonTap()
             }
     }()

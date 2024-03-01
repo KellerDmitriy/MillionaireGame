@@ -146,7 +146,6 @@ final class GameViewController: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] progress in
                 guard let self = self else {return}
-                //print("progress from vc \(progress)")
                 progressBar.progress = progress
             }
             .store(in: &cancellables)
@@ -170,7 +169,7 @@ final class GameViewController: UIViewController {
         presenter.start5Timer(music: "otvet-prinyat", completion: { [weak self] in
             guard let self = self else { return }
             let button = sender as? CustomAnswerButton
-            button.map(\.anwerText).map {
+            button.map(\.answerText).map {
                 self.presenter.checkAnswer(answer: $0)
             }
         })
@@ -183,9 +182,9 @@ final class GameViewController: UIViewController {
     
     private func takeTip(_ sender: UIButton) {
         switch sender {
-        case fiftyHelpButton: presenter.fiftyFifty() //дергаем метод презентера для подсказок
-        case phoneHelpButton: presenter.helpFriend() //дергаем метод презентера для подсказок
-        case hostHelpButton: presenter.helpPeople() //дергаем метод презентера для подсказок
+        case fiftyHelpButton: presenter.fiftyFifty()
+        case phoneHelpButton: presenter.helpFriend()
+        case hostHelpButton: presenter.helpPeople()
             default: print("Default tips")}
         presenter.start30Timer()
     }
@@ -202,7 +201,7 @@ final class GameViewController: UIViewController {
     private func helpButtonTappedChangeAnswerColor(result: String?) {
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
         arrayButtons.forEach { button in
-            button.setBackgroundImage(result == button.anwerText ? .yellowViewBackground : .blueViewBackground,for: .normal)
+            button.setBackgroundImage(result == button.answerText ? .yellowViewBackground : .blueViewBackground,for: .normal)
         }
     }
 }
@@ -210,21 +209,18 @@ final class GameViewController: UIViewController {
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
     func helpFriend(result: String?) {
-        print("resultFried \(result)")
         helpButtonTappedChangeAnswerColor(result: result)
     }
     
     func helpPeople(result: String?) {
-        print("resultPeople \(result)")
         helpButtonTappedChangeAnswerColor(result: result)
     }
     
     func helpFiftyFity(result: (String?, String?)) {
-        print("result in vc \(result)")
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
         arrayButtons.forEach { button in
-            button.setBackgroundImage(result.0 == button.anwerText || result.1 == button.anwerText ? .yellowViewBackground : .redViewBackground,for: .normal)
-            button.isEnabled = (result.0 == button.anwerText || result.1 == button.anwerText ? true : false)
+            button.setBackgroundImage(result.0 == button.answerText || result.1 == button.answerText ? .blueViewBackground : .redViewBackground,for: .normal)
+            button.isEnabled = (result.0 == button.answerText || result.1 == button.answerText ? true : false)
         }
     }
     
@@ -232,7 +228,6 @@ extension GameViewController: GameViewProtocol {
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
         for button in arrayButtons{
             if button.isSelected{ // если кнопка была нажата красим ее
-                print("\(button.anwerText) correct \(isCorrect)")
                 button.setBackgroundImage(isCorrect ? .greenViewBackground : .redViewBackground, for: .normal)
             }
         }
