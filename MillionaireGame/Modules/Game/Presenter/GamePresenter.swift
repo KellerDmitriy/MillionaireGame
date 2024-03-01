@@ -16,6 +16,8 @@ protocol GameViewProtocol: AnyObject {
     func changeColorButton(isCorrect: Bool)
     
     func helpFiftyFity(result: (String?, String?))
+    func helpPeople(result: String?)
+    func helpFriend(result: String?)
 }
 
 //Presenter
@@ -38,9 +40,11 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
     func setCost() -> String
     func loadEasyMediumHardData()
     func checkAnswer(answer:String)
-    
     func checkDifficulty()
+    
     func fiftyFifty()
+    func helpPeople()
+    func helpFriend()
     
     func routeToSubTotalOrResult(isCorrect: Bool)
 }
@@ -81,11 +85,21 @@ final class GamePresenter: GamePresenterProtocol {
         
         observeProgressBar()
     }
-    //MARK: - fifftyFifty Help
+    //MARK: -  Help
     func fiftyFifty(){
-        print("fiftyFifty \( gameManager.helpFiftyFifty(data: questData[numberQuestion]))")
-        view?.helpFiftyFity(result: gameManager.helpFiftyFifty(data: questData[numberQuestion]))
-        //gameManager.helpFiftyFifty(data: questData[numberQuestion])
+        let result = gameManager.helpFiftyFifty(data: questData[numberQuestion])
+        print("result \(result)")
+        view?.helpFiftyFity(result: result)
+    }
+    
+    func helpFriend() {
+        let result = gameManager.randomQuestion(data: questData[numberQuestion], probability: 0.8)
+        view?.helpFriend(result: result)
+    }
+    
+    func helpPeople(){
+        let result = gameManager.randomQuestion(data: questData[numberQuestion], probability: 0.7)
+        view?.helpPeople(result: result)
     }
     
     //MARK: - Set Cost
@@ -118,7 +132,6 @@ final class GamePresenter: GamePresenterProtocol {
     
     func checkDifficulty() {
         if totalQuestion == 5 {
-            print("5Check")
             difficulty = .medium
         } else if totalQuestion == 10 {
             difficulty = .hard
@@ -129,7 +142,10 @@ final class GamePresenter: GamePresenterProtocol {
     
     //MARK: - Timer Methods
     func start30Timer() {
-        timeManager.startTimer30Seconds()
+        timeManager.startTimer30Seconds{
+            print("Done")
+            self.routeToSubTotalOrResult(isCorrect: false)
+        }
     }
     
     func stop30Timer() {
