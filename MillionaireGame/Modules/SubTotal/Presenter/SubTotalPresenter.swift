@@ -48,7 +48,6 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     
     
     func moveGreenView() {
-        //TODO:
         if isCorrect {
             view?.updateUI(questionIndex: totalQuestion - 1) //так как сюда сразу 1 вопрос придет
         } else {
@@ -60,10 +59,10 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     //MARK: - Navigation
     func routeToGame() {
         print("subTotal Presenter \(difficulty)")
-        router.routeToGame(userName: userName, totalQuestion: totalQuestion, difficulty: difficulty)
+        router.routeToGame(userName: userName, totalQuestion: totalQuestion)
     }
     
     func routeToResult() {
-        router.routeToResult(userName: userName, score: score)
+        router.routeToResult(name: userName, score: score, isLose: isCorrect)
     }
 }

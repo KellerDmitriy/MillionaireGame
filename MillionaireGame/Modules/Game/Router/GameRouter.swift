@@ -8,7 +8,6 @@
 import UIKit
 
 protocol GameRouterProtocol: AnyObject {
-    func routeToResult()
     func routeToListQuestions(userName: String, totalQuestion: Int, isCorrect: Bool)
 }
 
@@ -17,12 +16,6 @@ final class GameRouter: GameRouterProtocol {
     
     required init(navigationController: UINavigationController?) {
         self.navigationController = navigationController
-    }
-    
-    func routeToResult() {
-        guard let navigationController else { return }
-        let resultViewController = ResultBuilder(navigationController: navigationController).build()
-        navigationController.pushViewController(resultViewController, animated: true)
     }
     
     func routeToListQuestions(userName: String, totalQuestion: Int, isCorrect: Bool) {
