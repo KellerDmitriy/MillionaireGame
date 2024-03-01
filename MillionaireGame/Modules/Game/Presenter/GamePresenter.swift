@@ -200,6 +200,6 @@ final class GamePresenter: GamePresenterProtocol {
     //MARK: - Navigation
     func routeToSubTotalOrResult(isCorrect: Bool) {
         checkTotalQuestion()
-        router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect)
+        router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect, timeManager: TimeManager())
     }
 }

@@ -82,6 +82,7 @@ final class SubTotalViewController: UIViewController {
         setupCollectionView()
         showLoseInfo()
         presenter.moveGreenView()
+        presenter.playMusicIsCorrect()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -185,6 +186,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
                 self.presenter.routeToResult() }
         }
     }
+    
     func showLoseInfo(questionIndex: Int) {
         indexPathFromGame = IndexPath(item: questionIndex, section: 0) //нужно думаю глобально сохранять index path
         print("indexPathFromGame \(indexPathFromGame)")

@@ -20,6 +20,7 @@ protocol SubTotalPresenterProtocol {
     var isCorrect: Bool { get }
     
     func moveGreenView()
+    func playMusicIsCorrect()
     
     func routeToGame()
     func routeToResult()
@@ -35,14 +36,17 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     var difficulty: Difficulty = .easy
     var isCorrect: Bool
     
+    let timeManager: TimeManager
+    
     var score = 0
     
     //    MARK: - Init
-    init(userName: String, router: SubTotalRouterProtocol, totalQuestion: Int, isCorrect: Bool) {
+    init(userName: String, router: SubTotalRouterProtocol, totalQuestion: Int, isCorrect: Bool, timeManager: TimeManager) {
         self.userName = userName
         self.router = router
         self.totalQuestion = totalQuestion
         self.isCorrect = isCorrect
+        self.timeManager = timeManager
         print("get totaalQuestion subTotal \(totalQuestion) and isCorrect \(isCorrect)")
     }
     
@@ -54,6 +58,17 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
             view?.showLoseInfo(questionIndex: totalQuestion - 1)
         }
     }
+    
+    func playMusicIsCorrect() {
+        let music = isCorrect ? "otvet-vernyiy" : "zvuk-nepravilnogo-otveta"
+        start5Timer(music: music)
+    }
+    
+    private func start5Timer(music: String) {
+        timeManager.startTimer5Seconds(music: music, completion: doSome)
+    }
+    
+    func doSome(){}
     
     
     //MARK: - Navigation
