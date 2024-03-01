@@ -128,8 +128,35 @@ extension AuthViewController: AuthViewProtocol {
         view.endEditing(true)
     }
     
+    private func showAlert(alertType: AlertType, completion: @escaping (Bool) -> Void) {
+        let alertController = AlertControllerFactory().createAlert(type: alertType) { isConfirmed in
+            completion(isConfirmed)
+        }
+        present(alertController, animated: true)
+    }
+    
     func authButtonTap() {
-        presenter.routeToGame()
+            let enteredName = textField.text ?? ""
+            if isValidName(enteredName) {
+                presenter.routeToGame()
+            } else {
+                showAlert(alertType: .information) { _ in
+                }
+            }
+        }
+    
+
+    private func isValidName(_ name: String) -> Bool {
+        guard !name.isEmpty, name.count <= 15 else {
+            return false
+        }
+        
+        let validCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        guard name.rangeOfCharacter(from: validCharacterSet.inverted) == nil else {
+            return false
+        }
+        
+        return true
     }
 }
 
