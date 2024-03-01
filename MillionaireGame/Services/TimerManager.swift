@@ -9,7 +9,7 @@ import Foundation
 import AVFoundation
 
 protocol TimeManagerProtocol{
-    func startTimer30Seconds()
+    func startTimer30Seconds(completion: @escaping () -> Void)
     func startTimer5Seconds(music: String, completion: @escaping () -> Void)
     func startTimer2Seconds(completion: @escaping () -> Void)
     func stopTimer30Seconds()
@@ -26,6 +26,7 @@ final class TimeManager: TimeManagerProtocol{
     private var count30SecondsTotal = 30
     private var passSeconds30 = 0
     private let totalSecondsProgress = 30
+    private var completionHandler30Sec: (() -> Void)?
     
     private var timer5SecondsGame = Timer()
     private var pass5SecondsGame = 0
@@ -37,7 +38,8 @@ final class TimeManager: TimeManagerProtocol{
     
     
     private var player: AVAudioPlayer?
-    func startTimer30Seconds() {
+    func startTimer30Seconds(completion: @escaping () -> Void) {
+        self.completionHandler30Sec = completion
         playerStart(resource: "zvuk-chasov-vo-vremya-igryi")
         timer30Seconds = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
             self?.update30Timer()
@@ -88,6 +90,7 @@ final class TimeManager: TimeManagerProtocol{
             passSeconds30 = 0
             playerStop()
             timer30Seconds.invalidate()
+            completionHandler30Sec?()
         }
     }
     

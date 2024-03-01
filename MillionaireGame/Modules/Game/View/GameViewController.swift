@@ -45,7 +45,6 @@ final class GameViewController: UIViewController {
     }(UILabel())
     
     private lazy var questionCostLabel: UILabel = {
-       // $0.text = "\(questionCost) RUB"
         $0.font = .robotoMedium24()
         $0.textAlignment = .right
         $0.textColor = .white
@@ -94,7 +93,6 @@ final class GameViewController: UIViewController {
     }(UIProgressView(progressViewStyle: .default))
     
     //MARK: - Public properties
-    //var questionCost = 100
     var presenter: GamePresenterProtocol!
     
     //MARK: - Lifecycle
@@ -138,8 +136,8 @@ final class GameViewController: UIViewController {
             answerButton.setUptext(text: answer.answerText)
         }
         questionLabel.text = presenter.questData[presenter.numberQuestion].question
-        questionNumberLabel.text = String(presenter.totalQuestion + 1)
-        questionCostLabel.text = presenter.setCost()
+        questionNumberLabel.text = (String(presenter.totalQuestion + 1) + " Question")
+        questionCostLabel.text = presenter.setCost() + " ₽"
     }
     
     //MARK: - Buttons Action
@@ -167,6 +165,7 @@ final class GameViewController: UIViewController {
     
     @objc private func didTapAnswerButton(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected //меняем состояние у нажатой кнопки чтобы потом перекрасить
+        sender.setBackgroundImage(.purpleViewBackground, for: .normal)
         presenter.stop30Timer()
         presenter.start5Timer(music: "otvet-prinyat", completion: { [weak self] in
             guard let self = self else { return }
@@ -185,8 +184,8 @@ final class GameViewController: UIViewController {
     private func takeTip(_ sender: UIButton) {
         switch sender {
         case fiftyHelpButton: presenter.fiftyFifty() //дергаем метод презентера для подсказок
-        case phoneHelpButton: print("phoneHelpButton") //дергаем метод презентера для подсказок
-        case hostHelpButton: print("hostHelpButton") //дергаем метод презентера для подсказок
+        case phoneHelpButton: presenter.helpFriend() //дергаем метод презентера для подсказок
+        case hostHelpButton: presenter.helpPeople() //дергаем метод презентера для подсказок
             default: print("Default tips")}
         presenter.start30Timer()
     }
@@ -198,20 +197,32 @@ final class GameViewController: UIViewController {
             button.isSelected = false
         }
     }
+    
+    private func helpButtonTappedChangeAnswerColor(result: String?) {
+        let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
+        arrayButtons.forEach { button in
+            button.setBackgroundImage(result == button.anwerText ? .yellowViewBackground : .blueViewBackground,for: .normal)
+        }
+    }
 }
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
+    func helpFriend(result: String?) {
+        print("resultFried \(result)")
+        helpButtonTappedChangeAnswerColor(result: result)
+    }
+    
+    func helpPeople(result: String?) {
+        print("resultPeople \(result)")
+        helpButtonTappedChangeAnswerColor(result: result)
+    }
+    
     func helpFiftyFity(result: (String?, String?)) {
+        
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
-        for button in arrayButtons{
-            if let correctAnswer = result.0, button.anwerText == correctAnswer {
-                button.setBackgroundImage(.blueViewBackground, for: .normal)
-            } else if let incorrectAnswer = result.1, button.anwerText == incorrectAnswer {
-                button.setBackgroundImage(.blueViewBackground, for: .normal)
-            } else {
-                button.setBackgroundImage(.yellowViewBackground, for: .normal)
-            }
+        arrayButtons.forEach { button in
+            button.setBackgroundImage(result.0 == button.anwerText || result.1 == button.anwerText ? .yellowViewBackground : .blueViewBackground,for: .normal)
         }
     }
     

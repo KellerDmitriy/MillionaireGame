@@ -29,6 +29,7 @@ final class SubTotalBuilder: SubTotalBuilderProtocol {
                                           router: router, totalQuestion: totalQuestion, isCorrect: isCorrect)
         
         viewController.presenter = presenter
+        presenter.view = viewController
         
         return viewController
     }
