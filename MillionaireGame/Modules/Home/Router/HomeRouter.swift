@@ -26,7 +26,7 @@ final class HomeRouter: HomeRouterProtocol {
     }
     
     func routeToRules(rulesText: String) {
-        let rulesViewController = RulesViewController(rulesText: rulesText)
-        navigationController?.pushViewController(rulesViewController, animated: true)
-    }
-}
+           let rulesViewController = RulesViewController(rulesText: rulesText)
+           navigationController?.pushViewController(rulesViewController, animated: true)
+       }
+   }
