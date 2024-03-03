@@ -13,7 +13,6 @@ final class CustomAnswerButton: UIButton {
     private let answerLetterLabel: UILabel = {
         $0.font = .robotoMedium24()
         $0.textColor = .white
-        $0.numberOfLines = 0
         $0.textAlignment = .left
         $0.adjustsFontSizeToFitWidth = true
         $0.adjustsFontForContentSizeCategory = true

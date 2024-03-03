@@ -9,16 +9,12 @@ import UIKit
 
 final class SubTotalViewController: UIViewController {
     var presenter: SubTotalPresenterProtocol!
-
+    
     var nextGreenCell = true
     var greenCellIndex = 0
     var indexPathFromGame: IndexPath = .init()
     
-
-    private let greenCell = GreenCollectionViewCell()
-    private let blueImageView = BlueCollectionViewCell()
-    private let purpleCell = PurpleCollectionViewCell()
-    private let yellowImageView = YellowCollectionViewCell()
+    private let colorImageView = ColorCollectionViewCell()
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -52,7 +48,7 @@ final class SubTotalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         setViews()
         setConstraints()
         setupCollectionView()
@@ -93,10 +89,8 @@ final class SubTotalViewController: UIViewController {
     fileprivate func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.register(GreenCollectionViewCell.self, forCellWithReuseIdentifier: "GreenCell")
-        collectionView.register(BlueCollectionViewCell.self, forCellWithReuseIdentifier: "BlueCell")
-        collectionView.register(PurpleCollectionViewCell.self, forCellWithReuseIdentifier: "PurpleCell")
-        collectionView.register(YellowCollectionViewCell.self, forCellWithReuseIdentifier: "YellowCell")
+        
+        collectionView.register(ColorCollectionViewCell.self, forCellWithReuseIdentifier: "BlueCell")
     }
     
     private func setViews() {
@@ -162,7 +156,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
                 print("No data received for GIF image")
                 return
             }
-       
+            
             guard let source = CGImageSourceCreateWithData(data as CFData, nil) else {
                 print("Failed to create image source")
                 return
@@ -173,7 +167,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
             
             var frames: [UIImage] = []
             
-         
+            
             for i in 0..<frameCount {
                 guard let frame = CGImageSourceCreateImageAtIndex(source, i, nil) else {
                     print("Failed to create image at index \(i)")
@@ -182,7 +176,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
                 let uiImage = UIImage(cgImage: frame)
                 frames.append(uiImage)
             }
-  
+            
             DispatchQueue.main.async {
                 self.animate(with: frames)
             }
@@ -193,7 +187,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
             self.presenter.routeToResult()
         }
     }
-
+    
     private func animate(with frames: [UIImage]) {
         winImageView.animationImages = frames
         winImageView.animationDuration = TimeInterval(frames.count) * 0.1
@@ -229,7 +223,8 @@ extension SubTotalViewController: SubTotalViewProtocol {
             showAlert(alertType: .loseInformation) { [weak self] _ in
                 self?.presenter.stop5Timer()
                 self?.presenter.getLoseMoney()
-                self?.presenter.routeToResult() }
+                self?.presenter.routeToResult()
+            }
         }
     }
     
@@ -241,7 +236,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
     
     func updateUI(questionIndex: Int) {
         indexPathFromGame = IndexPath(item: questionIndex, section: 0) //нужно думаю глобально сохранять index path
-     
+        
         collectionView.reloadData()
     }
     
@@ -253,59 +248,19 @@ extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let reversedIndex = 14 - indexPath.item
         let question = presenter.question
-        
-        if reversedIndex == indexPathFromGame.item {
-            guard let greenCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GreenCell", for: indexPath) as? GreenCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            greenCell.configureCell(number:"Question " + String(indexPathFromGame.item + 1), sum: question[indexPathFromGame.item + 1] ?? "000")
-            greenCell.setCellColor(presenter.isCorrect ? .greenViewBackground : .redViewBackground)
-            return greenCell
-        }
+        let prizeLevel = presenter.totalQuestion
 
-        if reversedIndex == 0 {
-            guard let greenCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GreenCell", for: indexPath) as? GreenCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            if let questionData = question[1] {
-                greenCell.configureCell(number: "Question 1", sum: questionData)
-                greenCell.setCellColor(.blueViewBackground)
-            }
-            return greenCell
-        } else if nextGreenCell && reversedIndex <= greenCellIndex {
-            guard let greenCell = collectionView.dequeueReusableCell(withReuseIdentifier: "GreenCell", for: indexPath) as? GreenCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            greenCell.setCellColor(.greenViewBackground)
-            return greenCell
-            
-        } else if reversedIndex == 4 || reversedIndex == 9 {
-            guard let blueCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlueCell", for: indexPath) as? BlueCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            if let questionData = question[reversedIndex + 1] {
-                blueCell.configureCell(number: "Question \(reversedIndex + 1)", sum: questionData)
-            }
-            return blueCell
-        } else if reversedIndex == 14 {
-            guard let yellowCell = collectionView.dequeueReusableCell(withReuseIdentifier: "YellowCell", for: indexPath) as? YellowCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            if let questionData = question[15] {
-                yellowCell.configureCell(number: "Question 15", sum: questionData)
-            }
-            return yellowCell
-        } else {
-            guard let purpleCell = collectionView.dequeueReusableCell(withReuseIdentifier: "PurpleCell", for: indexPath) as? PurpleCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            if let questionData = question[reversedIndex + 1] {
-                purpleCell.configureCell(number: "Question \(reversedIndex + 1)", sum: questionData)
-            }
-            return purpleCell
+        guard let colorCell = collectionView.dequeueReusableCell(withReuseIdentifier: "BlueCell", for: indexPath) as? ColorCollectionViewCell else {
+            return UICollectionViewCell()
         }
+        
+        let questionKeys = Array(question.keys).sorted()
+        let questionLevel = questionKeys[indexPath.item]
+        let questionAmount = question[questionLevel] ?? ""
+        colorCell.configureCell(level: questionLevel, amount: questionAmount, prizeLevel: prizeLevel)
+        
+        return colorCell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

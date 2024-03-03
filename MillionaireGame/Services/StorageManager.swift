@@ -34,14 +34,11 @@ final class StorageManager: StorageManagerProtocol {
     }
     
     func saveScore(name: String, score: String) {
-        if let existingUser = fullScore.first(where: { $0.name == name }) {
-            let updatedUser = Score(name: name, score: existingUser.score + score)
-            fullScore = fullScore.filter { $0.name != name } + [updatedUser]
-            fullScore = fullScore.sorted {$0.score > $1.score}
-        } else {
-            let user = Score(name: name, score: score)
-            fullScore.append(user)
-            fullScore = fullScore.sorted {$0.score > $1.score}
+        let user = Score(name: name, score: score)
+        fullScore.append(user)
+        fullScore = fullScore.sorted { $0.score > $1.score }
+        if fullScore.count > 20 {
+            fullScore = Array(fullScore.prefix(20))
         }
     }
 }
