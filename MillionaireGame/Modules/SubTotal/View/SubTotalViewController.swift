@@ -58,6 +58,7 @@ final class SubTotalViewController: UIViewController {
         setupCollectionView()
         showLoseInfo()
         presenter.moveGreenView()
+        presenter.getMillion()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -145,6 +146,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
     
     func showCongratulations() {
         setGifImageView()
+        print("Done")
         
         guard let gifUrl = URL(string: "https://usagif.com/wp-content/uploads/gify/taylor-swift-heart-hand-gest-usagif.gif") else {
             return
@@ -187,6 +189,7 @@ extension SubTotalViewController: SubTotalViewProtocol {
         }.resume()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            print("Done")
             self.presenter.routeToResult()
         }
     }
