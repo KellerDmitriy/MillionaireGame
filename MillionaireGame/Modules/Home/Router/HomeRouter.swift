@@ -10,6 +10,7 @@ import UIKit
 protocol HomeRouterProtocol: AnyObject {
     func routeToAuth()
     func routeToRules(rulesText: String)
+    func routeToStatistic(score: [Score]?) 
 }
 
 final class HomeRouter: HomeRouterProtocol {
@@ -26,7 +27,13 @@ final class HomeRouter: HomeRouterProtocol {
     }
     
     func routeToRules(rulesText: String) {
-           let rulesViewController = RulesViewController(rulesText: rulesText)
-           navigationController?.pushViewController(rulesViewController, animated: true)
-       }
-   }
+        let rulesViewController = RulesViewController(rulesText: rulesText)
+        navigationController?.pushViewController(rulesViewController, animated: true)
+    }
+    
+    func routeToStatistic(score: [Score]?) {
+        let statisticViewController = StatisticViewController(score: score)
+        navigationController?.pushViewController(statisticViewController, animated: true)
+    }
+    
+}

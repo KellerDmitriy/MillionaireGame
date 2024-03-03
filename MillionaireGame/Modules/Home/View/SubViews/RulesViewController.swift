@@ -21,10 +21,10 @@ final class RulesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupNavigationController()
+        setupNavigationBar()
     }
     
-    private func setupNavigationController() {
+    private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -89,22 +89,28 @@ final class RulesViewController: UIViewController {
              titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
          ])
 
-         let rulesLabel = UILabel()
-         rulesLabel.numberOfLines = 0
-         rulesLabel.textColor = .white
-         rulesLabel.text = rulesText
-         rulesLabel.translatesAutoresizingMaskIntoConstraints = false
-         contentView.addSubview(rulesLabel)
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        ])
 
-         NSLayoutConstraint.activate([
-             rulesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 50),
-             rulesLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-             rulesLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-             rulesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
-         ])
-         
-         let maxHeightConstraint = contentView.heightAnchor.constraint(lessThanOrEqualTo: scrollView.heightAnchor)
-         maxHeightConstraint.priority = .defaultHigh
-         maxHeightConstraint.isActive = true
-     }
- }
+        let rulesLabel = UILabel()
+        rulesLabel.numberOfLines = 0
+        rulesLabel.textColor = .white
+        rulesLabel.text = rulesText
+        rulesLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(rulesLabel)
+
+        NSLayoutConstraint.activate([
+            rulesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            rulesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            rulesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            rulesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        ])
+        
+        let maxHeightConstraint = view.heightAnchor.constraint(lessThanOrEqualTo: scrollView.heightAnchor)
+        maxHeightConstraint.priority = .defaultHigh
+        maxHeightConstraint.isActive = true
+    }
+}

@@ -27,8 +27,15 @@ final class HomeViewController: UIViewController {
     
     private lazy var rulesButton: UIButton = {
         return CustomButton.makeButton(
-            title: "RULES") { [weak self] in
+            title: "Rules") { [weak self] in
                 self?.rulesButtonTapped()
+            }
+    }()
+    
+    private lazy var scoreButton: UIButton = {
+        return CustomButton.makeButton(
+            title: "Statistic") { [weak self] in
+                self?.scoreButtonTapped()
             }
     }()
     
@@ -54,8 +61,10 @@ final class HomeViewController: UIViewController {
         view.addVerticalGradientLayer()
         view.addSubview(authButton)
         view.addSubview(rulesButton)
+        view.addSubview(scoreButton)
         view.addSubview(logoImage)
         
+        scoreButton.translatesAutoresizingMaskIntoConstraints = false
         rulesButton.translatesAutoresizingMaskIntoConstraints = false
         authButton.translatesAutoresizingMaskIntoConstraints = false
         logoImage.translatesAutoresizingMaskIntoConstraints = false
@@ -79,17 +88,28 @@ final class HomeViewController: UIViewController {
         NSLayoutConstraint.activate([
             rulesButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             rulesButton.topAnchor.constraint(equalTo: authButton.bottomAnchor, constant: 20),
-            rulesButton.widthAnchor.constraint(equalToConstant: 300),
+            rulesButton.widthAnchor.constraint(equalToConstant: 250),
             rulesButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        NSLayoutConstraint.activate([
+           scoreButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+           scoreButton.topAnchor.constraint(equalTo: rulesButton.bottomAnchor, constant: 20),
+           scoreButton.widthAnchor.constraint(equalToConstant: 250),
+           scoreButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
-    @objc func startGameButtonTapped() {
+    func startGameButtonTapped() {
         presenter.startGame()
     }
     
-    @objc func rulesButtonTapped() {
+    func rulesButtonTapped() {
         presenter.showRules()
+    }
+    
+    func scoreButtonTapped() {
+        presenter.showScore()
     }
 }
 

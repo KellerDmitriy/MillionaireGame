@@ -18,8 +18,9 @@ final class ResultBuilder: ResultBuilderProtocol {
         }
         
         let viewController = ResultViewController()
+        let storageManager  = StorageManager()
         let router = ResultRouter(navigationController: navigationController)
-        let presenter = ResultPresenter(router: router, name: name, score: score, isLose: isLose)
+        let presenter = ResultPresenter(router: router, storageManager: storageManager, name: name, score: score, isLose: isLose)
         
         viewController.presenter = presenter
         presenter.view = viewController
