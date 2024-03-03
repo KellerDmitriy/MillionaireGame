@@ -36,7 +36,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     
     weak var view: SubTotalViewProtocol?
     private let router: SubTotalRouterProtocol
-    private let timeManager: TimeManager
+    private let timeManager: TimeManagerProtocol
     
     var userName: String
     var totalQuestion: Int
@@ -70,7 +70,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
         self.totalQuestion = totalQuestion
         self.isCorrect = isCorrect
         self.timeManager = timeManager
-        getMillion()
+        //getMillion()
     }
     
     //    MARK: - Delegate Methods
@@ -89,11 +89,13 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     //    MARK: - Private Methods
     private func start5Timer(music: String) {
         timeManager.startTimer5Seconds(music: music) { [weak self] in
-            self?.stop5Timer()
+            print("Stop1")
+            //self?.stop5Timer()
         }
     }
     
     func stop5Timer() {
+        print("Stop2")
         timeManager.stop5Seconds()
     }
     
@@ -125,7 +127,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     }
     
     func getMillion() {
-        if totalQuestion == 1 {
+        if totalQuestion == 15{
             view?.showCongratulations()
         }
     }

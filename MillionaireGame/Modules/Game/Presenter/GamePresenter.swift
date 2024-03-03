@@ -119,7 +119,7 @@ final class GamePresenter: GamePresenterProtocol {
     //MARK: - Check totalQuestion
     func checkTotalQuestion() {
         totalQuestion += 1
-        checkTotalQuestion(totalQuestion: totalQuestion) // если не сделать numberQuestion = 0 то при переходе на другой уровень сложности вызовется view?.setUpUIWhenLoaded() и будет index out of range
+        checkNumberQuestion(totalQuestion: totalQuestion) // если не сделать numberQuestion = 0 то при переходе на другой уровень сложности вызовется view?.setUpUIWhenLoaded() и будет index out of range
         setUPDefaultUI()
     }
     //MARK: - Download Data for difficulty level
@@ -166,9 +166,9 @@ final class GamePresenter: GamePresenterProtocol {
             .assign(to: &$progress)
     }
     
-    private func checkTotalQuestion(totalQuestion: Int){
+    private func checkNumberQuestion(totalQuestion: Int){
         switch totalQuestion{
-        case 5, 10: numberQuestion = 0
+        case 5, 10, 15: numberQuestion = 0
             default: numberQuestion += 1 }
     }
     

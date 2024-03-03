@@ -68,8 +68,9 @@ final class TimeManager: TimeManagerProtocol{
     
     func stop5Seconds(){
         pass5SecondsGame = 0
-        timer5SecondsGame.invalidate()
         playerStop()
+        print("invalidate 5 second")
+        timer5SecondsGame.invalidate()
     }
     
     func set30TimerGoToSubtotal() {
