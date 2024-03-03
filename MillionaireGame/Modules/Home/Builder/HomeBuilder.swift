@@ -24,8 +24,9 @@ final class HomeBuilder: BuilderProtocol {
             fatalError("HomeBuilder requires a valid navigationController")
         }
         let viewController = HomeViewController()
+        let storageManager = StorageManager()
         let router = HomeRouter(navigationController: navigationController)
-        let presenter = HomePresenter(view: viewController, router: router)
+        let presenter = HomePresenter(view: viewController, router: router, storageManager: storageManager)
         
         viewController.presenter = presenter
         

@@ -121,7 +121,7 @@ final class TimeManager: TimeManagerProtocol{
         }
     }
     
-    private func playerStop(){
+    private func playerStop() {
         player?.stop()
     }
 }

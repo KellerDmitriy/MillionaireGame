@@ -13,19 +13,28 @@ protocol HomeViewProtocol: AnyObject {
 protocol HomePresenterProtocol {
     func startGame()
     func showRules()
+    func showScore()
 }
 
 final class HomePresenter: HomePresenterProtocol {
+
     weak var view: HomeViewProtocol?
     let router: HomeRouterProtocol
+    let storageManager: StorageManagerProtocol
     
-    init(view: HomeViewProtocol, router: HomeRouterProtocol) {
+    init(view: HomeViewProtocol, router: HomeRouterProtocol, storageManager: StorageManagerProtocol) {
         self.view = view
         self.router = router
+        self.storageManager = storageManager
     }
     
     func startGame() {
         router.routeToAuth()
+    }
+    
+    func showScore() {
+        let score = storageManager.fullScore
+        router.routeToStatistic(score: score)
     }
     
     func showRules() {
@@ -47,7 +56,7 @@ final class HomePresenter: HomePresenterProtocol {
         
             7. If you answer all 15 questions correctly, you win a million!
         
-            Good luck!
+                                    Good luck!
         """
         router.routeToRules(rulesText: rulesText)
     }

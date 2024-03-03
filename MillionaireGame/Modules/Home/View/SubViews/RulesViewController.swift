@@ -22,10 +22,10 @@ final class RulesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupNavigationController()
+        setupNavigationBar()
     }
     
-    private func setupNavigationController() {
+    private func setupNavigationBar() {
         navigationController?.navigationBar.tintColor = .white
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
@@ -75,7 +75,7 @@ final class RulesViewController: UIViewController {
         view.addSubview(titleLabel)
 
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
@@ -91,7 +91,7 @@ final class RulesViewController: UIViewController {
             rulesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             rulesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             rulesLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            rulesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
+            rulesLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
         
         let maxHeightConstraint = view.heightAnchor.constraint(lessThanOrEqualTo: scrollView.heightAnchor)

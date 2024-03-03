@@ -76,7 +76,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     //    MARK: - Delegate Methods
     func moveGreenView() {
         if isCorrect {
-            view?.updateUI(questionIndex: totalQuestion - 1) //так как сюда сразу 1 вопрос придет
+            view?.updateUI(questionIndex: totalQuestion - 1)
         } else {
             view?.showLoseInfo(questionIndex: totalQuestion - 1)
         }
@@ -88,7 +88,9 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     }
     //    MARK: - Private Methods
     private func start5Timer(music: String) {
-        timeManager.startTimer5Seconds(music: music) {}
+        timeManager.startTimer5Seconds(music: music) { [weak self] in
+            self?.stop5Timer()
+        }
     }
     
     func stop5Timer() {
@@ -123,7 +125,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     }
     
     func getMillion() {
-        if totalQuestion == question.count {
+        if totalQuestion == 1 {
             view?.showCongratulations()
         }
     }

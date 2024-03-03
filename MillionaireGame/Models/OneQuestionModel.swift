@@ -16,3 +16,8 @@ struct Answers {
     let answerText: String
     let correct: Bool
 }
+
+struct Score: Codable {
+    var name: String
+    var score: String
+}

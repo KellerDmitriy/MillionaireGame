@@ -60,6 +60,9 @@
 		E1F2F12D2B90970300DBE9AF /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1272B90970300DBE9AF /* HomeBuilder.swift */; };
 		E1F2F12E2B90970300DBE9AF /* HomeRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1292B90970300DBE9AF /* HomeRouter.swift */; };
 		E1F2F1332B91BE9600DBE9AF /* AlertControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1322B91BE9600DBE9AF /* AlertControllerFactory.swift */; };
+		E1F2F1372B94630600DBE9AF /* StatisticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1362B94630600DBE9AF /* StatisticViewController.swift */; };
+		E1F2F13A2B94654800DBE9AF /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F1392B94654800DBE9AF /* StorageManager.swift */; };
+		E1F2F13D2B94737D00DBE9AF /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F2F13C2B94737D00DBE9AF /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -118,6 +121,9 @@
 		E1F2F1272B90970300DBE9AF /* HomeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		E1F2F1292B90970300DBE9AF /* HomeRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeRouter.swift; sourceTree = "<group>"; };
 		E1F2F1322B91BE9600DBE9AF /* AlertControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertControllerFactory.swift; sourceTree = "<group>"; };
+		E1F2F1362B94630600DBE9AF /* StatisticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticViewController.swift; sourceTree = "<group>"; };
+		E1F2F1392B94654800DBE9AF /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		E1F2F13C2B94737D00DBE9AF /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +314,7 @@
 				866AAB022B8E7FD600628519 /* NetworkLayer */,
 				E1BE9A392B8B7EE30006CB8B /* GameManager.swift */,
 				36E7A71E2B8F4C140073E6B4 /* TimerManager.swift */,
+				E1F2F1392B94654800DBE9AF /* StorageManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -455,7 +462,7 @@
 			isa = PBXGroup;
 			children = (
 				E1F2F1242B90970300DBE9AF /* HomeViewController.swift */,
-				E1F2F1252B90970300DBE9AF /* RulesViewController.swift */,
+				E1F2F1382B9463D600DBE9AF /* SubViews */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -494,6 +501,24 @@
 				8606034B2B8DF62F00EB8A36 /* CustomHelpButton.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		E1F2F1382B9463D600DBE9AF /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F1252B90970300DBE9AF /* RulesViewController.swift */,
+				E1F2F1362B94630600DBE9AF /* StatisticViewController.swift */,
+				E1F2F13E2B94791500DBE9AF /* Cells */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		E1F2F13E2B94791500DBE9AF /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				E1F2F13C2B94737D00DBE9AF /* TableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -591,7 +616,9 @@
 				E1F2F1332B91BE9600DBE9AF /* AlertControllerFactory.swift in Sources */,
 				579DE3312B90D51B00A95FC6 /* PurpleCell.swift in Sources */,
 				E1F2F1022B8FB83200DBE9AF /* SubTotalBuilder.swift in Sources */,
+				E1F2F1372B94630600DBE9AF /* StatisticViewController.swift in Sources */,
 				522A0A992B8CCE330041B256 /* ResultViewController.swift in Sources */,
+				E1F2F13D2B94737D00DBE9AF /* TableViewCell.swift in Sources */,
 				E1F2F11B2B8FCEB500DBE9AF /* AuthBuilder.swift in Sources */,
 				E1F2F11F2B8FDD7F00DBE9AF /* SubTotalRouter.swift in Sources */,
 				E1F2F12A2B90970300DBE9AF /* HomePresenter.swift in Sources */,
@@ -607,6 +634,7 @@
 				E1F2F12C2B90970300DBE9AF /* RulesViewController.swift in Sources */,
 				522A0A9D2B8CCEAC0041B256 /* ResultRouter.swift in Sources */,
 				E1F2F12E2B90970300DBE9AF /* HomeRouter.swift in Sources */,
+				E1F2F13A2B94654800DBE9AF /* StorageManager.swift in Sources */,
 				E1BE9A222B8B7B000006CB8B /* AppDelegate.swift in Sources */,
 				8606034C2B8DF62F00EB8A36 /* CustomHelpButton.swift in Sources */,
 				E1F2F0E72B8F2BD700DBE9AF /* CustomButton.swift in Sources */,

@@ -18,15 +18,19 @@ final class ResultPresenter: ResultPresenterProtocol {
     
     let router: ResultRouterProtocol
     
+    let storageManager: StorageManagerProtocol
+    
     var name: String
     var score: String
     var isLose: Bool
     
-    init(router: ResultRouterProtocol, name: String, score: String, isLose: Bool ) {
+    init(router: ResultRouterProtocol, storageManager: StorageManagerProtocol, name: String, score: String, isLose: Bool ) {
         self.router = router
+        self.storageManager = storageManager
         self.name = name
         self.score = score
         self.isLose = isLose
+        saveScore()
     }
     
     func showResult() {
@@ -36,5 +40,9 @@ final class ResultPresenter: ResultPresenterProtocol {
     //MARK: - Navigation
     func showGame() {
         router.playAgainButtonTap()
+    }
+    
+    func saveScore() {
+        storageManager.saveScore(name: name, score: score)
     }
 }
