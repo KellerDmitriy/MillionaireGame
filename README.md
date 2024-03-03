@@ -7,10 +7,17 @@ Technology stack:
 
 
  In the development of the application, the following individuals participated:
+ 
 https://github.com/KellerDmitriy
+
 https://github.com/Polychh
+
 https://github.com/Loveink
+
 https://github.com/assanova1333
+
 https://github.com/DeVIn4I
+
 https://github.com/Bruzya
+
 https://github.com/RahatIscs1903k
