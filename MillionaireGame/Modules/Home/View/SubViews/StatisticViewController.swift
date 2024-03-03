@@ -48,6 +48,7 @@ final class StatisticViewController: UIViewController {
         setViews()
         setupConstraints()
         setDelegate()
+        title = "TOP TWENTY"
     }
     
     private func setViews() {
@@ -100,7 +101,9 @@ final class StatisticViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.backgroundColor = .clear
-        
+        if let navigationBar = navigationController?.navigationBar {
+               navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+           }
         
         let backButtonImage = UIImage(systemName: "arrow.left")
         let alignInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)

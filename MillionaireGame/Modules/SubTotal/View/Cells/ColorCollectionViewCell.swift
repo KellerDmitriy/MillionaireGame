@@ -1,5 +1,5 @@
 //
-//  PurpleCell.swift
+//  ColorCollectionViewCell.swift
 //  MillionaireGame
 //
 //  Created by Александра Савчук on 29.02.2024.
@@ -7,17 +7,18 @@
 
 import UIKit
 
-class PurpleCollectionViewCell: UICollectionViewCell {
-    private let imageView: UIImageView = {
+class ColorCollectionViewCell: UICollectionViewCell {
+    
+    private let colorImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "purpleViewBackground")
+        imageView.image = UIImage(named: "blueViewBackground")
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = 16
         imageView.layer.masksToBounds = true
         return imageView
     }()
-
+    
     private let numberLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -25,7 +26,7 @@ class PurpleCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let sumLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
@@ -33,38 +34,56 @@ class PurpleCollectionViewCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func setupUI() {
-        addSubview(imageView)
+        addSubview(colorImageView)
         addSubview(numberLabel)
         addSubview(sumLabel)
-
+        
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
+            colorImageView.topAnchor.constraint(equalTo: topAnchor),
+            colorImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            colorImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            colorImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
             numberLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             numberLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-
+            
             sumLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             sumLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
         ])
     }
-
-  func configureCell(number: String, sum: String) {
-          numberLabel.text = number
-          sumLabel.text = sum
-      }
+    
+    func configureCell(level: Int, amount: String, prizeLevel: Int) {
+        numberLabel.text = "\(level):"
+        sumLabel.text = amount
+        
+        let nonBurnableBackground = "purpleViewBackground"
+        let victoryBackground = "yellowViewBackground"
+        let regularBackground = "blueViewBackground"
+        let currentBackground = "greenViewBackground"
+        
+        var backgroundImageName: String
+        switch level {
+        case 5, 10:
+            backgroundImageName = nonBurnableBackground
+        case 15:
+            backgroundImageName = victoryBackground
+        default:
+            backgroundImageName = regularBackground
+        }
+        colorImageView.image = UIImage(named: backgroundImageName)
+        if prizeLevel == level {
+            colorImageView.image = UIImage(named: currentBackground)
+        }
+    }
 }
-

@@ -18,7 +18,7 @@ protocol SubTotalPresenterProtocol {
     var userName: String { get }
     var isCorrect: Bool { get }
     var question: [Int : String] { get set }
-    
+    var totalQuestion: Int { get }
     func moveGreenView()
     func playMusicIsCorrect()
     
@@ -70,7 +70,6 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
         self.totalQuestion = totalQuestion
         self.isCorrect = isCorrect
         self.timeManager = timeManager
-        //getMillion()
     }
     
     //    MARK: - Delegate Methods
@@ -88,10 +87,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     }
     //    MARK: - Private Methods
     private func start5Timer(music: String) {
-        timeManager.startTimer5Seconds(music: music) { [weak self] in
-            print("Stop1")
-            //self?.stop5Timer()
-        }
+        timeManager.startTimer5Seconds(music: music) {}
     }
     
     func stop5Timer() {
@@ -102,17 +98,6 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     func getMoney() -> String {
         score = question[totalQuestion] ?? ""
         return score
-    }
-    
-    func getLoseMoney() -> Int {
-        if !isCorrect {
-            var key = totalQuestion
-            if key % 5 != 0 {
-                key = ((key / 5) * 5)
-            }
-            indexLose = key
-        }
-        return indexLose
     }
     
     func getLoseMoney() -> String {
@@ -127,7 +112,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
     }
     
     func getMillion() {
-        if totalQuestion == 15{
+        if totalQuestion == question.count {
             view?.showCongratulations()
         }
     }
