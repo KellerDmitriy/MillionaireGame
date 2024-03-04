@@ -9,7 +9,7 @@ import Foundation
 
 protocol StorageManagerProtocol {
     var fullScore: [Score] { get set }
-    func saveScore(name: String, score: String)
+    func saveScore(name: String, score: String, date: Date)
 }
 
 final class StorageManager: StorageManagerProtocol {
@@ -33,8 +33,8 @@ final class StorageManager: StorageManagerProtocol {
         }
     }
     
-    func saveScore(name: String, score: String) {
-        let user = Score(name: name, score: score)
+    func saveScore(name: String, score: String, date: Date) {
+        let user = Score(name: name, score: score, date: date)
         fullScore.append(user)
         fullScore = fullScore.sorted { $0.score > $1.score }
         if fullScore.count > 20 {

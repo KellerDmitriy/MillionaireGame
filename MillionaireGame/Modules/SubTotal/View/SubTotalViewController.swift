@@ -206,7 +206,6 @@ extension SubTotalViewController: SubTotalViewProtocol {
         showAlert(alertType: .action(presenter.getMoney())) { [weak self] isConfirmed in
             if isConfirmed {
                 self?.presenter.stop5Timer()
-               
                 self?.presenter.routeToResult()
             } else {
                 self?.presenter.stop5Timer()

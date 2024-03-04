@@ -14,7 +14,7 @@ struct QuestionsModel: Decodable {
 
 // MARK: - Result
 struct Result: Decodable {
-    let  question, correctAnswer: String
+    let question, correctAnswer: String
     let incorrectAnswers: [String]
 }
 

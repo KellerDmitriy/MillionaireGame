@@ -23,6 +23,7 @@ final class ResultPresenter: ResultPresenterProtocol {
     var name: String
     var score: String
     var isLose: Bool
+    let date: Date
     
     init(router: ResultRouterProtocol, storageManager: StorageManagerProtocol, name: String, score: String, isLose: Bool ) {
         self.router = router
@@ -30,6 +31,7 @@ final class ResultPresenter: ResultPresenterProtocol {
         self.name = name
         self.score = score
         self.isLose = isLose
+        self.date = Date()
         saveScore()
     }
     
@@ -43,6 +45,6 @@ final class ResultPresenter: ResultPresenterProtocol {
     }
     
     func saveScore() {
-        storageManager.saveScore(name: name, score: score)
+        storageManager.saveScore(name: name, score: score, date: date)
     }
 }

@@ -125,7 +125,7 @@ extension StatisticViewController: UITableViewDelegate, UITableViewDataSource {
         
         let score = score?[indexPath.row]
         cell.backgroundColor = .clear
-        cell.configureCell(name: score?.name ?? "guest", score: score?.score ?? "")
+        cell.configureCell(name: score?.name ?? "guest", score: score?.score ?? "", date: score?.date)
         return cell
     }
 }

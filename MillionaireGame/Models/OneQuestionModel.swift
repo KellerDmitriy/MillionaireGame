@@ -18,6 +18,7 @@ struct Answers {
 }
 
 struct Score: Codable {
-    var name: String
-    var score: String
+    let name: String
+    let score: String
+    let date: Date
 }

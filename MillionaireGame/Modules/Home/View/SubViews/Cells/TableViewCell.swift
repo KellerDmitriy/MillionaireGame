@@ -36,6 +36,14 @@ final class ScoreCell: UITableViewCell {
         return label
     }()
     
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupUI()
@@ -49,7 +57,8 @@ final class ScoreCell: UITableViewCell {
         addSubview(blueView)
         addSubview(numberLabel)
         addSubview(sumLabel)
-         
+        addSubview(dateLabel)
+        
         NSLayoutConstraint.activate([
             blueView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             blueView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -61,11 +70,24 @@ final class ScoreCell: UITableViewCell {
             
             sumLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             sumLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
+            
+            dateLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            dateLabel.leadingAnchor.constraint(greaterThanOrEqualTo: numberLabel.trailingAnchor, constant: 10),
+            dateLabel.trailingAnchor.constraint(lessThanOrEqualTo: sumLabel.leadingAnchor, constant: -10)
         ])
     }
     
-    func configureCell(name: String, score: String) {
+    func configureCell(name: String, score: String, date: Date?) {
         numberLabel.text = name
         sumLabel.text = score
+        
+        if let date = date {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+            dateLabel.text = dateFormatter.string(from: date)
+        } else {
+            dateLabel.text = "No date available"
+        }
     }
 }
