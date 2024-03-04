@@ -11,6 +11,8 @@ protocol GameManagerProtocol{
     func fetchQuestions(difficulty: Difficulty) async throws -> [OneQuestionModel]
     func helpFiftyFifty(data: OneQuestionModel) -> (String?, String?)
     func randomQuestion(data: OneQuestionModel, probability: Double) -> String? 
+    func randomQuestionTappedFifty(data: [String], probability: Double) -> String?
+    func createArrayIfFiftyFiftyTapped(answers: (String?, String?)) -> [String]
 }
 
 final class GameManager{
@@ -100,6 +102,7 @@ extension GameManager: GameManagerProtocol{
     }
     
     func randomQuestion(data: OneQuestionModel, probability: Double) -> String?{
+        print("randomQuestion work")
         let correctAnswer = data.allAnswers.first(where: \.correct)
         let incorrectAnswers = data.allAnswers.filter { !$0.correct }
         let randomNumber = Double.random(in: 0...1) // generate a random number between 0 and 1
@@ -109,5 +112,27 @@ extension GameManager: GameManagerProtocol{
             let randomIncorrectAnswer = incorrectAnswers.randomElement()
             return randomIncorrectAnswer?.answerText
         }
+    }
+    
+    func randomQuestionTappedFifty(data: [String], probability: Double) -> String?{
+        print("randomQuestionTappedFifty work")
+        let correctAnswer = data.first
+        let incorrectAnswers = Array(data.dropFirst())
+        let randomNumber = Double.random(in: 0...1)
+        if randomNumber < probability {
+            return correctAnswer
+        } else {
+            let randomIndex = Int.random(in: 0..<incorrectAnswers.count)
+            return incorrectAnswers[randomIndex]
+        }
+    }
+    
+    func createArrayIfFiftyFiftyTapped(answers: (String?, String?)) -> [String] {
+        guard let answer1 = answers.0, let answer2 = answers.1 else {return []}
+        var array = [String]()
+        array.append(answer1)
+        array.append(answer2)
+        array.shuffle()
+        return array
     }
 }

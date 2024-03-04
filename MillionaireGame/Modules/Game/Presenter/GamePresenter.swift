@@ -47,9 +47,12 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
     func helpFriend()
     
     func routeToSubTotalOrResult(isCorrect: Bool)
+    
+//    var isTappedFiftyFifty: Bool { get }
 }
 
 final class GamePresenter: GamePresenterProtocol {
+
     private let gameManager: GameManagerProtocol
     private let timeManager: TimeManagerProtocol
     private let router: GameRouterProtocol
@@ -58,6 +61,9 @@ final class GamePresenter: GamePresenterProtocol {
     var progressToGamePublisher: Published<Float>.Publisher { $progress }
     var questData: [OneQuestionModel] = .init()
     var isLoaded = false //для активити индикатора
+    
+    private var isTappedFiftyFifty = false
+    private var fiftyFiftyArray: [String] = []
     
     var numberQuestion = 0
     var totalQuestion: Int
@@ -87,21 +93,25 @@ final class GamePresenter: GamePresenterProtocol {
     }
     //MARK: -  Help Methods
     func fiftyFifty(){
+        isTappedFiftyFifty = true
         let result = gameManager.helpFiftyFifty(data: questData[numberQuestion])
+        fiftyFiftyArray = gameManager.createArrayIfFiftyFiftyTapped(answers: result)
         print("result \(result)")
+        print("fiftyFiftyArray \(fiftyFiftyArray)")
         view?.helpFiftyFity(result: result)
     }
     
     func helpFriend() {
-        let result = gameManager.randomQuestion(data: questData[numberQuestion], probability: 0.8)
+        print("fiftyFiftyArray result Friend Help \(fiftyFiftyArray)")
+        let result = isTappedFiftyFifty ? gameManager.randomQuestionTappedFifty(data: fiftyFiftyArray, probability: 0.8): gameManager.randomQuestion(data: questData[numberQuestion], probability: 0.8)
         view?.helpFriend(result: result)
     }
     
     func helpPeople(){
-        let result = gameManager.randomQuestion(data: questData[numberQuestion], probability: 0.7)
+        print("fiftyFiftyArray People help \(fiftyFiftyArray)")
+        let result = isTappedFiftyFifty ? gameManager.randomQuestionTappedFifty(data: fiftyFiftyArray, probability: 0.8): gameManager.randomQuestion(data: questData[numberQuestion], probability: 0.7)
         view?.helpPeople(result: result)
     }
-    
     //MARK: - Set Cost
     func setCost() -> String{
         switch difficulty{

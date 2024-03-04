@@ -201,7 +201,11 @@ final class GameViewController: UIViewController {
     private func helpButtonTappedChangeAnswerColor(result: String?) {
         let arrayButtons = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton]
         arrayButtons.forEach { button in
-            button.setBackgroundImage(result == button.answerText ? .yellowViewBackground : .blueViewBackground,for: .normal)
+            if result == button.answerText {
+                button.setBackgroundImage(.yellowViewBackground, for: .normal)
+            } else if button.backgroundImage(for: .normal) != .redViewBackground {
+                button.setBackgroundImage(.blueViewBackground, for: .normal)
+            }
         }
     }
 }
