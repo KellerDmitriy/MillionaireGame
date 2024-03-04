@@ -19,14 +19,22 @@ final class AlertControllerFactory: AlertFactoryProtocol {
             preferredStyle: .alert
         )
         
-        let titleFont = UIFont.systemFont(ofSize: 20.0)
-        let titleColor: UIColor = (type == .loseInformation) ? .red : .black
+        let titleFont = UIFont.systemFont(ofSize: 22.0)
+        let titleColor: UIColor = .black
         let attributedTitle = NSAttributedString(string: type.title, attributes: [
             NSAttributedString.Key.font: titleFont,
             NSAttributedString.Key.foregroundColor: titleColor
         ])
+        
         alertController.setValue(attributedTitle, forKey: "attributedTitle")
         
+        let messageFont = UIFont.systemFont(ofSize: 18.0)
+        let messageColor: UIColor = .darkGray
+        let attributedMessage = NSAttributedString(string: type.message, attributes: [
+            NSAttributedString.Key.font: messageFont,
+            NSAttributedString.Key.foregroundColor: messageColor
+        ])
+        alertController.setValue(attributedMessage, forKey: "attributedMessage")
         switch type {
         case .information, .loseInformation:
             let okAction = UIAlertAction(title: "OK", style: .default) { _ in
@@ -50,8 +58,8 @@ final class AlertControllerFactory: AlertFactoryProtocol {
 
 enum AlertType {
     case information
-    case loseInformation
-    case action
+    case loseInformation(String)
+    case action(String)
     
     var title: String {
         switch self {
@@ -68,10 +76,10 @@ enum AlertType {
         switch self {
         case .information:
             return "Use Latin letters"
-        case .loseInformation:
-            return "You lost, look at the game results"
-        case .action:
-            return "You can take your winnings or continue playing"
+        case .loseInformation(let additionalMessage):
+                    return "You lost, look at the game results. You won: \(additionalMessage)"
+        case .action(let additionalMessage):
+            return "You can withdraw your winnings of \(additionalMessage) or continue playing"
         }
     }
 }

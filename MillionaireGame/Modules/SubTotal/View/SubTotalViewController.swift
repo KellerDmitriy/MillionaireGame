@@ -203,10 +203,10 @@ extension SubTotalViewController: SubTotalViewProtocol {
     }
     
     func continueButtonTap() {
-        showAlert(alertType: .action) { [weak self] isConfirmed in
+        showAlert(alertType: .action(presenter.getMoney())) { [weak self] isConfirmed in
             if isConfirmed {
                 self?.presenter.stop5Timer()
-                self?.presenter.getMoney()
+               
                 self?.presenter.routeToResult()
             } else {
                 self?.presenter.stop5Timer()
@@ -220,9 +220,8 @@ extension SubTotalViewController: SubTotalViewProtocol {
             continueButton.isHidden = false
         } else {
             continueButton.isHidden = true
-            showAlert(alertType: .loseInformation) { [weak self] _ in
+            showAlert(alertType: .loseInformation(presenter.getLoseMoney())) { [weak self] _ in
                 self?.presenter.stop5Timer()
-                self?.presenter.getLoseMoney()
                 self?.presenter.routeToResult()
             }
         }

@@ -38,6 +38,7 @@ final class TimeManager: TimeManagerProtocol{
     
     
     private var player: AVAudioPlayer?
+    
     func startTimer30Seconds(completion: @escaping () -> Void) {
         self.completionHandler30Sec = completion
         playerStart(resource: "zvuk-chasov-vo-vremya-igryi")
@@ -86,8 +87,8 @@ final class TimeManager: TimeManagerProtocol{
         passSeconds30 += 1
         progrees = Float(passSeconds30) / Float(totalSecondsProgress)
         if count30SecondsTotal == 0 {
-            passSeconds30 = 0
             playerStop()
+            passSeconds30 = 0
             timer30Seconds.invalidate()
             completionHandler30Sec?()
         }

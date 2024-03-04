@@ -130,7 +130,7 @@ final class GameViewController: UIViewController {
     }
     
     //MARK: - SetUp UI Text
-    func setUpUIText(){
+    func setUpUIText() {
         for (index, answer) in presenter.questData[presenter.numberQuestion].allAnswers.enumerated() { // перенести в презентер
             let answerButton = [aAnswerButton, bAnswerButton, cAnswerButton, dAnswerButton][index]
             answerButton.setUptext(text: answer.answerText)
@@ -174,7 +174,7 @@ final class GameViewController: UIViewController {
             }
         })
     }
-        
+    
     @objc func testTimer(_ sender: UIButton) {
         presenter.stop30Timer()
         takeTip(sender)
@@ -294,9 +294,9 @@ private extension GameViewController {
         view.addSubview(activityIndicator)
         
         NSLayoutConstraint.activate([
-               activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-               activityIndicator.topAnchor.constraint(equalTo: answerButtonStackView.bottomAnchor, constant: 25)
-           ])
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.topAnchor.constraint(equalTo: answerButtonStackView.bottomAnchor, constant: 25)
+        ])
         
         NSLayoutConstraint.activate([
             logoImageView.heightAnchor.constraint(equalToConstant: 86),
@@ -322,7 +322,7 @@ private extension GameViewController {
         ])
         
         NSLayoutConstraint.activate([
-            answerButtonStackView.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 30),
+            answerButtonStackView.topAnchor.constraint(equalTo: progressBar.bottomAnchor, constant: 50),
             answerButtonStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         

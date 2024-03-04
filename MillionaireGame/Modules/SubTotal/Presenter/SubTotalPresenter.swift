@@ -106,7 +106,7 @@ final class SubTotalPresenter: SubTotalPresenterProtocol {
             if key % 5 != 0 {
                 key = ((key / 5) * 5)
             }
-            score = question[key] ?? "0"
+            score = question[key] ?? "0 ₽"
         }
         return score
     }

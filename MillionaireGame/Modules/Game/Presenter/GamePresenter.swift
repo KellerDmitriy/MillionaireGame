@@ -135,7 +135,7 @@ final class GamePresenter: GamePresenterProtocol {
     //MARK: - Download Data for difficulty level
     func loadEasyMediumHardData() {
         if totalQuestion == 0 || totalQuestion == 5 || totalQuestion == 10  {
-            print("load \(difficulty)")
+           print("load \(difficulty)")
             getQuestions(difficulty: difficulty)
         }
     }
@@ -169,6 +169,7 @@ final class GamePresenter: GamePresenterProtocol {
     func start2Timer( completion: @escaping () -> Void) {
         timeManager.startTimer2Seconds(completion: completion)
     }
+    
     //MARK: -  Observe progrees and CheckTotalQuestion
     private func observeProgressBar() {
         timeManager.progresPublisher
@@ -176,10 +177,11 @@ final class GamePresenter: GamePresenterProtocol {
             .assign(to: &$progress)
     }
     
-    private func checkNumberQuestion(totalQuestion: Int){
-        switch totalQuestion{
+    private func checkNumberQuestion(totalQuestion: Int) {
+        switch totalQuestion {
         case 5, 10, 15: numberQuestion = 0
-            default: numberQuestion += 1 }
+        default: numberQuestion += 1
+        }
     }
     
     //MARK: -  Update UI for New Question
