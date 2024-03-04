@@ -9,6 +9,46 @@ import UIKit
 final class RulesViewController: UIViewController {
     private let rulesText: String
     
+    private lazy var backgroundImage: UIImageView = {
+        let backgroundImage = UIImageView(image: UIImage(named: "background"))
+        backgroundImage.isUserInteractionEnabled = false
+        backgroundImage.contentMode = .scaleAspectFill
+        backgroundImage.translatesAutoresizingMaskIntoConstraints = false
+        return backgroundImage
+    }()
+    
+    private lazy var contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        return contentView
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let titleLabel = UILabel()
+        titleLabel.text = "Game Rules for \"Who Wants to Be a Millionaire?\""
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
+        titleLabel.textColor = .white
+        titleLabel.textAlignment = .center
+        titleLabel.numberOfLines = 0
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        return titleLabel
+    }()
+    
+    private lazy var rulesLabel: UILabel = {
+        let rulesLabel = UILabel()
+        rulesLabel.numberOfLines = 0
+        rulesLabel.textColor = .white
+        rulesLabel.text = rulesText
+        rulesLabel.translatesAutoresizingMaskIntoConstraints = false
+        return rulesLabel
+    }()
+    
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     init(rulesText: String) {
         self.rulesText = rulesText
         super.init(nibName: nil, bundle: nil)
@@ -21,6 +61,7 @@ final class RulesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupConstraint()
         setupNavigationBar()
     }
     
@@ -38,69 +79,49 @@ final class RulesViewController: UIViewController {
     }
     
     private func setupUI() {
-         let scrollView = UIScrollView()
-         scrollView.translatesAutoresizingMaskIntoConstraints = false
-         
-         let backgroundImage = UIImageView(image: UIImage(named: "background"))
-         backgroundImage.isUserInteractionEnabled = false
-         backgroundImage.contentMode = .scaleAspectFill
-         scrollView.addSubview(backgroundImage)
-         scrollView.sendSubviewToBack(backgroundImage)
-         backgroundImage.translatesAutoresizingMaskIntoConstraints = false
-         view.addSubview(scrollView)
-     
-         NSLayoutConstraint.activate([
-             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-         ])
+        
+        scrollView.addSubview(backgroundImage)
+        scrollView.sendSubviewToBack(backgroundImage)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(titleLabel)
+        view.addSubview(rulesLabel)
+    }
+    
+    private func setupConstraint() {
+        NSLayoutConstraint.activate([
+            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
 
-         NSLayoutConstraint.activate([
-             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-         ])
+        NSLayoutConstraint.activate([
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
 
-         let contentView = UIView()
-         contentView.translatesAutoresizingMaskIntoConstraints = false
-         scrollView.addSubview(contentView)
-
-         NSLayoutConstraint.activate([
-             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-         ])
-         let titleLabel = UILabel()
-         titleLabel.text = "Game Rules for \"Who Wants to Be a Millionaire?\""
-         titleLabel.font = UIFont.boldSystemFont(ofSize: 28)
-         titleLabel.textColor = .white
-         titleLabel.textAlignment = .center
-         titleLabel.numberOfLines = 0
-         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-         contentView.addSubview(titleLabel)
-
-         NSLayoutConstraint.activate([
-             titleLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 15),
-             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
-         ])
-
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor, constant: 15),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20)
+        ])
+        
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
-
-        let rulesLabel = UILabel()
-        rulesLabel.numberOfLines = 0
-        rulesLabel.textColor = .white
-        rulesLabel.text = rulesText
-        rulesLabel.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(rulesLabel)
 
         NSLayoutConstraint.activate([
             rulesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
