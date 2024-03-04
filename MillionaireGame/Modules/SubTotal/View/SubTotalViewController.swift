@@ -258,7 +258,7 @@ extension SubTotalViewController: UICollectionViewDataSource, UICollectionViewDe
         let questionKeys = Array(question.keys).sorted(by: >)
         let questionLevel = questionKeys[indexPath.row]
         let questionAmount = question[questionLevel] ?? ""
-        colorCell.configureCell(level: questionLevel, amount: questionAmount, prizeLevel: prizeLevel)
+        colorCell.configureCell(level: questionLevel, amount: questionAmount, prizeLevel: prizeLevel, correct: presenter.isCorrect)
         
         return colorCell
     }

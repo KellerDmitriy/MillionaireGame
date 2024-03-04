@@ -63,7 +63,7 @@ class ColorCollectionViewCell: UICollectionViewCell {
         ])
     }
     
-    func configureCell(level: Int, amount: String, prizeLevel: Int) {
+    func configureCell(level: Int, amount: String, prizeLevel: Int, correct: Bool) {
         numberLabel.text = "\(level):"
         sumLabel.text = amount
         
@@ -71,6 +71,7 @@ class ColorCollectionViewCell: UICollectionViewCell {
         let victoryBackground = "yellowViewBackground"
         let regularBackground = "blueViewBackground"
         let currentBackground = "greenViewBackground"
+        let loseBackground = "redViewBackground"
         
         var backgroundImageName: String
         switch level {
@@ -83,7 +84,7 @@ class ColorCollectionViewCell: UICollectionViewCell {
         }
         colorImageView.image = UIImage(named: backgroundImageName)
         if prizeLevel == level {
-            colorImageView.image = UIImage(named: currentBackground)
+            colorImageView.image = UIImage(named: correct ? currentBackground : loseBackground)
         }
     }
 }
