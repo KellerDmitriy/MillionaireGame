@@ -41,6 +41,14 @@ final class ResultViewController: UIViewController {
             }
     }()
     
+    private lazy var exitButton: UIButton = {
+        return CustomButton.makeButton(
+            title: "Quit the game") { [weak self] in
+                self?.exitButtonTap()
+            }
+    }()
+    
+    
     private var stackView = UIStackView()
     
     
