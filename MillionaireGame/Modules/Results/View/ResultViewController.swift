@@ -81,7 +81,10 @@ final class ResultViewController: UIViewController {
 
 extension ResultViewController: ResultRouterProtocol {
 
-    @objc func playAgainButtonTap() {
+    func playAgainButtonTap() {
+        presenter.showGame()
+    }
+    func exitButtonTap() {
         presenter.showGame()
     }
 }
@@ -110,7 +113,7 @@ extension ResultViewController: ResultViewProtocol {
 private extension ResultViewController {
     
     func configure() {
-        let views = [logoImage, stackView, playAgainButton]
+        let views = [logoImage, stackView, playAgainButton, exitButton]
         views.forEach { view.addSubview($0) }
         
     }
