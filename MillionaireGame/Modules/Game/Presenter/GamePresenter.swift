@@ -11,7 +11,6 @@ import Foundation
 protocol GameViewProtocol: AnyObject {
     func setUpUIWhenLoaded()
     func activityIndicStop()
-    func startTimer30Sec()
     func cleanUI()
     func changeColorButton(isCorrect: Bool)
     
@@ -24,7 +23,6 @@ protocol GameViewProtocol: AnyObject {
 //Presenter
 protocol ManageTimerProtocol{
     var progressToGamePublisher: Published<Float>.Publisher { get }
-    
     func start30Timer()
     func stop30Timer()
     func start5Timer(music: String, completion: @escaping () -> Void)
@@ -39,7 +37,6 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
     var userName: String { get }
     
     func setCost() -> String
-    func loadEasyMediumHardData()
     func checkAnswer(answer:String)
     func checkDifficulty()
     
@@ -49,7 +46,6 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
     
     func routeToSubTotalOrResult(isCorrect: Bool)
     func routeToHome()
-//    var isTappedFiftyFifty: Bool { get }
 }
 
 final class GamePresenter: GamePresenterProtocol {
@@ -134,27 +130,25 @@ final class GamePresenter: GamePresenterProtocol {
         setUPDefaultUI()
     }
     //MARK: - Download Data for difficulty level
-    func loadEasyMediumHardData() {
-        if totalQuestion == 0 || totalQuestion == 5 || totalQuestion == 10  {
-           print("load \(difficulty)")
-            getQuestions(difficulty: difficulty)
-        } 
-    }
-    
     func checkDifficulty() {
-        if totalQuestion == 5 {
+        if totalQuestion == 0{
+            difficulty = .easy
+            getQuestions(difficulty: difficulty)
+        }else if totalQuestion == 5 {
+            getQuestions(difficulty: difficulty)
             difficulty = .medium
         } else if totalQuestion == 10 {
+            getQuestions(difficulty: difficulty)
             difficulty = .hard
         } else{
-            print("nothing change in check")
+            start30Timer()
+            print("Правильный ответ checlDifficulty \(questData[numberQuestion].allAnswers.first(where: \.correct)!)")
         }
     }
     
     //MARK: - Timer Methods
     func start30Timer() {
         timeManager.startTimer30Seconds{
-            print("Done")
             self.routeToSubTotalOrResult(isCorrect: false)
         }
     }
@@ -201,10 +195,11 @@ final class GamePresenter: GamePresenterProtocol {
                 let data = try await gameManager.fetchQuestions(difficulty: difficulty)
                 questData = data
                 print("difficulty \(difficulty)")
-                isLoaded = true
                 view?.setUpUIWhenLoaded()
                 view?.activityIndicStop()
-                view?.startTimer30Sec()
+                start30Timer()
+                print("Правильный ответ getQuestions \(questData[numberQuestion].allAnswers.first(where: \.correct)!)")
+                isLoaded = true
             } catch {
                 print(error.localizedDescription)
                 

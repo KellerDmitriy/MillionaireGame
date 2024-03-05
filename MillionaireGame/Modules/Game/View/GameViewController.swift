@@ -111,17 +111,11 @@ final class GameViewController: UIViewController {
         if !presenter.isLoaded{
             activityIndicator.startAnimating()
         }
-        
-        presenter.checkDifficulty()
-        presenter.loadEasyMediumHardData()// проверка уровня сложности
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if presenter.isLoaded { //когда возвращаемся с subTotal, и новые данные не подгружаем
-            print("Правильный ответ \(presenter.questData[presenter.numberQuestion].allAnswers.first(where: \.correct)!)")
-            presenter.start30Timer()
-        }
+        presenter.checkDifficulty()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -262,11 +256,6 @@ extension GameViewController: GameViewProtocol {
     
     func activityIndicStop() {
         activityIndicator.stopAnimating()
-    }
-    
-    func startTimer30Sec() {
-        print("Правильный ответ \(presenter.questData[presenter.numberQuestion].allAnswers.first(where: \.correct)!)")
-        presenter.start30Timer()
     }
     
     func setUpUIWhenLoaded() {
