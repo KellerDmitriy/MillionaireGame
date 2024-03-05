@@ -1,13 +1,13 @@
 import UIKit
 
 final class ResultViewController: UIViewController {
-
+    
     //MARK: - Properties
     
     var presenter: ResultPresenterProtocol!
     
     //MARK: - UI
-
+    
     private let logoImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = .logo
@@ -25,7 +25,7 @@ final class ResultViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let resultLabel: UILabel = {
         let label = UILabel()
         label.font = .syneRegular50()
@@ -48,7 +48,6 @@ final class ResultViewController: UIViewController {
             }
     }()
     
-    
     private var stackView = UIStackView()
     
     
@@ -68,24 +67,20 @@ final class ResultViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-}
 
-
-//MARK: - ResultRouterProtocol
-
-extension ResultViewController: ResultRouterProtocol {
-
-    func playAgainButtonTap() {
+//    MARK: - Private Methods
+    private func playAgainButtonTap() {
         presenter.showGame()
     }
-    func exitButtonTap() {
-        presenter.showGame()
+
+    private func exitButtonTap() {
+        presenter.showHome()
     }
 }
 
@@ -130,21 +125,28 @@ private extension ResultViewController {
     
     func setConstraints() {
         playAgainButton.translatesAutoresizingMaskIntoConstraints = false
+        exitButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             logoImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             logoImage.heightAnchor.constraint(equalToConstant: 200),
             logoImage.widthAnchor.constraint(equalToConstant: 200),
-        
+            
             stackView.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: 20),
             stackView.centerXAnchor.constraint(equalTo: logoImage.centerXAnchor),
             stackView.heightAnchor.constraint(equalToConstant: 135),
             stackView.widthAnchor.constraint(equalToConstant: 345),
             
-            playAgainButton.centerXAnchor.constraint(equalTo: stackView.centerXAnchor),
-            playAgainButton.heightAnchor.constraint(equalToConstant: 100),
-            playAgainButton.widthAnchor.constraint(equalToConstant: 300),
-            playAgainButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -85)
+            playAgainButton.topAnchor.constraint(equalTo: stackView.bottomAnchor, constant: 100),
+            playAgainButton.heightAnchor.constraint(equalToConstant: 50),
+            playAgainButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            playAgainButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            
+            exitButton.topAnchor.constraint(equalTo: playAgainButton.bottomAnchor, constant: 16),
+            exitButton.heightAnchor.constraint(equalToConstant: 50),
+            exitButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            exitButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            
         ])
     }
 }

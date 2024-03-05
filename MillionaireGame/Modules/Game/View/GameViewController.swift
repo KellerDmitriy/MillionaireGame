@@ -120,7 +120,7 @@ final class GameViewController: UIViewController {
         super.viewDidAppear(animated)
         if presenter.isLoaded { //когда возвращаемся с subTotal, и новые данные не подгружаем
             print("Правильный ответ \(presenter.questData[presenter.numberQuestion].allAnswers.first(where: \.correct)!)")
-            presenter.start30Timer()
+            startTimer30Sec()
         }
     }
     

@@ -10,6 +10,7 @@ protocol ResultPresenterProtocol {
     var isLose: Bool { get }
     func showResult()
     func showGame()
+    func showHome() 
 }
 
 final class ResultPresenter: ResultPresenterProtocol {
@@ -41,7 +42,11 @@ final class ResultPresenter: ResultPresenterProtocol {
     
     //MARK: - Navigation
     func showGame() {
-        router.playAgainButtonTap()
+        router.routeToGame(userName: name)
+    }
+    
+    func showHome() {
+        router.routeToHome()
     }
     
     func saveScore() {
