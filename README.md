@@ -1,5 +1,9 @@
 The application was developed as part of the first challenge of the 11th SfifTMarathon (https://t.me/swiftmarathon).
-https://github.com/KellerDmitriy/MillionaireGame/assets/117233833/e590846b-03a5-4850-baa0-0485b53923c4
+
+
+
+https://github.com/KellerDmitriy/MillionaireGame/assets/117233833/82812b9f-8de7-4ca6-8d2c-ee4f22161ae3
+
 
 Technology stack:
 1) In this application, recipe information is loaded using the API https://opentdb.com/
