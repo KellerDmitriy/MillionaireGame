@@ -187,6 +187,7 @@ final class GamePresenter: GamePresenterProtocol {
     
     //MARK: -  Update UI for New Question
     private func setUPDefaultUI(){
+        isTappedFiftyFifty = false
         timeManager.set30TimerGoToSubtotal()
         view?.cleanUI()
         view?.setUpUIWhenLoaded()

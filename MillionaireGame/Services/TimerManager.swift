@@ -78,8 +78,8 @@ final class TimeManager: TimeManagerProtocol{
         count30SecondsTotal = 30
         passSeconds30 = 0
         progrees = 0
-        playerStop()
-        timer30Seconds.invalidate()
+//        playerStop()
+//        timer30Seconds.invalidate()
     }
     
     private func update30Timer() {
