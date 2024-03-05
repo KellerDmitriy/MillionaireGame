@@ -50,6 +50,15 @@ final class AlertControllerFactory: AlertFactoryProtocol {
             }
             alertController.addAction(yesAction)
             alertController.addAction(noAction)
+        case .error(_):
+            let yesAction = UIAlertAction(title: "Yes", style: .default) { _ in
+                completion(true)
+            }
+            let noAction = UIAlertAction(title: "No", style: .default) { _ in
+                completion(false)
+            }
+            alertController.addAction(yesAction)
+            alertController.addAction(noAction)
         }
         
         return alertController
@@ -60,6 +69,7 @@ enum AlertType {
     case information
     case loseInformation(String)
     case action(String)
+    case error(String)
     
     var title: String {
         switch self {
@@ -69,6 +79,8 @@ enum AlertType {
             return "You Lose 🫣"
         case .action:
             return "Do you want to take money 🫢?"
+        case .error:
+            return "Request Error! Quit the game?"
         }
     }
     
@@ -77,9 +89,11 @@ enum AlertType {
         case .information:
             return "Use Latin letters"
         case .loseInformation(let additionalMessage):
-                    return "You lost, look at the game results. You won: \(additionalMessage)"
+            return "You lost, look at the game results. You won: \(additionalMessage)"
         case .action(let additionalMessage):
             return "You can withdraw your winnings of \(additionalMessage) or continue playing"
+        case .error(let errorDescription):
+            return errorDescription
         }
     }
 }

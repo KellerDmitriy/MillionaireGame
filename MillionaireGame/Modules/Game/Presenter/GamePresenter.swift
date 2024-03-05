@@ -48,7 +48,7 @@ protocol GamePresenterProtocol: ManageTimerProtocol {
     func helpFriend()
     
     func routeToSubTotalOrResult(isCorrect: Bool)
-    
+    func routeToHome()
 //    var isTappedFiftyFifty: Bool { get }
 }
 
@@ -216,5 +216,9 @@ final class GamePresenter: GamePresenterProtocol {
     func routeToSubTotalOrResult(isCorrect: Bool) {
         checkTotalQuestion()
         router.routeToListQuestions(userName: userName, totalQuestion: totalQuestion, isCorrect: isCorrect, timeManager: TimeManager())
+    }
+    
+    func routeToHome() {
+        router.routeToHome()
     }
 }

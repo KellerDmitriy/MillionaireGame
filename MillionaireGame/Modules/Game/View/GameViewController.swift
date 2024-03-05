@@ -210,18 +210,22 @@ final class GameViewController: UIViewController {
     }
 
     //MARK: - Display network error
-    private func alertError(_ error: String) {
-        let alert = UIAlertController(title: "requestError", message: error, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .destructive)
-        alert.addAction(action)
-        present(alert, animated: true)
+    private func showAlert(alertType: AlertType, completion: @escaping (Bool) -> Void) {
+        let alertController = AlertControllerFactory().createAlert(type: alertType) { isConfirmed in
+            completion(isConfirmed)
+        }
+        present(alertController, animated: true)
     }
 }
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
     func showNetworkError(error: String) {
-        alertError(error)
+        showAlert(alertType: .error(error)) { [weak self] isLoaded in
+            if isLoaded {
+                self?.presenter.routeToHome()
+            }
+        }
     }
     
     func helpFriend(result: String?) {
