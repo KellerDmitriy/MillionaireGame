@@ -13,7 +13,7 @@ protocol NetworkMangerProtocol {
 
 final class NetworkManager: NetworkMangerProtocol {
     func request<Request: QuestionRequestProtocol>(_ request: Request) async throws -> Request.Response {
-        guard let url = URL(string: request.url) else{ throw NetworkErrors.invalidURL}
+        guard let url = URL(string: request.url) else { throw NetworkErrors.invalidURL }
         var urlRequest = URLRequest(url: url)
         
         if let headers = request.headers {

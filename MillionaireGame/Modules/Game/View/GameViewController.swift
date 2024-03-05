@@ -208,10 +208,22 @@ final class GameViewController: UIViewController {
             }
         }
     }
+
+    //MARK: - Display network error
+    private func alertError(_ error: String) {
+        let alert = UIAlertController(title: "requestError", message: error, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .destructive)
+        alert.addAction(action)
+        present(alert, animated: true)
+    }
 }
 
 //MARK: - GameViewProtocol
 extension GameViewController: GameViewProtocol {
+    func showNetworkError(error: String) {
+        alertError(error)
+    }
+    
     func helpFriend(result: String?) {
         helpButtonTappedChangeAnswerColor(result: result)
     }

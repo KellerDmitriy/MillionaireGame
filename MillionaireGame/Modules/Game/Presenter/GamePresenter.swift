@@ -18,6 +18,7 @@ protocol GameViewProtocol: AnyObject {
     func helpFiftyFity(result: (String?, String?))
     func helpPeople(result: String?)
     func helpFriend(result: String?)
+    func showNetworkError(error: String)
 }
 
 //Presenter
@@ -137,7 +138,7 @@ final class GamePresenter: GamePresenterProtocol {
         if totalQuestion == 0 || totalQuestion == 5 || totalQuestion == 10  {
            print("load \(difficulty)")
             getQuestions(difficulty: difficulty)
-        }
+        } 
     }
     
     func checkDifficulty() {
@@ -194,7 +195,7 @@ final class GamePresenter: GamePresenterProtocol {
     private func getQuestions(difficulty: Difficulty) {
         isLoaded = false
         Task { @MainActor in
-            do{
+            do {
                 questData  = [] //чистим для нового запроса
                 let data = try await gameManager.fetchQuestions(difficulty: difficulty)
                 questData = data
@@ -205,6 +206,8 @@ final class GamePresenter: GamePresenterProtocol {
                 view?.startTimer30Sec()
             } catch {
                 print(error.localizedDescription)
+                
+                view?.showNetworkError(error: error.localizedDescription)
             }
         }
     }

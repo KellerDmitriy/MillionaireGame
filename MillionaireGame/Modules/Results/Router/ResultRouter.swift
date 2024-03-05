@@ -11,7 +11,6 @@ final class ResultRouter: ResultRouterProtocol {
         self.navigationController = navigationController
     }
     
-    //переход на Экран игры / Главный Экран
     func playAgainButtonTap() {
         guard let navigationController else { return }
         let homeViewController = HomeBuilder(navigationController: navigationController).build()

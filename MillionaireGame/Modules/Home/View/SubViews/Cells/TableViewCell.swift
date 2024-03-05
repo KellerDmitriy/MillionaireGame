@@ -84,7 +84,7 @@ final class ScoreCell: UITableViewCell {
         
         if let date = date {
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+            dateFormatter.dateFormat = "HH:mm (dd.MM.yyyy)"
             dateLabel.text = dateFormatter.string(from: date)
         } else {
             dateLabel.text = "No date available"

@@ -26,7 +26,6 @@ final class ResultViewController: UIViewController {
         return label
     }()
 
-    
     private let resultLabel: UILabel = {
         let label = UILabel()
         label.font = .syneRegular50()
@@ -115,7 +114,6 @@ private extension ResultViewController {
         stackView.spacing = 5
         stackView.distribution = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        
     }
     
     
