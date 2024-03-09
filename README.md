@@ -1,5 +1,8 @@
 The application was developed as part of the first challenge of the 11th SfifTMarathon (https://t.me/swiftmarathon).
 
+[![UIKit](https://img.shields.io/badge/UIKit-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+[![MVP](https://img.shields.io/badge/-MVP-green.svg)](https://habr.com/ru/companies/badoo/articles/281162/)
+[![Code-Layout](https://img.shields.io/badge/-CodeLayout-green.svg)](https://habr.com/ru/companies/badoo/articles/281162/)
 
 
 https://github.com/KellerDmitriy/MillionaireGame/assets/117233833/82812b9f-8de7-4ca6-8d2c-ee4f22161ae3
